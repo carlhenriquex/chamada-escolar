@@ -1,0 +1,143 @@
+@media (max-width: 1024px) {
+
+  /* cabeçalho */
+  header nav {
+    display: none;
+  }
+
+header a img {
+  width: 6rem;
+}
+
+
+.flex .btn-entrar {
+  font-size: 10px;
+  padding: 7px 15px;
+}
+
+  /* banner */
+  .texto-banner h2 {
+    font-size: 2.3rem;
+  }
+
+  .texto-banner p {
+    font-size: 10px;
+  }
+
+.banner .cadastrar {
+  font-size: 11px;
+  padding: 8px 12px;
+}
+
+  .container {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+
+  .cta {
+    text-align: center;
+  }
+
+  .cta-text {
+    font-size: 1.4rem;
+    line-height: 1.5;
+  }
+
+  .emoji {
+    position: static;
+    display: block;
+    font-size: 3rem;
+    margin-top: 20px;
+  }
+
+  .btn-entrar {
+    order: 1;
+  }
+
+  .icon-menu {
+    display: block;
+    order: 2;
+  }
+
+  .icon-menu button {
+    width: 1.5rem;
+    cursor: pointer;
+  }
+
+  .open {
+    display: block;
+  }
+
+}
+
+
+/* pt 2 */
+
+@media (max-width: 820px) {
+
+  header a img {
+    width: 7rem;
+  }
+
+  .vantagem img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .vantagem h3 {
+    font-size: 0.8rem;
+    color: #fff;
+  }
+
+  .vantagem p {
+    font-size: 0.7rem;
+    color: #fff;
+    line-height: 1.5;
+  }
+
+  .titulo-sobre h4 {
+    font-size: 0.8rem;
+  }
+
+  .titulo-sobre h1 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .titulo-sobre p {
+    font-size: 0.8rem;
+  }
+
+  .texto-sobre {
+    font-size: 0.8rem;
+  }
+
+  .texto-sobre p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.6rem;
+  }
+
+  .faq h1 {
+    font-size: 1.6rem;
+  }
+
+  .faq-list li {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+  }
+
+  .cta-text {
+    font-size: 1.2rem;
+  }
+
+  .footer-copyright {
+    font-size: 0.7rem;
+  }
+}
