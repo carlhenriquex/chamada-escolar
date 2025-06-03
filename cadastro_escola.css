@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+
+
+
+.btn-voltar {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    font-size: 24px;
+    color: white;
+    background-color: #00000080; /* fundo com leve transparência */
+    padding: 10px 12px;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #000000cc;
+}
+
+
+
+
+.container-esquerdo {
+   flex: 6;
+}
+
+.banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(50%);
+}
+
+
+.container-direito {
+    flex: 4;
+    background-color: #6591eb; /* Cor de fundo */
+    padding-inline: 3vw;
+    padding-top: 8vh;
+}
+
+.logo-img {
+    width: 20rem;
+    height: auto;
+    margin-bottom: 1rem; 
+}
+
+.row {
+    display: flex;
+    gap: 1vw;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    position: relative;
+    flex: 1;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #6c8df5;
+    border-radius: 50px;
+    font-size: 16px;
+    outline: none;
+}
+
+.input-group img {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+}
+
+.input-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #6c8df5;
+    border-radius: 50px;
+    font-size: 16px;
+    outline: none;
+}
+
+
+.aceitar_termos{
+ margin-bottom: 20px;
+}
+
+.privacidade{
+color:#f0f0f0
+}
+
+
+.button-criar-conta {
+    background-color: #FF8C00;
+    width: 70%;
+    color: #fff;
+    text-align: center;         
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px 22px;
+    border-radius: 50px;
+    cursor: pointer;
+    
+    margin-bottom: 15px;
+}
+
+  @media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .container-esquerdo {
+        display: none;
+    }
+
+    .container-direito {
+        flex: none;
+        width: 100%;
+        height: 100vh;
+        padding: 2rem 1rem; /* Adiciona um respiro lateral */
+    }
+
+    .logo-img {
+        width: 15rem; /* Ajusta a logo para telas pequenas */
+    }
+
+    .input-group, 
+    .login-button, 
+    .google-login {
+        width: 90%; /* inputs e botões maiores no mobile */
+    }
+}

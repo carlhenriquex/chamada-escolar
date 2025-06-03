@@ -4,31 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fazer Login</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="login.css">
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome (ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Fazer Login</h1>
+    <!-- Ícone Voltar -->
+    <a href="index.html" class="btn-voltar">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    
+    <div class="container-esquerdo">
+        <img class="banner-img" src="img/banner-login.jpg" alt="Foto de banner da tela de login">
+    </div>
+    <div class="container-direito">
+        <img src="img/rodape_logo.png" class="logo-img" alt="Logo Chamada Escolar">
+        <div class="input-group">
+            <img src="img/e-mail.png" alt="Ícone E-mail">
+            <input type="email" placeholder="Digite o seu E-mail">
+        </div>
+            
+        <div class="input-group">
+            <img src="img/senha.png" alt="Ícone Senha">
+            <input type="password" placeholder="Digite a sua senha">
+        </div>
         
-        <div class="buttons">
-            <a href="#" class="active">Pais</a>
-            <a href="#" class="active">Professor ou ADM</a>
-        </div>
+        <a class="estilo-textos esqueci-senha-margem" href="https://www.exemplo.com">Esqueceu a senha?</a>
 
-        <div class="separator">acesse com email e senha:</div>
+        <a class="login-button" href="dashboard-pais.html">Entrar</a>
+        
 
-        <form>
-            <input type="email" placeholder="E-mail" required>
-            <input type="password" placeholder="Senha" required>
-        </form>
-
-        <div class="esquecer">
-            <a class="forgot-password" href="bloqueio.html">Esqueci a senha</a>
-        </div>
-
-        <div class="entrar">
-            <a class="login-button" href="dashboard-pais.html">Entrar</a>
-        </div>     
+        <a href="#" class="google-login">
+            <img src="img/Logo-Google.png" alt="Google Icon">
+            <span>Entrar com Google</span>
+        </a>
     </div>
 </body>
 </html>

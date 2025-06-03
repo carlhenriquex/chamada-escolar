@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="cadastro_escola.css">
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome (ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<body>
+    <!-- Ícone Voltar -->
+    <a href="index.html" class="btn-voltar">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    
+    <div class="container-esquerdo">
+        <img class="banner-img" src="img/banner-cadastro.webp" alt="Foto de banner da tela de login">
+    </div>
+
+    <!-- <main class="main-content"> -->
+    <div class="container-direito">
+        
+        <div class="row">
+            <img src="img/rodape_logo.png" class="logo-img" alt="Logo Chamada Escolar">
+        </div>
+
+        <div class="row">
+            <div class="input-group">
+            <img src="img/usuario.png" alt="Ícone Usuário">
+            <input type="text" placeholder="Nome">
+        </div>
+        </div>
+
+        <div class="row">
+            <div class="input-group">
+                <img src="img/e-mail.png" alt="Ícone email">
+                <input type="email" placeholder="E-mail">
+            </div>
+
+            <div class="input-group">
+                <img src="img/telefone.png" alt="Ícone Telefone">
+                <input type="tel" placeholder="Telefone">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-group">
+                <input type="text" placeholder="Nome da Escola">
+            </div>
+            <div class="input-group">
+                <select id="setor"  name="setor" required>
+                    <option value="" disabled selected>Setor Educacional</option>
+                    <option value="infantil">Educação Infantil</option>
+                    <option value="fundamental1">Ensino Fundamental – Anos Iniciais (1º ao 5º ano)</option>
+                    <option value="fundamental2">Ensino Fundamental – Anos Finais (6º ao 9º ano)</option>
+                    <option value="medio">Ensino Médio</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-group">
+                <select id="relacao" name="relacao" required>
+                    <option value="" disabled selected>Relação com a escola</option>
+                    <option value="diretor">Diretor(a)</option>
+                    <option value="coordenador">Coordenador(a)</option>
+                    <option value="professor">Professor(a)</option>
+                    <option value="outro">Outro</option>
+                </select>
+            </div>
+        
+            <div class="input-group">
+                <select id="porte" name="porte" required>
+                    <option value="" disabled selected>Porte de alunos</option>
+                    <option value="pequeno">Até 100 alunos</option>
+                    <option value="medio">101 a 500 alunos</option>
+                    <option value="grande">Mais de 500 alunos</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-group">
+                <img src="img/senha.png" alt="Ícone Senha">
+                <input type="password" placeholder="Senha">
+            </div>
+        
+            <div class="input-group">
+                <img src="img/senha.png" alt="Ícone Confirmar Senha">
+                <input type="password" placeholder="Repetir senha">
+            </div>
+        </div>
+        
+        <div class="row">
+            <input type="checkbox" id="aceitar_termos">
+            <label for="aceitar_termos">Li e concordo com <a href="#" class="privacidade">Termos e Privacidade</a></label>
+        </div>
+    
+        <div class="row">
+            <a class="button-criar-conta" href="dashboard-pais.html">Criar Conta</a>
+        </div>
+    </div>
+    <!-- </main> -->
+</body>
+</html>
