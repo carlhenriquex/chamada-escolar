@@ -5,29 +5,53 @@
     display: none;
   }
 
-header a img {
-  width: 6rem;
-}
-
-
-.flex .btn-entrar {
-  font-size: 10px;
-  padding: 7px 15px;
-}
-
   /* banner */
   .texto-banner h2 {
-    font-size: 2.3rem;
+    font-size: 3rem;
   }
 
   .texto-banner p {
-    font-size: 10px;
+    font-size: 12px;
   }
 
-.banner .cadastrar {
-  font-size: 11px;
-  padding: 8px 12px;
-}
+  .cadastrar {
+    font-size: 15px;
+    padding: 13px 22px;
+  }
+
+  /* vantagens */
+  .vantagens-container {
+    background: none;
+    box-shadow: none;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .vantagem {
+    max-width: 90%;
+    padding: 0;
+    width: 90%;
+    height: 5rem;
+  }
+
+  .vantagem-1 {
+    border-radius: 1rem;
+    background-color: rgba(101, 231, 235, 1) ;
+  }
+
+  .vantagem-2 {
+    border-radius: 1rem;
+    background-color: rgba(101, 145, 235, 1);
+  }
+
+  .vantagem-3 {
+    border-radius: 1rem;
+    background-color: rgba(255, 152, 0, 1);
+  }  
+
+  .vantagem p {
+    max-width: 80%;
+  }
 
   .container {
     flex-direction: column;
@@ -68,8 +92,12 @@ header a img {
     display: block;
   }
 
-}
+  
+  .interface-footer {
+    margin: 0 4%;
+  }
 
+}
 
 /* pt 2 */
 
@@ -116,8 +144,20 @@ header a img {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.6rem;
   }
+
+  .titulo-depoimentos h2 {
+    font-size: 1.3rem;
+  }
+
+  .card-content h4 {
+    font-size: 0.8rem;
+  }
+
+  .card-content p {
+    font-size: 0.7rem;
+  }
+
 
   .faq h1 {
     font-size: 1.6rem;
