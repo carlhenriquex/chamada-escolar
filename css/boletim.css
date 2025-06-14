@@ -1,0 +1,82 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom right, #85b9eb, #ffcc99); /* azul claro para laranja claro */
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  max-width: 1000px; /* ou ajuste conforme necessário */
+  width: 1000%;
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+h1 {
+  text-align: center;
+  color: #ff6600; /* laranja */
+  margin-bottom: 20px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+table thead tr:first-child {
+  background-color: #3399ff; /* azul */
+  color: white;
+}
+
+table thead tr:nth-child(2) {
+  background-color: #b3d9ff;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.aprovado {
+  color: green;
+  font-weight: bold;
+}
+.recuperação {
+  color: rgb(128, 47, 0);
+  font-weight: bold;
+}
+
+.reprovado {
+  color: red;
+  font-weight: bold;
+}
+
+.legenda {
+  margin-top: 20px;
+  text-align: left;
+  font-size: 14px;
+}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(to bottom right, #85b9eb, #7880c9); /* gradiente azul claro para laranja claro */
+  min-height: 100vh;
+}
+
