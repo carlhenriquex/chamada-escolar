@@ -12,9 +12,6 @@ body {
     background-color: #f0f0f0;
 }
 
-
-
-
 .btn-voltar {
     position: fixed;
     top: 20px;
@@ -22,7 +19,7 @@ body {
     z-index: 9999;
     font-size: 24px;
     color: white;
-    background-color: #00000080; /* fundo com leve transparência */
+    background-color: #00000080;
     padding: 10px 12px;
     border-radius: 50%;
     text-decoration: none;
@@ -33,11 +30,8 @@ body {
     background-color: #000000cc;
 }
 
-
-
-
 .container-esquerdo {
-   flex: 6;
+    flex: 6;
 }
 
 .banner-img {
@@ -48,12 +42,15 @@ body {
     filter: brightness(50%);
 }
 
-
 .container-direito {
     flex: 4;
-    background-color: #6591eb; /* Cor de fundo */
+    background-color: #6591eb;
     padding-inline: 3vw;
     padding-top: 8vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .logo-img {
@@ -67,20 +64,24 @@ body {
     gap: 1vw;
     justify-content: center;
     margin-bottom: 15px;
+    width: 100%;
 }
 
 .input-group {
     position: relative;
     flex: 1;
+    max-width: 100%;
 }
 
-.input-group input {
+.input-group input,
+.input-group select {
     width: 100%;
-    padding: 12px 15px;
+    padding: 12px 45px 12px 15px;
     border: 2px solid #6c8df5;
     border-radius: 50px;
     font-size: 16px;
     outline: none;
+    background-color: #fff;
 }
 
 .input-group img {
@@ -93,40 +94,39 @@ body {
     opacity: 0.5;
 }
 
-.input-group select {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #6c8df5;
-    border-radius: 50px;
-    font-size: 16px;
-    outline: none;
+.aceitar_termos {
+    margin-bottom: 20px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-
-.aceitar_termos{
- margin-bottom: 20px;
+.privacidade {
+    color: #f0f0f0;
 }
-
-.privacidade{
-color:#f0f0f0
-}
-
 
 .button-criar-conta {
     background-color: #FF8C00;
     width: 70%;
     color: #fff;
-    text-align: center;         
+    text-align: center;
     font-size: 15px;
     font-weight: 600;
     padding: 13px 22px;
     border-radius: 50px;
     cursor: pointer;
-    
     margin-bottom: 15px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
 }
 
-  @media (max-width: 768px) {
+.button-criar-conta:hover {
+    background-color: #e67e00;
+}
+
+@media (max-width: 768px) {
     body {
         flex-direction: column;
     }
@@ -139,16 +139,16 @@ color:#f0f0f0
         flex: none;
         width: 100%;
         height: 100vh;
-        padding: 2rem 1rem; /* Adiciona um respiro lateral */
+        padding: 2rem 1rem;
     }
 
     .logo-img {
-        width: 15rem; /* Ajusta a logo para telas pequenas */
+        width: 15rem;
     }
 
-    .input-group, 
-    .login-button, 
+    .input-group,
+    .login-button,
     .google-login {
-        width: 90%; /* inputs e botões maiores no mobile */
+        width: 90%;
     }
 }
