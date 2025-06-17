@@ -1,28 +1,25 @@
 <?php
+
 session_start();
+
 include_once("config/connection.php");
 
 if (isset($_POST['submit'])) {
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $email = mysqli_real_escape_string($conexao, $_POST['email']);
     $senha1 = $_POST['senha1'];
     $senha2 = $_POST['senha2'];
 
-    // Verifica se as senhas são iguais
     if ($senha1 !== $senha2) {
         $_SESSION['mensagem'] = "As senhas não coincidem!";
         header("Location: esqueceu_senha.php");
         exit();
     }
 
-    // Criptografa a senha
-    $senhaHash = password_hash($senha1, PASSWORD_DEFAULT);
-
-    // Lista de tabelas para procurar
     $tabelas = ['gestores', 'professores', 'responsaveis'];
     $tabela_encontrada = null;
 
     foreach ($tabelas as $tabela) {
-        $query = mysqli_query($conn, "SELECT * FROM $tabela WHERE email = '$email'");
+        $query = mysqli_query($conexao, "SELECT * FROM $tabela WHERE email = '$email'");
         if (mysqli_num_rows($query) > 0) {
             $tabela_encontrada = $tabela;
             break;
@@ -35,8 +32,7 @@ if (isset($_POST['submit'])) {
         exit();
     }
 
-    // Atualiza a senha na tabela correta
-    $update = mysqli_query($conn, "UPDATE $tabela_encontrada SET senha = '$senhaHash' WHERE email = '$email'");
+    $update = mysqli_query($conexao, "UPDATE $tabela_encontrada SET senha = '$senha1' WHERE email = '$email'");
 
     if ($update) {
         $_SESSION['mensagem'] = "Senha atualizada com sucesso!";
@@ -44,7 +40,7 @@ if (isset($_POST['submit'])) {
         $_SESSION['mensagem'] = "Erro ao atualizar a senha.";
     }
 
-    header("Location: esqueceu_senha.php");
+    header("Location: esqueceu.php");
     exit();
 }
 ?>
@@ -77,7 +73,6 @@ if (isset($_POST['submit'])) {
         <form action="esqueceu.php" method="post">
 
             <?php
-            session_start();
             if (isset($_SESSION["mensagem"])) {
                 echo "<p class='mensagem'>" . $_SESSION["mensagem"] . "</p>";
                 unset($_SESSION["mensagem"]);
