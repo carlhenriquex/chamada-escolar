@@ -12,7 +12,6 @@
 </head>
 
 <body>
-    <!-- Ícone Voltar -->
     <a href="index.html" class="btn-voltar">
         <i class="fas fa-arrow-left"></i>
     </a>
@@ -25,28 +24,31 @@
 
         <form action="subs/validação.php" method="post">
 
+            <?php
+            session_start();
+            if (isset($_SESSION["mensagem"])) {
+                echo "<p class='mensagem'>" . $_SESSION["mensagem"] . "</p>";
+                unset($_SESSION["mensagem"]);
+            }
+            ?>
             <img src="img/rodape_logo.png" class="logo-img" alt="Logo Chamada Escolar">
 
             <div class="input-group">
                 <img src="img/e-mail.png" alt="Ícone E-mail">
-                <input type="email" placeholder="Digite o seu E-mail">
+                <input type="email" name="email" placeholder="Digite o seu E-mail" required>
             </div>
 
             <div class="input-group">
                 <img src="img/senha.png" alt="Ícone Senha">
-                <input type="password" placeholder="Digite a sua senha">
+                <input type="password" name="senha" placeholder="Digite sua nova senha" required>
             </div>
 
-            <a class="estilo-textos esqueci-senha" href="#">Esqueceu a senha?</a>
+            <div class="input-group">
+                <img src="img/senha.png" alt="Ícone Senha">
+                <input type="password" name="senha" placeholder="Confirme sua nova senha" required>
+            </div>
 
-            <button type="submit" name="submit" class="login-button">Entrar</button>
-
-
-            <a href="#" class="google-login">
-                <img src="img/Logo-Google.png" alt="Google Icon">
-                <span>Entrar com Google</span>
-            </a>
-
+            <button type="submit" name="submit" class="login-button">Salvar</button>
 
         </form>
     </div>
