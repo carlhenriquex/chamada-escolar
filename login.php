@@ -54,7 +54,7 @@
                 <input type="password" name="senha" placeholder="Digite a sua senha" required>
             </div>
 
-            <a class="estilo-textos esqueci-senha" href="esqueceu.html">Esqueceu a senha?</a>
+            <a class="estilo-textos esqueci-senha" href="esqueceu.php">Esqueceu a senha?</a>
 
             <button type="submit" name="submit" class="login-button">Entrar</button>
 
