@@ -149,10 +149,12 @@ body {
     border-radius: 50px;
     cursor: pointer;
     margin-bottom: 15px;
+    border: 0;
 }
 
 .login-button:hover {
     text-decoration: none;
+    border: 0;
     color: #fff;
     background-color: #000850;
 }

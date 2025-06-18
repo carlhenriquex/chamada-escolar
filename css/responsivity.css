@@ -36,7 +36,7 @@
 
   .vantagem-1 {
     border-radius: 1rem;
-    background-color: rgba(101, 231, 235, 1) ;
+    background-color: rgba(101, 231, 235, 1);
   }
 
   .vantagem-2 {
@@ -47,7 +47,7 @@
   .vantagem-3 {
     border-radius: 1rem;
     background-color: rgba(255, 152, 0, 1);
-  }  
+  }
 
   .vantagem p {
     max-width: 80%;
@@ -92,7 +92,7 @@
     display: block;
   }
 
-  
+
   .interface-footer {
     margin: 0 4%;
   }
@@ -179,5 +179,122 @@
 
   .footer-copyright {
     font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 600px) {
+
+  header a img {
+    width: 5rem;
+  }
+
+  header .btn-entrar {
+    font-size: 10px;
+    padding: 8px 17px;
+  }
+
+  .icon-menu button {
+    font-size: 1.6rem;
+  }
+
+  .mobile-menu ul li .item-mobile {
+    font-size: .65rem;
+  }
+
+  .texto-banner {
+    width: 60%;
+  }
+
+  .texto-banner h2 {
+    font-size: 2.3rem;
+  }
+
+  .cadastrar {
+    font-size: 10px;
+    padding: 11px 14px;
+  }
+
+  .vantagens h2 {
+    font-size: .8rem;
+  }
+
+  .titulo-sobre h4 {
+    font-size: .7rem;
+  }
+
+  .titulo-sobre h1 {
+    font-size: .8rem;
+  }
+
+  .titulo-sobre p {
+    font-size: .7rem;
+  }
+
+  .texto-sobre {
+    max-width: 800px;
+    margin: 5% 0;
+  }
+
+  .texto-sobre p {
+    font-size: .75rem;
+  }
+
+  .container-faq {
+    padding: 8rem .5rem;
+  }
+
+  .faq h1 {
+    font-size: 1.3rem;
+  }
+
+  .faq-list li {
+    font-size: .65rem;
+  }
+
+  .show-all {
+    font-size: .7rem;
+  }
+
+  .cta-text {
+    font-size: .9rem;
+  }
+
+  .cta-button {
+    padding: 9px 20px;
+    font-size: .8rem;
+  }
+
+  .line-footer1 h2 {
+    font-size: .7rem;
+  }
+
+  footer .line-footer2 {
+    flex-direction: column;
+    gap: 2rem;
+    padding-left: .5rem;
+  }
+
+  .line-footer2 .box-footer {
+    max-width: 90%;
+  }
+
+  .line-footer2 .box-footer img {
+    width: 130px;
+  }
+
+  .line-footer2 .box-footer p {
+    font-size: .75rem;
+  }
+
+  .line-footer2 .box-footer h3 {
+    font-size: .8rem;
+  }
+
+  .line-footer2 .box-footer a {
+    font-size: .7rem;
+  }
+
+  .line-footer3 p {
+    font-size: .7rem;
   }
 }

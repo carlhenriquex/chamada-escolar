@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
 
     if ($senha1 !== $senha2) {
         $_SESSION['mensagem'] = "As senhas não coincidem!";
-        header("Location: esqueceu_senha.php");
+        header("Location: esqueceu.php");
         exit();
     }
 
@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
 
     if (!$tabela_encontrada) {
         $_SESSION['mensagem'] = "E-mail não encontrado em nenhum perfil.";
-        header("Location: esqueceu_senha.php");
+        header("Location: esqueceu.php");
         exit();
     }
 

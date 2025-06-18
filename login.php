@@ -64,7 +64,6 @@
                 <span>Entrar com Google</span>
             </a>
 
-
         </form>
     </div>
 </body>
