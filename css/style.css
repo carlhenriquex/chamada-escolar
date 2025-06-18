@@ -191,7 +191,6 @@ header.rolagem .btn-entrar:hover {
   color: #fff;
   z-index: 1;
   width: 60%;
-  max-width: 50%;
 }
 
 .texto-banner h2 {
@@ -328,7 +327,7 @@ header.rolagem .btn-entrar:hover {
 
 .texto-sobre {
   max-width: 800px;
-  padding: 60px;
+  padding: 5rem 5%;
   margin: 5% 0;
 }
 
@@ -459,7 +458,7 @@ header.rolagem .btn-entrar:hover {
 
 .faq {
   flex: 1 1 400px;
-  min-width: 300px;
+  min-width: 250px;
 }
 
 .faq h1 {
@@ -508,7 +507,7 @@ header.rolagem .btn-entrar:hover {
 
 .cta {
   flex: 1 1 200px;
-  min-width: 300px;
+  min-width: 250px;
   background-color: #ff9800;
   color: #fff;
   padding: 40px;
@@ -576,7 +575,6 @@ footer .line-footer1 {
 
 .line-footer1 .btn-sociais i:hover {
   color: #ff9800;
-
 }
 
 .line-footer1 .btn-sociais .bi {
@@ -594,7 +592,6 @@ footer .line-footer2 {
 
 .line-footer2 .box-footer {
   max-width: calc(100% / 4);
-
 }
 
 .line-footer2 .box-footer img {
