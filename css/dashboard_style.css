@@ -167,7 +167,7 @@ header a {
 }
 
 .button-enviar-laranja {
-  background-color: var(--laranga-bg);
+  background-color: var(--laranja-bg);
   color: #fff;
   border: none;
   padding: 0.5rem 2rem;
@@ -199,7 +199,7 @@ header a {
 }
 
 .actions button {
-  background-color: var(--laranga-bg);
+  background-color: var(--laranja-bg);
   color: white;
   border: none;
   padding: 0.5rem 1rem;

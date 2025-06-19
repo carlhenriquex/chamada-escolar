@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard Responsável</title>
     <link rel="stylesheet" href="css/dashboard_style.css" />
+    <link rel="stylesheet" href="css/visualizar_frequencia_style.css" />
   </head>
 
   <body>
@@ -125,7 +126,26 @@
       </div>
 
       <div class="main" id="tela-02">
-        <h1>TELA DE FREQUÊNCIA DO RESPONSÁVEL</h1>
+        <div class="vf-container">
+          <h3 class="vf-subtitle">Selecione o Mês</h3>
+          <input type="month" id="vf-mesAno" name="mesAno" class="vf-input-month">
+
+          <div class="vf-tabela-wrapper">
+            <table class="vf-tabela">
+              <thead>
+                <tr>
+                  <th>Seg</th>
+                  <th>Ter</th>
+                  <th>Qua</th>
+                  <th>Qui</th>
+                  <th>Sex</th>
+                </tr>
+              </thead>
+              <tbody id="vf-tabela-corpo"></tbody>
+            </table>
+          </div>
+        </div>
+        <script src="scripts/calendario_responsavel.js"></script>
       </div>
 
       <div class="main" id="tela-03">
@@ -133,37 +153,5 @@
       </div>
     </div>
   </body>
-  <script>
-    // ...menu sanduíche existente...
-    const menuToggle = document.getElementById("menu-toggle");
-    const sidebar = document.getElementById("sidebar");
-    menuToggle.addEventListener("click", () => {
-      sidebar.classList.toggle("sidebar-open");
-      menuToggle.classList.toggle("open");
-    });
-
-    // SPA simples: alterna telas
-    const mainSections = document.querySelectorAll(".main");
-    const sidebarButtons = document.querySelectorAll(
-      ".sidebar-buttons .button-enviar[data-target]"
-    );
-
-    sidebarButtons.forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const targetId = btn.getAttribute("data-target");
-        mainSections.forEach((section) => {
-          section.style.display = section.id === targetId ? "flex" : "none";
-        });
-        // Fecha o menu sanduíche no mobile ao clicar
-        sidebar.classList.remove("sidebar-open");
-        menuToggle.classList.remove("open");
-      });
-    });
-
-    // Exibe apenas a primeira tela ao carregar
-    mainSections.forEach((section, idx) => {
-      section.style.display = idx === 0 ? "flex" : "none";
-    });
-  </script>
+  <script src="scripts/script_navegacao.js"></script>
 </html>

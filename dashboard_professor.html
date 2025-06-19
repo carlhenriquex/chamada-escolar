@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard Professor</title>
     <link rel="stylesheet" href="css/dashboard_style.css" />
+    <link rel="stylesheet" href="css/lancar_frequencia_style.css" />
+    
   </head>
 
   <body>
@@ -143,7 +145,40 @@
       </div>
 
       <div class="main" id="tela-02">
-        <h1>TELA DE FREQUÊNCIA DO PROFESSOR</h1>
+        <!-- html-lancar-frequencia -->
+        <div class="lf-container">
+          <h1 class="lf-title">Lançar Frequência</h1>
+
+          <h3 class="lf-subtitle">Selecione a data</h3>
+          <input type="date" class="lf-input-date" name="" id="">
+
+          <table class="lf-tabela">
+            <thead>
+              <tr class="lf-header-tabela">
+                <th>Aluno</th>
+                <th>Número de Faltas</th>
+                <th>Status presença</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>João da Silva</td><td>2</td><td><input type="checkbox" name="presenca_joao" class="lf-checkbox" /></td></tr>
+              <tr><td>Maria Oliveira</td><td>0</td><td><input type="checkbox" name="presenca_maria" class="lf-checkbox" /></td></tr>
+              <tr><td>Carlos Souza</td><td>1</td><td><input type="checkbox" name="presenca_carlos" class="lf-checkbox" /></td></tr>
+              <tr><td>Fernanda Lima</td><td>3</td><td><input type="checkbox" name="presenca_fernanda" class="lf-checkbox" /></td></tr>
+              <tr><td>Lucas Pereira</td><td>0</td><td><input type="checkbox" name="presenca_lucas" class="lf-checkbox" /></td></tr>
+              <tr><td>Luciana Souza</td><td>5</td><td><input type="checkbox" name="presenca_luciana" class="lf-checkbox" /></td></tr>
+              <tr><td>Eduarda Elvira</td><td>3</td><td><input type="checkbox" name="presenca_eduarda" class="lf-checkbox" /></td></tr>
+              <tr><td>Fábio Alves</td><td>4</td><td><input type="checkbox" name="presenca_fabio" class="lf-checkbox" /></td></tr>
+              <tr><td>Carlos Henrique</td><td>2</td><td><input type="checkbox" name="presenca_carlos" class="lf-checkbox" /></td></tr>
+              <tr><td>Abrivaldo Pereira</td><td>0</td><td><input type="checkbox" name="presenca_abrivaldo" class="lf-checkbox" /></td></tr>
+              <tr><td>Paulo Oliveira</td><td>3</td><td><input type="checkbox" name="presenca_paulo" class="lf-checkbox" /></td></tr>
+            </tbody>
+          </table>
+
+          <div class="lf-button-enviar">
+            <button class="lf-button">Enviar</button>
+          </div>
+        </div>
       </div>
 
       <div class="main" id="tela-03">
@@ -151,37 +186,5 @@
       </div>
     </div>
   </body>
-  <script>
-    // ...menu sanduíche existente...
-    const menuToggle = document.getElementById("menu-toggle");
-    const sidebar = document.getElementById("sidebar");
-    menuToggle.addEventListener("click", () => {
-      sidebar.classList.toggle("sidebar-open");
-      menuToggle.classList.toggle("open");
-    });
-
-    // SPA simples: alterna telas
-    const mainSections = document.querySelectorAll(".main");
-    const sidebarButtons = document.querySelectorAll(
-      ".sidebar-buttons .button-enviar[data-target]"
-    );
-
-    sidebarButtons.forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const targetId = btn.getAttribute("data-target");
-        mainSections.forEach((section) => {
-          section.style.display = section.id === targetId ? "flex" : "none";
-        });
-        // Fecha o menu sanduíche no mobile ao clicar
-        sidebar.classList.remove("sidebar-open");
-        menuToggle.classList.remove("open");
-      });
-    });
-
-    // Exibe apenas a primeira tela ao carregar
-    mainSections.forEach((section, idx) => {
-      section.style.display = idx === 0 ? "flex" : "none";
-    });
-  </script>
+  <script src="scripts/script_navegacao.js"></script>
 </html>
