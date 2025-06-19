@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Professor</title>
+    <link rel="stylesheet" href="css/dashboard_style.css" />
+  </head>
+
+  <body>
+    <header>
+      <img src="img/logotexto.png" alt="" />
+      <h3>Dashboard Professor</h3>
+      <a href="perfil.html" class="perfil-desktop" data-target="tela-04">
+        Perfil
+        <span class="perfil-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="6.5" r="4" fill="#fff" />
+            <path
+              d="M3 17c0-2.7614 3.134-5 7-5s7 2.2386 7 5"
+              stroke-linecap="round"
+              fill="#fff"
+            />
+          </svg>
+        </span>
+      </a>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu">
+        <!-- SVG do menu sanduíche aqui -->
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect y="7" width="32" height="3" rx="1.5" fill="currentColor" />
+          <rect y="15" width="32" height="3" rx="1.5" fill="currentColor" />
+          <rect y="23" width="32" height="3" rx="1.5" fill="currentColor" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="container">
+      <aside class="sidebar" id="sidebar">
+        <p class="sidebar-title">Selecione a Turma</p>
+        <select
+          class="sidebar-dropdown"
+          name="aluno-selecionado"
+          id="select-alunos"
+        >
+          <option value="id-01" selected>1º Ano A</option>
+          <option value="id-02">1º Ano B</option>
+          <option value="id-03">3º Ano A</option>
+          <option value="id-04">3º Ano A</option>
+        </select>
+        <div class="sidebar-buttons">
+          <a class="button-enviar" data-target="tela-01">Avisos</a>
+          <a class="button-enviar" data-target="tela-02">Frequência</a>
+          <a class="button-enviar" data-target="tela-03">Boletim</a>
+          <a href="perfil.html" class="button-enviar perfil-mobile">
+            Perfil
+            <span class="perfil-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="6.5" r="4" fill="#fff" />
+                <path
+                  d="M3 17c0-2.7614 3.134-5 7-5s7 2.2386 7 5"
+                  stroke-linecap="round"
+                  fill="#fff"
+                />
+              </svg>
+            </span>
+          </a>
+        </div>
+      </aside>
+
+      <div class="main" id="tela-01">
+        <form class="main-header">
+          <div class="main-header-row">
+            <h4>Adicione um novo aviso:</h4>
+            <button type="submit" class="button-enviar-laranja">Enviar</button>
+          </div>
+          <input
+            type="text"
+            placeholder="Título"
+            class="main-header-title-input"
+          />
+          <textarea
+            placeholder="Descrição"
+            rows="2"
+            class="main-header-desc-textarea"
+          ></textarea>
+        </form>
+
+        <section class="home-section">
+          <h1>Avisos da Turma</h1>
+          <div class="feed">
+            <div class="feed-item">
+              <p><strong>Título do aviso 1</strong></p>
+              <div class="repo-card">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Voluptate incidunt neque pariatur accusamus aliquam a laboriosam
+                vitae recusandae vero, modi corrupti explicabo deleniti tenetur
+                facilis at, veritatis, est nulla accusantium!
+              </div>
+              <small>4 horas atrás</small>
+            </div>
+            <div class="feed-item">
+              <p><strong>Título do aviso 2</strong></p>
+              <div class="repo-card">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
+                quam minima eius tempora at libero fugiat corrupti magni tempore
+                obcaecati? Repudiandae omnis dolorum velit illum veritatis.
+                Dignissimos atque eveniet assumenda.
+              </div>
+              <small>2 dias atrás</small>
+            </div>
+            <div class="feed-item">
+              <p><strong>Título do aviso 3</strong></p>
+              <div class="repo-card">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
+                quam minima eius tempora at libero fugiat corrupti magni tempore
+                obcaecati? Repudiandae omnis dolorum velit illum veritatis.
+                Dignissimos atque eveniet assumenda.
+              </div>
+              <small>2 dias atrás</small>
+            </div>
+            <div class="feed-item">
+              <p><strong>Título do aviso 4</strong></p>
+              <div class="repo-card">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
+                quam minima eius tempora at libero fugiat corrupti magni tempore
+                obcaecati? Repudiandae omnis dolorum velit illum veritatis.
+                Dignissimos atque eveniet assumenda.
+              </div>
+              <small>2 dias atrás</small>
+            </div>
+            <div class="feed-item">
+              <p><strong>Título do aviso 5</strong></p>
+              <div class="repo-card">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
+                quam minima eius tempora at libero fugiat corrupti magni tempore
+                obcaecati? Repudiandae omnis dolorum velit illum veritatis.
+                Dignissimos atque eveniet assumenda.
+              </div>
+              <small>4 dias atrás</small>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="main" id="tela-02">
+        <h1>TELA DE FREQUÊNCIA DO PROFESSOR</h1>
+      </div>
+
+      <div class="main" id="tela-03">
+        <h1>TELA DE BOLETIM DO PROFESSOR</h1>
+      </div>
+    </div>
+  </body>
+  <script>
+    // ...menu sanduíche existente...
+    const menuToggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("sidebar");
+    menuToggle.addEventListener("click", () => {
+      sidebar.classList.toggle("sidebar-open");
+      menuToggle.classList.toggle("open");
+    });
+
+    // SPA simples: alterna telas
+    const mainSections = document.querySelectorAll(".main");
+    const sidebarButtons = document.querySelectorAll(
+      ".sidebar-buttons .button-enviar[data-target]"
+    );
+
+    sidebarButtons.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = btn.getAttribute("data-target");
+        mainSections.forEach((section) => {
+          section.style.display = section.id === targetId ? "flex" : "none";
+        });
+        // Fecha o menu sanduíche no mobile ao clicar
+        sidebar.classList.remove("sidebar-open");
+        menuToggle.classList.remove("open");
+      });
+    });
+
+    // Exibe apenas a primeira tela ao carregar
+    mainSections.forEach((section, idx) => {
+      section.style.display = idx === 0 ? "flex" : "none";
+    });
+  </script>
+</html>
