@@ -95,3 +95,56 @@
 .lf-button:hover {
   background-color: #e88e00; /* tom mais escuro */
 }
+
+.container2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+    max-width: 800px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+th, td {
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #9dbcf7;
+    color: #000;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f1f5fb;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+    cursor: pointer;
+}
+
+.botao-enviar {
+    margin-top: 20px;
+}
+
+.botao-enviar button {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.botao-enviar button:hover {
+    background-color: darkorange;
+}
