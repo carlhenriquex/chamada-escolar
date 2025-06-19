@@ -1,0 +1,60 @@
+/* Reset e layout principal */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #cce4f7;
+  display: flex;
+  height: 100vh;
+}
+
+/* Menu lateral */
+.sidebar {
+  width: 220px;
+  background-color: #003366;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  color: #ff6600;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.sidebar ul li a:hover {
+  color: #ff6600;
+}
+
+/* Área principal (calendário em tela cheia) */
+.main {
+  flex: 1;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+#calendario {
+  height: 100%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+}
