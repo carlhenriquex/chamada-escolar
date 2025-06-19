@@ -4,41 +4,56 @@
   <meta charset="UTF-8">
   <title>Calendário Escolar</title>
   <link rel="stylesheet" href="css/boletim-professor.css">
-
-  <!-- FullCalendar CSS -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>Menu</h2>
-    <ul>
-      <li><a href="#">Agenda</a></li>
-      <li><a href="#">Notificações</a></li>
-      <li><a href="#">Lançar aulas</a></li>
-      <li><a href="#">Horário</a></li>
-      <li><a href="#">Faltas</a></li>
-      <li><a href="#">Ocorrências</a></li>
-      <li><a href="#">Provas</a></li>
-      <li><a href="#">Trabalhos</a></li>
-      <li><a href="#">Atividades</a></li>
-    </ul>
+  <div class="app-container">
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <ul>
+        <li><a href="#">Agenda</a></li>
+        <li><a href="#">Notificações</a></li>
+        <li><a href="#">Lançar aulas</a></li>
+        <li><a href="#">Horário</a></li>
+        <li><a href="#">Faltas</a></li>
+        <li><a href="#">Ocorrências</a></li>
+        <li><a href="#">Provas</a></li>
+        <li><a href="#">Trabalhos</a></li>
+        <li><a href="#">Atividades</a></li>
+      </ul>
+    </div>
+
+    <div class="main">
+      <button class="add-btn" onclick="abrirModal()">+ Adicionar Aviso</button>
+      <div id="calendario"></div>
+    </div>
   </div>
 
-  <div class="main">
-    <div id="calendario"></div>
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h2>Novo Aviso</h2>
+      <label for="titulo">Título:</label>
+      <input type="text" id="titulo" required>
+      <label for="data">Data:</label>
+      <input type="date" id="data" required>
+      <button onclick="adicionarEvento()">Salvar</button>
+      <button onclick="fecharModal()">Cancelar</button>
+    </div>
   </div>
 
-  <!-- FullCalendar JS -->
+  <!-- FullCalendar -->
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
   <script>
+    let calendar;
+
     document.addEventListener('DOMContentLoaded', function () {
       const calendarEl = document.getElementById('calendario');
-
-      const calendar = new FullCalendar.Calendar(calendarEl, {
+      calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'pt-br',
-        height: '100%',
-        expandRows: true,
+        contentHeight: 'auto',
+        fixedWeekCount: true,
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
@@ -65,6 +80,32 @@
 
       calendar.render();
     });
+
+    function abrirModal() {
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function fecharModal() {
+      document.getElementById("modal").style.display = "none";
+      document.getElementById("titulo").value = "";
+      document.getElementById("data").value = "";
+    }
+
+    function adicionarEvento() {
+      const titulo = document.getElementById("titulo").value;
+      const data = document.getElementById("data").value;
+
+      if (titulo && data) {
+        calendar.addEvent({
+          title: titulo,
+          start: data,
+          color: '#003366'
+        });
+        fecharModal();
+      } else {
+        alert("Por favor, preencha todos os campos.");
+      }
+    }
   </script>
 </body>
 </html>
