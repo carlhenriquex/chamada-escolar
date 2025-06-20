@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: var(--text-color);
+  text-decoration: none;
+  scroll-behavior: smooth;
+  letter-spacing: 1px;
+  line-height: 1.3;
+}
+
+body {
+  font-family: 'noto sans', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+:root {
+  --primary-color: #6591eb;
+  --secondary-color: #a5c0f5;
+  --tertiary-color: #000850;
+
+  --laranja-bg: #ff9800;
+  --text-color: #17252a;
+  --bg-color: #ffffff;
+  --card-bg: #e3eefe;
+  --input-bg: #f6f8fa; /* Claro, mas não branco puro */
+  --input-text: #1a2330; /* Escuro para contraste */
+}

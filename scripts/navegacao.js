@@ -7,21 +7,21 @@ menuToggle.addEventListener("click", () => {
 });
 
 // SPA simples: alterna telas
-const mainSections = document.querySelectorAll(".main");
+const mainSections = document.querySelectorAll(".box-main");
 const sidebarButtons = document.querySelectorAll(
     ".sidebar-buttons .button-enviar[data-target]"
 );
 
 sidebarButtons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    const targetId = btn.getAttribute("data-target");
-    mainSections.forEach((section) => {
-        section.style.display = section.id === targetId ? "flex" : "none";
-    });
-    // Fecha o menu sanduíche no mobile ao clicar
-    sidebar.classList.remove("sidebar-open");
-    menuToggle.classList.remove("open");
+        e.preventDefault();
+        const targetId = btn.getAttribute("data-target");
+        mainSections.forEach((section) => {
+            section.style.display = section.id === targetId ? "flex" : "none";
+        });
+        // Fecha o menu sanduíche no mobile ao clicar
+        sidebar.classList.remove("sidebar-open");
+        menuToggle.classList.remove("open");
     });
 });
 

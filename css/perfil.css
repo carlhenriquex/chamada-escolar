@@ -1,17 +1,4 @@
-:root {
-  --primary-color: #6591eb;
-  --secondary-color: #a5c0f5;
-  --accent-color: #a5c0f5;
-  --text-color: #17252a;
-  --bg-color: #ffffff;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-}
+@import url("style-cores-globais.css");
 
 body {
   background: linear-gradient(to bottom right, #a5c0f5, #ffffff);
@@ -68,7 +55,9 @@ select {
   transform: translateX(50%);
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -77,7 +66,7 @@ input, select, textarea {
 
 button {
   background-color: var(--primary-color);
-  color: white;
+  color: #fff;
   padding: 0.75rem;
   border: none;
   margin-top: 1rem;

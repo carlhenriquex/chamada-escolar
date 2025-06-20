@@ -1,78 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Gestor</title>
-    <link rel="stylesheet" href="css/dashboard-gestor.css" />
-  </head>
 
-  <body>
-    <header>
-      <img src="img/logotexto.png" alt="" />
-      <h3>Dashboard Gestor</h3>
-      <a href="perfil.html" class="perfil-desktop" data-target="tela-04">
-        Perfil
-        <span class="perfil-icon" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <circle cx="10" cy="6.5" r="4" fill="#fff" />
-            <path
-              d="M3 17c0-2.7614 3.134-5 7-5s7 2.2386 7 5"
-              stroke-linecap="round"
-              fill="#fff"
-            />
-          </svg>
-        </span>
-      </a>
-      <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu">
-        <!-- SVG do menu sanduíche aqui -->
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <rect y="7" width="32" height="3" rx="1.5" fill="currentColor" />
-          <rect y="15" width="32" height="3" rx="1.5" fill="currentColor" />
-          <rect y="23" width="32" height="3" rx="1.5" fill="currentColor" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Gestor</title>
+  <link rel="stylesheet" href="css/main-gestor.css" />
+</head>
+
+<body>
+  <header>
+    <img src="img/logotexto.png" alt="" />
+    <h3>Dashboard Gestor</h3>
+    <a href="perfil.html" class="perfil-desktop" data-target="tela-04">
+      Perfil
+      <span class="perfil-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="6.5" r="4" fill="#fff" />
+          <path d="M3 17c0-2.7614 3.134-5 7-5s7 2.2386 7 5" stroke-linecap="round" fill="#fff" />
         </svg>
-      </button>
-    </header>
+      </span>
+    </a>
+    <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu">
+      <!-- SVG do menu sanduíche aqui -->
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <rect y="7" width="32" height="3" rx="1.5" fill="currentColor" />
+        <rect y="15" width="32" height="3" rx="1.5" fill="currentColor" />
+        <rect y="23" width="32" height="3" rx="1.5" fill="currentColor" />
+      </svg>
+    </button>
+  </header>
 
-    <div class="container">
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar-buttons">
-          <a class="button-enviar" data-target="tela-01">Cadastro de Turma</a>
-          <a class="button-enviar" data-target="tela-02"
-            >Cadastro de Professor</a
-          >
-          <a class="button-enviar" data-target="tela-03">Cadastro de Aluno</a>
+  <div class="container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-buttons">
+        <a class="button-enviar" data-target="tela-01">Cadastro de Turma</a>
+        <a class="button-enviar" data-target="tela-02">Cadastro de Professor</a>
+        <a class="button-enviar" data-target="tela-03">Cadastro de Aluno</a>
 
-          <a href="perfil.html" class="button-enviar perfil-mobile">
-            Perfil
-            <span class="perfil-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <circle cx="10" cy="6.5" r="4" fill="#fff" />
-                <path
-                  d="M3 17c0-2.7614 3.134-5 7-5s7 2.2386 7 5"
-                  stroke-linecap="round"
-                  fill="#fff"
-                />
-              </svg>
-            </span>
-          </a>
-        </div>
-      </aside>
+        <a href="perfil.html" class="button-enviar perfil-mobile">
+          Perfil
+          <span class="perfil-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="6.5" r="4" fill="#fff" />
+              <path d="M3 17c0-2.7614 3.134-5 7-5s7 2.2386 7 5" stroke-linecap="round" fill="#fff" />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </aside>
 
+    <main>
       <!-- canvas do cadastro turma -->
-      <div class="main" id="tela-01"></div>
+      <div class="box-main" id="tela-01">
+      </div>
 
       <!-- canvas do cadastro professor -->
-      <div class="main" id="tela-02">
+      <div class="box-main" id="tela-02">
         <form class="main-header">
           <div class="container-direito">
             <div class="row">
-              <img
-                class="icon-prof"
-                src="img/icon_professor.png"
-                class="logo-img"
-                alt="ícone professor"
-              />
+              <img class="icon-prof" src="img/icon_professor.png" class="logo-img" alt="ícone professor" />
             </div>
 
             <div class="row">
@@ -140,21 +128,11 @@
 
             <div class="row">
               <div class="input-group">
-                <input
-                  type="text"
-                  name="nacionalidade"
-                  placeholder="Nacionalidade"
-                  required
-                />
+                <input type="text" name="nacionalidade" placeholder="Nacionalidade" required />
               </div>
 
               <div class="input-group">
-                <input
-                  type="text"
-                  name="naturalidade"
-                  placeholder="Naturalidade"
-                  required
-                />
+                <input type="text" name="naturalidade" placeholder="Naturalidade" required />
               </div>
 
               <div class="input-group">
@@ -242,16 +220,11 @@
       </div>
 
       <!-- canvas do cadastro aluno -->
-      <div class="main" id="tela-03">
+      <div class="box-main" id="tela-03">
         <form class="main-header">
           <div class="container-direito">
             <div class="row">
-              <img
-                class="icon-estudante"
-                src="img/icon_estudante.png"
-                class="logo-img"
-                alt="ícone estudante"
-              />
+              <img class="icon-estudante" src="img/icon_estudante.png" class="logo-img" alt="ícone estudante" />
             </div>
 
             <div class="row">
@@ -319,22 +292,11 @@
 
             <div class="row">
               <div class="input-group">
-                <input
-                  type="text"
-                  name="nacionalidade"
-                  placeholder="Nacionalidade"
-                  required
-                />
+                <input type="text" name="nacionalidade" placeholder="Nacionalidade" required />
               </div>
 
               <div class="input-group">
-                <input
-                  type="text"
-                  id="naturalidade"
-                  name="naturalidade"
-                  placeholder="Naturalidade"
-                  required
-                />
+                <input type="text" id="naturalidade" name="naturalidade" placeholder="Naturalidade" required />
               </div>
 
               <div class="input-group">
@@ -351,38 +313,21 @@
             <div class="row">
               <div class="input-deficiencia">
                 <h4>Possui alguma deficiência?</h4>
-                <input
-                  type="checkbox"
-                  name=""
-                  onclick="gerirInputDeDeficiencia(this.checked)"
-                />
+                <input type="checkbox" name="" onclick="gerirInputDeDeficiencia(this.checked)" />
               </div>
               <div class="input-group">
-                <input
-                  type="text"
-                  name=""
-                  style="background-color: #ccc"
-                  id="texto-deficiencia"
-                  placeholder="Se houver deficiência, informe-a"
-                />
+                <input type="text" name="" style="background-color: #ccc" id="texto-deficiencia"
+                  placeholder="Se houver deficiência, informe-a" />
               </div>
             </div>
 
             <div class="row">
               <div class="input-deficiencia">
                 <h4>Responsável já cadastrado?</h4>
-                <input
-                  type="checkbox"
-                  onclick="gerirSeletorDoResponsavel(this.checked)"
-                />
+                <input type="checkbox" onclick="gerirSeletorDoResponsavel(this.checked)" />
               </div>
               <div class="input-group">
-                <select
-                  name="setor"
-                  id="seletor-responsavel"
-                  style="background-color: #ccc"
-                  disabled
-                >
+                <select name="setor" id="seletor-responsavel" style="background-color: #ccc" disabled>
                   <option value="" disabled selected>
                     Selecione o responsável
                   </option>
@@ -498,36 +443,38 @@
           </div>
         </form>
       </div>
-    </div>
-  </body>
-  <script src="scripts/navegacao.js"></script>
-  <script>
-    function gerirInputDeDeficiencia(statusCheckbox) {
-      let inputDeficiencia = document.getElementById("texto-deficiencia");
-      if (statusCheckbox === true) {
-        inputDeficiencia.disabled = false;
-        inputDeficiencia.style.backgroundColor = "";
-      } else {
-        inputDeficiencia.disabled = true;
-        inputDeficiencia.style.backgroundColor = "#ccc";
-      }
+    </main>
+  </div>
+</body>
+<script src="scripts/navegacao.js"></script>
+<script>
+  function gerirInputDeDeficiencia(statusCheckbox) {
+    let inputDeficiencia = document.getElementById("texto-deficiencia");
+    if (statusCheckbox === true) {
+      inputDeficiencia.disabled = false;
+      inputDeficiencia.style.backgroundColor = "";
+    } else {
+      inputDeficiencia.disabled = true;
+      inputDeficiencia.style.backgroundColor = "#ccc";
     }
+  }
 
-    function gerirSeletorDoResponsavel(statusCheckbox) {
-      let seletorResponsavel = document.getElementById("seletor-responsavel");
-      let sectionResponsaveis = document.getElementById("section-responsaveis");
-      if (statusCheckbox === true) {
-        //fazer sumir os campos de cadastro do responsavel
-        seletorResponsavel.disabled = false;
-        seletorResponsavel.required = true;
-        seletorResponsavel.style.backgroundColor = "";
-        sectionResponsaveis.style.display = "none";
-      } else {
-        seletorResponsavel.disabled = true;
-        seletorResponsavel.required = false;
-        seletorResponsavel.style.backgroundColor = "#ccc";
-        sectionResponsaveis.style.display = "";
-      }
+  function gerirSeletorDoResponsavel(statusCheckbox) {
+    let seletorResponsavel = document.getElementById("seletor-responsavel");
+    let sectionResponsaveis = document.getElementById("section-responsaveis");
+    if (statusCheckbox === true) {
+      //fazer sumir os campos de cadastro do responsavel
+      seletorResponsavel.disabled = false;
+      seletorResponsavel.required = true;
+      seletorResponsavel.style.backgroundColor = "";
+      sectionResponsaveis.style.display = "none";
+    } else {
+      seletorResponsavel.disabled = true;
+      seletorResponsavel.required = false;
+      seletorResponsavel.style.backgroundColor = "#ccc";
+      sectionResponsaveis.style.display = "";
     }
-  </script>
+  }
+</script>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,28 +12,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
+
 <body>
     <!-- Ícone Voltar -->
     <a href="index.html" class="btn-voltar">
         <i class="fas fa-arrow-left"></i>
     </a>
-    
+
     <div class="container-esquerdo">
         <img class="banner-img" src="img/banner-cadastro.webp" alt="Foto de banner da tela de login">
     </div>
 
     <!-- <main class="main-content"> -->
     <div class="container-direito">
-        
+
         <div class="row">
             <img src="img/rodape_logo.png" class="logo-img" alt="Logo Chamada Escolar">
         </div>
 
         <div class="row">
             <div class="input-group">
-            <img src="img/usuario.png" alt="Ícone Usuário">
-            <input type="text" placeholder="Nome">
-        </div>
+                <img src="img/usuario.png" alt="Ícone Usuário">
+                <input type="text" placeholder="Nome">
+            </div>
         </div>
 
         <div class="row">
@@ -52,7 +54,7 @@
                 <input type="text" placeholder="Nome da Escola">
             </div>
             <div class="input-group">
-                <select id="setor"  name="setor" required>
+                <select id="setor" name="setor" required>
                     <option value="" disabled selected>Setor Educacional</option>
                     <option value="infantil">Educação Infantil</option>
                     <option value="fundamental1">Ensino Fundamental – Anos Iniciais (1º ao 5º ano)</option>
@@ -72,7 +74,7 @@
                     <option value="outro">Outro</option>
                 </select>
             </div>
-        
+
             <div class="input-group">
                 <select id="porte" name="porte" required>
                     <option value="" disabled selected>Porte de alunos</option>
@@ -88,18 +90,19 @@
                 <img src="img/senha.png" alt="Ícone Senha">
                 <input type="password" placeholder="Senha">
             </div>
-        
+
             <div class="input-group">
                 <img src="img/senha.png" alt="Ícone Confirmar Senha">
                 <input type="password" placeholder="Repetir senha">
             </div>
         </div>
-        
+
         <div class="row">
             <input type="checkbox" id="aceitar_termos">
-            <label for="aceitar_termos">Li e concordo com <a href="#" class="privacidade">Termos e Privacidade</a></label>
+            <label for="aceitar_termos">Li e concordo com <a href="#" class="privacidade">Termos e
+                    Privacidade</a></label>
         </div>
-    
+
         <div class="row">
             <a class="button-criar-conta" href="dashboard-pais.html">Criar Conta</a>
         </div>
@@ -108,39 +111,40 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-          const botaoCriarConta = document.querySelector(".button-criar-conta");
-      
-          botaoCriarConta.addEventListener("click", function (e) {
-            e.preventDefault(); // Impede redirecionamento imediato
-      
-            const inputs = document.querySelectorAll(".input-group input, .input-group select");
-            const checkbox = document.getElementById("aceitar_termos");
-      
-            let formValido = true;
-      
-            // Verifica se todos os campos estão preenchidos
-            inputs.forEach(input => {
-              if (!input.value.trim()) {
-                formValido = false;
-              }
+            const botaoCriarConta = document.querySelector(".button-criar-conta");
+
+            botaoCriarConta.addEventListener("click", function (e) {
+                e.preventDefault(); // Impede redirecionamento imediato
+
+                const inputs = document.querySelectorAll(".input-group input, .input-group select");
+                const checkbox = document.getElementById("aceitar_termos");
+
+                let formValido = true;
+
+                // Verifica se todos os campos estão preenchidos
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        formValido = false;
+                    }
+                });
+
+                if (!formValido) {
+                    alert("Por favor, preencha todos os campos.");
+                    return;
+                }
+
+                if (!checkbox.checked) {
+                    alert("Você precisa aceitar os Termos e Privacidade.");
+                    return;
+                }
+
+                // Se tudo estiver OK
+                alert("Conta criada com sucesso!");
+                // Aqui você pode redirecionar, por exemplo:
+                // window.location.href = "dashboard-pais.html";
             });
-      
-            if (!formValido) {
-              alert("Por favor, preencha todos os campos.");
-              return;
-            }
-      
-            if (!checkbox.checked) {
-              alert("Você precisa aceitar os Termos e Privacidade.");
-              return;
-            }
-      
-            // Se tudo estiver OK
-            alert("Conta criada com sucesso!");
-            // Aqui você pode redirecionar, por exemplo:
-            // window.location.href = "dashboard-pais.html";
-          });
         });
-      </script>
+    </script>
 </body>
+
 </html>

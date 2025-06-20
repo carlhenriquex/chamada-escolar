@@ -1,23 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("style-cores-globais.css");
 
-
-* {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-  scroll-behavior: smooth;
+*{
+  color: #fff;
 }
-
-body {
-  font-family: 'noto sans', sans-serif;
-  background-color: #fff;
-  color: #000;
-  letter-spacing: 1px;
-  line-height: 1.5;
-}
-
 
 /* CABEÇALHO COM LOGO, MENU DE NAVEGAÇÃO E BOTAO DE ENTRAR */
 header {
@@ -31,12 +16,8 @@ header {
 }
 
 header.rolagem {
-  background-color: #000850;
+  background-color: var(--tertiary-color);
   padding: 2px 7%;
-}
-
-header.rolagem a {
-  color: #fff;
 }
 
 .box-header {
@@ -66,31 +47,29 @@ header ul li {
 }
 
 header ul li a {
-  color: #fff;
   transition: 0.5s;
 }
 
 header ul li a:hover {
-  color: #ff9800;
+  color: var(--laranja-bg);
 }
 
 header .btn-entrar {
   font-size: 15px;
   font-weight: 600;
   padding: 10px 22px;
-  background-color: #000850;
-  color: #fff;
+  background-color: var(--tertiary-color);
   border-radius: 5px;
   cursor: pointer;
   transition: 0.2s;
 }
 
 header .btn-entrar:hover {
-  background-color: #ff9800;
+  background-color: var(--laranja-bg);
 }
 
 header.rolagem .btn-entrar {
-  background-color: #ff9800;
+  background-color: var(--laranja-bg);
 }
 
 header.rolagem .btn-entrar:hover {
@@ -110,7 +89,6 @@ header.rolagem .btn-entrar:hover {
 
 .icon-menu button {
   background-color: transparent;
-  color: #fff;
   font-size: 2rem;
 }
 
@@ -140,13 +118,13 @@ header.rolagem .btn-entrar:hover {
 }
 
 .mobile-menu ul li .item-mobile {
-  color: #6591eb;
+  color: var(--primary-color);
   font-size: 1rem;
   font-weight: 600;
 }
 
 .mobile-menu ul li .item-mobile:hover {
-  color: #ff9800;
+  color: var(--laranja-bg);
 }
 
 /* BANNER */
@@ -181,7 +159,7 @@ header.rolagem .btn-entrar:hover {
   position: absolute;
   top: 0;
   left: 0;
-  background-image: linear-gradient(to right, #6592ebc7 25%, transparent 70%);
+  background-image: linear-gradient(to right, var(--primary-color) 25%, transparent 70%);
 }
 
 .texto-banner {
@@ -202,7 +180,7 @@ header.rolagem .btn-entrar:hover {
 }
 
 .cadastrar {
-  background-color: #ff9800;
+  background-color: var(--laranja-bg);
   color: #fff;
   font-size: 15px;
   font-weight: 600;
@@ -232,11 +210,11 @@ header.rolagem .btn-entrar:hover {
 .vantagens h2 {
   font-size: 1.7rem;
   margin-block: 8%;
-  color: #ff9800;
+  color: var(--laranja-bg);
 }
 
 .vantagens-container {
-  background: #ff9800;
+  background: var(--laranja-bg);
   background: linear-gradient(90deg, rgba(101, 231, 235, 1) 0%, rgba(101, 145, 235, 1) 50%, rgba(255, 152, 0, 1) 100%);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -271,12 +249,10 @@ header.rolagem .btn-entrar:hover {
   font-size: 1.1rem;
   max-width: 95%;
   margin-bottom: 2%;
-  color: #fff;
 }
 
 .vantagem p {
   font-size: 0.85rem;
-  color: #fff;
   line-height: 1.5;
 }
 
@@ -297,30 +273,27 @@ header.rolagem .btn-entrar:hover {
 .gradiente {
   width: 100%;
   height: 1rem;
-  background: #ff9800;
+  background: var(--laranja-bg);
   background: linear-gradient(90deg, rgba(101, 231, 235, 1) 0%, rgba(101, 145, 235, 1) 50%, rgba(255, 152, 0, 1) 100%);
 }
 
 .titulo-sobre {
-  background-color: #333;
+  background-color: #494949;
   width: 100%;
   padding: 20px 5px;
 }
 
 .titulo-sobre h4 {
-  color: #bbb;
   font-weight: 500;
 }
 
 .titulo-sobre h1 {
   font-size: 1.8rem;
-  color: #fff;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
 .titulo-sobre p {
-  color: #ccc;
   font-size: 1rem;
   max-width: 500px;
 }
@@ -335,13 +308,13 @@ header.rolagem .btn-entrar:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #000;
 }
 
 /* DEPOIMENTOS */
 
 .container-depoimentos {
-  background-color: #6591eb;
-  color: #f2f2f2;
+  background-color: var(--primary-color);
 }
 
 .titulo-depoimentos {
@@ -464,7 +437,7 @@ header.rolagem .btn-entrar:hover {
 .faq h1 {
   font-size: 2rem;
   margin-bottom: 30px;
-  color: #ff9800;
+  color: var(--laranja-bg);
 }
 
 .faq-list {
@@ -486,56 +459,60 @@ header.rolagem .btn-entrar:hover {
   color: #000;
 }
 
+.faq-list a span {
+  color: #000;
+}
+
 .faq-list li:hover {
   background-color: #f2f2f2;
 }
 
 .bi-caret-right-fill {
-  color: #ff9800;
+  color: var(--laranja-bg);
 }
 
 .show-all {
   display: inline-block;
   margin-top: 20px;
-  color: #ff9800;
+  color: var(--laranja-bg);
   font-weight: bold;
 }
 
 .show-all:hover {
-  color: #191970;
+  color: var(--tertiary-color);
 }
 
 .cta {
   flex: 1 1 200px;
   min-width: 250px;
-  background-color: #ff9800;
+  background-color: var(--laranja-bg);
   color: #fff;
-  padding: 40px;
+  padding: 5%;
   border-radius: 8px;
   position: relative;
   text-align: left;
 }
 
 .cta-text {
-  font-size: 1.5rem;
-  margin-bottom: 40px;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
   line-height: 1.6;
 }
 
 .cta-button {
   background-color: transparent;
   border: 2px solid #fff;
-  color: #fff;
-  padding: 15px 40px;
+  padding: 15px 30px;
   border-radius: 30px;
-  font-size: 1rem;
+  font-size: .9rem;
   font-weight: bold;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .cta-button:hover {
   background-color: #fff;
-  color: #ff9800;
+  color: var(--laranja-bg);
 }
 
 /* RODAPÉ */
@@ -546,7 +523,7 @@ header.rolagem .btn-entrar:hover {
 }
 
 footer {
-  background-color: #000850;
+  background-color: var(--tertiary-color);
   color: #fff;
   padding: 40px 0;
 }
@@ -574,7 +551,7 @@ footer .line-footer1 {
 }
 
 .line-footer1 .btn-sociais i:hover {
-  color: #ff9800;
+  color: var(--laranja-bg);
 }
 
 .line-footer1 .btn-sociais .bi {
@@ -604,7 +581,7 @@ footer .line-footer2 {
 }
 
 .line-footer2 .box-footer h3 {
-  color: #ff9800;
+  color: var(--laranja-bg);
   margin-bottom: 10px;
   font-size: .9rem;
 }
@@ -618,7 +595,7 @@ footer .line-footer2 {
 }
 
 .line-footer2 .box-footer a:hover {
-  color: #ff9800;
+  color: var(--laranja-bg);
 }
 
 

@@ -1,20 +1,8 @@
-@import url("cores-globais.css");
+@import url("style-cores-globais.css");
 
-* {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-  color: var(--text-color);
-}
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  min-height: 100vh;
-}
+/*ESTILOS GLOBAIS DOS DASHBOARDS GESTOR, PROFESSORES E RESPONSÁVEIS*/
+
 
 header {
   width: 100%;
@@ -64,8 +52,8 @@ header a {
 }
 
 .sidebar select {
-  background-color: var(--card-bg); /* cor mais clara */
-  color: var(--text-bg); /* texto claro */
+  background-color: var(--card-bg);
+  color: var(--text-bg);
   border: none;
   padding: 0.5rem 2rem;
   border-radius: 0.7rem;
@@ -121,12 +109,13 @@ header a {
   font-size: 0.9rem;
 }
 
-.main {
+.box-main {
   display: flex;
   min-height: 85vh;
   flex-direction: column;
 }
-.main[style*="display: none"] {
+
+.box-main[style*="display: none"] {
   display: none !important;
 }
 
@@ -163,19 +152,7 @@ header a {
   border-radius: 1rem;
   font-size: 1rem;
   margin-bottom: 1rem;
-  margin-top: 0; /* remove margem superior extra se houver */
-}
-
-.button-enviar-laranja {
-  background-color: var(--laranja-bg);
-  color: #fff;
-  border: none;
-  padding: 0.5rem 2rem;
-  border-radius: 0.7rem;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1rem;
-  white-space: nowrap;
+  margin-top: 0;
 }
 
 .main-header-desc-textarea {
@@ -198,15 +175,36 @@ header a {
   color: var(--primary-color);
 }
 
-.actions button {
-  background-color: var(--laranja-bg);
-  color: white;
+/* Menu sanduíche */
+.menu-toggle {
+  display: none;
+  background: none;
   border: none;
-  padding: 0.5rem 1rem;
-  margin: 0.3rem;
-  border-radius: 6px;
   cursor: pointer;
+  color: var(--text-bg);
+  padding: 0.25rem;
 }
+
+.menu-toggle svg {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+}
+
+.perfil-desktop {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.perfil-mobile {
+  display: none;
+}
+
+
+/* TELA 1 - CARDS DE AVISOS */
+
 
 .feed {
   margin-top: 1rem;
@@ -232,111 +230,26 @@ header a {
   border-radius: 4px;
 }
 
-/* Menu sanduíche */
-.menu-toggle {
-  display: none;
-  background: none;
+.button-enviar-laranja {
+  background-color: var(--laranja-bg);
+  color: #fff;
   border: none;
+  padding: 0.5rem 2rem;
+  border-radius: 0.7rem;
   cursor: pointer;
-  color: var(--text-bg); /* cor do ícone */
-  padding: 0.25rem;
-}
-
-.menu-toggle svg {
-  display: block;
-  width: 2rem;
-  height: 2rem;
-}
-
-.perfil-desktop {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.perfil-mobile {
-  display: none;
-}
-
-.container-direito {
-  flex: 4;
-  padding-inline: 3vw;
-  padding-top: 8vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.icon-prof,
-.icon-estudante {
-  height: 100px;
-  width: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-.row {
-  display: flex;
-  gap: 1vw;
-  justify-content: center;
-  margin-bottom: 15px;
-  width: 100%;
-}
-
-.section-responsaveis {
-  width: 100%;
-}
-
-.input-group {
-  position: relative;
-  flex: 1;
-  max-width: 100%;
-}
-
-.input-group input,
-.input-group select {
-  width: 100%;
-  padding: 12px 45px 12px 15px;
-  border: 2px solid #6c8df5;
-  border-radius: 50px;
-  font-size: 16px;
-  outline: none;
-  background-color: #fff;
-}
-
-.input-group img {
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  opacity: 0.5;
-}
-
-.input-deficiencia {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.input-deficiencia input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
-  accent-color: var(--laranga-bg); /* cor do tema */
-  cursor: pointer;
-  margin-top: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  white-space: nowrap;
 }
 
 
-/* Sidebar responsiva */
+/* SIDEBAR RESPONSIVA */
+
 @media (max-width: 900px) {
   .perfil-desktop {
     display: none;
   }
+
   .perfil-mobile {
     display: flex;
     flex-direction: row;
@@ -398,12 +311,13 @@ header a {
     transition: transform 0.3s;
     transform: translateX(-100%);
   }
+
   .sidebar.sidebar-open {
     display: flex;
     transform: translateX(0);
   }
 
-  .main {
+  .box-main {
     width: 100%;
     flex-direction: column;
   }
@@ -413,11 +327,13 @@ header a {
     align-items: center;
     gap: 0.5rem;
   }
+
   .main-header-title-input {
     margin: 0 0 1rem 0;
     min-width: 0;
     width: 100%;
   }
+
   .main-header-desc-textarea {
     min-width: 0;
     width: 100%;
@@ -443,6 +359,7 @@ header a {
 }
 
 /* Para garantir que o sidebar feche ao aumentar a tela novamente */
+
 @media (min-width: 901px) {
   .sidebar {
     display: block !important;
@@ -453,6 +370,7 @@ header a {
     transform: none !important;
     padding: 1rem;
   }
+
   .menu-toggle {
     display: none !important;
   }
