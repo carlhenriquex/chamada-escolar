@@ -69,7 +69,7 @@ switch ($tipo_acesso) {
         break;
 
     case 'professor':
-        header("Location: ../dashboard-prof.html");
+        header("Location: ../dashboard-professor.html");
         break;
 
     case 'responsavel':
