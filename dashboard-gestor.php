@@ -12,7 +12,7 @@
   <header>
     <img src="img/logotexto.png" alt="" />
     <h3>Dashboard Gestor</h3>
-    <a href="perfil.html" class="perfil-desktop" data-target="tela-04">
+    <a href="perfil-gestor.html" class="perfil-desktop" data-target="tela-04">
       Perfil
       <span class="perfil-icon" aria-hidden="true">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -39,7 +39,7 @@
         <a class="button-enviar" data-target="tela-03">Avisos</a>
         <a class="button-enviar" data-target="tela-04">Relatório</a>
 
-        <a href="perfil.html" class="button-enviar perfil-mobile">
+        <a href="perfil-gestor.html" class="button-enviar perfil-mobile">
           Perfil
           <span class="perfil-icon" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">

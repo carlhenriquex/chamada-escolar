@@ -1,5 +1,36 @@
 @import url("style-cores-globais.css");
 
+header {
+  width: 100%;
+  padding: 25px 4%;
+  position: fixed;
+  z-index: 2;
+  top: 2;
+  left: 0;
+  padding: 2px 7%;
+}
+
+/* header.rolagem {
+  background-color:  #000850;
+  padding: 2px 7%;
+} */
+
+.box-header {
+  margin: auto;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+header a img {
+  width: 10rem;
+}
+
+
 body {
   background: linear-gradient(to bottom right, #a5c0f5, #ffffff);
   color: var(--text-color);

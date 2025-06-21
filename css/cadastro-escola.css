@@ -12,7 +12,7 @@ body {
     z-index: 9999;
     font-size: 24px;
     color: white;
-    background-color: #00000080;
+    background-color: #00000020;
     padding: 10px 12px;
     border-radius: 50%;
     text-decoration: none;
@@ -20,7 +20,7 @@ body {
 }
 
 .btn-voltar:hover {
-    background-color: #000000cc;
+    background-color: #ffffffaa;
 }
 
 .container-esquerdo {
@@ -32,7 +32,7 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: brightness(50%);
+    /* filter: brightness(50%); */
 }
 
 .container-direito {
