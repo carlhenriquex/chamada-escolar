@@ -37,6 +37,7 @@
         <a class="button-enviar" data-target="tela-01">Cadastro de Aluno</a>
         <a class="button-enviar" data-target="tela-02">Cadastro de Professor</a>
         <a class="button-enviar" data-target="tela-03">Avisos</a>
+        <a class="button-enviar" data-target="tela-04">Relatório</a>
 
         <a href="perfil.html" class="button-enviar perfil-mobile">
           Perfil
@@ -431,7 +432,77 @@
 
       <!-- canvas do avisos -->
       <div class="box-main" id="tela-03">
+        <form class="main-header">
+          <div class="main-header-row">
+            <h4>Adicione um novo aviso:</h4>
+            <button type="submit" class="button-enviar-laranja">Enviar</button>
+          </div>
+          <input type="text" placeholder="Título" class="main-header-title-input" />
+          <textarea placeholder="Descrição" rows="2" class="main-header-desc-textarea"></textarea>
+        </form>
+
+        <section class="home-section">
+          <h1>Avisos da Turma</h1>
+          <div class="feed">
+            <div class="feed-item">
+              <p><strong>Título do aviso 1</strong></p>
+              <div class="repo-card">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Voluptate incidunt neque pariatur accusamus aliquam a laboriosam
+                vitae recusandae vero, modi corrupti explicabo deleniti tenetur
+                facilis at, veritatis, est nulla accusantium!
+              </div>
+              <small>4 horas atrás</small>
+            </div>
+            <div class="feed-item">
+              <p><strong>Título do aviso 2</strong></p>
+              <div class="repo-card">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
+                quam minima eius tempora at libero fugiat corrupti magni tempore
+                obcaecati? Repudiandae omnis dolorum velit illum veritatis.
+                Dignissimos atque eveniet assumenda.
+              </div>
+              <small>2 dias atrás</small>
+            </div>
+            <div class="feed-item">
+              <p><strong>Título do aviso 3</strong></p>
+              <div class="repo-card">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
+                quam minima eius tempora at libero fugiat corrupti magni tempore
+                obcaecati? Repudiandae omnis dolorum velit illum veritatis.
+                Dignissimos atque eveniet assumenda.
+              </div>
+              <small>2 dias atrás</small>
+            </div>
+            <div class="feed-item">
+              <p><strong>Título do aviso 4</strong></p>
+              <div class="repo-card">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
+                quam minima eius tempora at libero fugiat corrupti magni tempore
+                obcaecati? Repudiandae omnis dolorum velit illum veritatis.
+                Dignissimos atque eveniet assumenda.
+              </div>
+              <small>2 dias atrás</small>
+            </div>
+            <div class="feed-item">
+              <p><strong>Título do aviso 5</strong></p>
+              <div class="repo-card">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
+                quam minima eius tempora at libero fugiat corrupti magni tempore
+                obcaecati? Repudiandae omnis dolorum velit illum veritatis.
+                Dignissimos atque eveniet assumenda.
+              </div>
+              <small>4 dias atrás</small>
+            </div>
+          </div>
+        </section>
       </div>
+
+      <!-- canvas do relatório -->
+      <div class="box-main" id="tela-04">
+        <h2>relatorios</h2>
+      </div>
+
     </main>
   </div>
 </body>
