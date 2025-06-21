@@ -2,47 +2,56 @@
 
 session_start();
 
+if (
+
+    isset($_POST['submit']) &&
+    (empty($_POST['email']) || empty($_POST['senha1']) || empty($_POST['senha2']))
+
+) {
+    $_SESSION["mensagem"] = "Preencha os campos";
+    header("Location: ../login.php");
+    exit;
+}
+
 include_once("config/connection.php");
 
-if (isset($_POST['submit'])) {
-    $email = mysqli_real_escape_string($conexao, $_POST['email']);
-    $senha1 = $_POST['senha1'];
-    $senha2 = $_POST['senha2'];
+$email = mysqli_real_escape_string($conexao, $_POST['email']);
+$senha1 = $_POST['senha1'];
+$senha2 = $_POST['senha2'];
 
-    if ($senha1 !== $senha2) {
-        $_SESSION['mensagem'] = "As senhas não coincidem!";
-        header("Location: esqueceu.php");
-        exit();
-    }
-
-    $tabelas = ['gestores', 'professores', 'responsaveis'];
-    $tabela_encontrada = null;
-
-    foreach ($tabelas as $tabela) {
-        $query = mysqli_query($conexao, "SELECT * FROM $tabela WHERE email = '$email'");
-        if (mysqli_num_rows($query) > 0) {
-            $tabela_encontrada = $tabela;
-            break;
-        }
-    }
-
-    if (!$tabela_encontrada) {
-        $_SESSION['mensagem'] = "E-mail não encontrado em nenhum perfil.";
-        header("Location: esqueceu.php");
-        exit();
-    }
-
-    $update = mysqli_query($conexao, "UPDATE $tabela_encontrada SET senha = '$senha1' WHERE email = '$email'");
-
-    if ($update) {
-        $_SESSION['mensagem'] = "Senha atualizada com sucesso!";
-    } else {
-        $_SESSION['mensagem'] = "Erro ao atualizar a senha.";
-    }
-
+if ($senha1 !== $senha2) {
+    $_SESSION['mensagem'] = "As senhas não coincidem!";
     header("Location: esqueceu.php");
     exit();
 }
+
+$tabelas = ['gestores', 'professores', 'responsaveis'];
+$tabela_encontrada = null;
+
+foreach ($tabelas as $tabela) {
+    $query = mysqli_query($conexao, "SELECT * FROM $tabela WHERE email = '$email'");
+    if (mysqli_num_rows($query) > 0) {
+        $tabela_encontrada = $tabela;
+        break;
+    }
+}
+
+if (!$tabela_encontrada) {
+    $_SESSION['mensagem'] = "E-mail não encontrado em nenhum perfil.";
+    header("Location: esqueceu.php");
+    exit();
+}
+
+$update = mysqli_query($conexao, "UPDATE $tabela_encontrada SET senha = '$senha1' WHERE email = '$email'");
+
+if ($update) {
+    $_SESSION['mensagem'] = "Senha atualizada com sucesso!";
+} else {
+    $_SESSION['mensagem'] = "Erro ao atualizar a senha.";
+}
+
+header("Location: esqueceu.php");
+exit();
 ?>
 
 

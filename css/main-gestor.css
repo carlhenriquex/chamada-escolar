@@ -7,7 +7,7 @@
 .container-direito {
   flex: 4;
   padding-inline: 3vw;
-  padding-top: 8vh;
+  padding-top: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,6 +28,10 @@
   justify-content: center;
   margin-bottom: 15px;
   width: 100%;
+}
+
+.form-icon {
+  margin-bottom: 2rem;
 }
 
 .section-responsaveis {

@@ -65,7 +65,7 @@ $_SESSION["tipo_acesso"] = $tipo_acesso;
 
 switch ($tipo_acesso) {
     case 'gestor':
-        header("Location: ../dashboard-gestor.html");
+        header("Location: ../dashboard-gestor.php");
         break;
 
     case 'professor':

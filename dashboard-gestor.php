@@ -34,9 +34,9 @@
   <div class="container">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-buttons">
-        <a class="button-enviar" data-target="tela-01">Cadastro de Turma</a>
+        <a class="button-enviar" data-target="tela-01">Cadastro de Aluno</a>
         <a class="button-enviar" data-target="tela-02">Cadastro de Professor</a>
-        <a class="button-enviar" data-target="tela-03">Cadastro de Aluno</a>
+        <a class="button-enviar" data-target="tela-03">Avisos</a>
 
         <a href="perfil.html" class="button-enviar perfil-mobile">
           Perfil
@@ -51,179 +51,11 @@
     </aside>
 
     <main>
-      <!-- canvas do cadastro turma -->
+      <!-- canvas do cadastro alunos/responsavel -->
       <div class="box-main" id="tela-01">
-      </div>
-
-      <!-- canvas do cadastro professor -->
-      <div class="box-main" id="tela-02">
-        <form class="main-header">
-          <div class="container-direito">
-            <div class="row">
-              <img class="icon-prof" src="img/icon_professor.png" class="logo-img" alt="ícone professor" />
-            </div>
-
-            <div class="row">
-              <h3>Cadastro Professor(a)</h3>
-            </div>
-
-            <div class="row">
-              <div class="input-group">
-                <img src="img/usuario.png" alt="Ícone Usuário" />
-                <input type="text" placeholder="Nome Completo" />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-group">
-                <input type="date" placeholder="Nascimento" />
-              </div>
-
-              <div class="input-group">
-                <input type="text" placeholder="RG" />
-              </div>
-
-              <div class="input-group">
-                <input type="text" placeholder="CPF" />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-group">
-                <select name="setor" required>
-                  <option value="" disabled selected>Sexo</option>
-                  <option value="Masculino">Masculino</option>
-                  <option value="Feminino">Feminino</option>
-                  <option value="Prefiro não informar">
-                    Prefiro não informar
-                  </option>
-                </select>
-              </div>
-
-              <div class="input-group">
-                <select name="setor" required>
-                  <option value="" disabled selected>Cor/raça</option>
-                  <option value="Branco">Branco</option>
-                  <option value="Preto">Preto</option>
-                  <option value="Pardo">Pardo</option>
-                  <option value="Amarelo">Amarelo</option>
-                  <option value="Indídena">Indídena</option>
-                </select>
-              </div>
-
-              <div class="input-group">
-                <select name="setor" required>
-                  <option value="" disabled selected>Tipo Sanguíneo</option>
-                  <option value="A+">A+</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B-">B-</option>
-                  <option value="AB+">AB+</option>
-                  <option value="AB-">AB-</option>
-                  <option value="O+">O+</option>
-                  <option value="O-">O-</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-group">
-                <input type="text" name="nacionalidade" placeholder="Nacionalidade" required />
-              </div>
-
-              <div class="input-group">
-                <input type="text" name="naturalidade" placeholder="Naturalidade" required />
-              </div>
-
-              <div class="input-group">
-                <input type="text" placeholder="Telefone" />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-group">
-                <input type="text" placeholder="Formação acadêmica" />
-              </div>
-
-              <div class="input-group">
-                <input type="text" placeholder="Disciplina" />
-              </div>
-
-              <div class="input-group">
-                <select name="setor" required>
-                  <option value="" disabled selected>Turma</option>
-                  <option value="1º ano  A">1º ano A</option>
-                  <option value="1º ano  B">1º ano B</option>
-                  <option value="3º ano  A">3º ano A</option>
-                  <option value="3º ano  B">3º ano B</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-group">
-                <input type="text" placeholder="Nome da Rua" />
-              </div>
-
-              <div class="input-group">
-                <input type="text" placeholder="Número" />
-              </div>
-
-              <div class="input-group">
-                <input type="text" placeholder="Bairro" />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-group">
-                <input type="text" placeholder="Cidade" />
-              </div>
-
-              <div class="input-group">
-                <input type="text" placeholder="Complemento" />
-              </div>
-
-              <div class="input-group">
-                <input type="text" placeholder="CEP" />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-group">
-                <input type="text" placeholder="Email" />
-              </div>
-
-              <div class="input-group">
-                <input type="text" placeholder="Confirmar Email" />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-group">
-                <img src="img/senha.png" alt="Ícone Senha" />
-                <input type="password" placeholder="Senha" />
-              </div>
-
-              <div class="input-group">
-                <img src="img/senha.png" alt="Ícone Confirmar Senha" />
-                <input type="password" placeholder="Repetir senha" />
-              </div>
-            </div>
-
-            <div class="row">
-              <button type="submit" class="button-enviar-laranja">
-                Cadastrar
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <!-- canvas do cadastro aluno -->
-      <div class="box-main" id="tela-03">
-        <form class="main-header">
-          <div class="container-direito">
-            <div class="row">
+        <div class="main-header">
+          <form class="container-direito">
+            <div class="row form-icon">
               <img class="icon-estudante" src="img/icon_estudante.png" class="logo-img" alt="ícone estudante" />
             </div>
 
@@ -440,8 +272,165 @@
                 Cadastrar
               </button>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
+      </div>
+
+      <!-- canvas do cadastro professor -->
+      <div class="box-main" id="tela-02">
+
+        <div class="main-header">
+
+          <form method="post" action="subs/cadastro-professor.php" class="container-direito">
+            <div class="row form-icon">
+              <img class="icon-prof" src="img/icon_professor.png" class="logo-img" alt="ícone professor" />
+            </div>
+
+            <div class="row">
+              <h3>Cadastro Professor(a)</h3>
+            </div>
+
+            <div class="row">
+              <div class="input-group">
+                <img src="img/usuario.png" alt="Ícone Usuário" />
+                <input type="text" name="nome" placeholder="Nome Completo" required />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-group">
+                <input type="date" name="nascimento" placeholder="Nascimento" required />
+              </div>
+
+              <div class="input-group">
+                <input type="text" name="rg" placeholder="RG" required />
+              </div>
+
+              <div class="input-group">
+                <input type="text" name="cpf" placeholder="CPF" required />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-group">
+                <select name="sexo" required>
+                  <option value="" disabled selected>Sexo</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Feminino">Feminino</option>
+                  <option value="Prefiro não informar">
+                    Prefiro não informar
+                  </option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <select name="raca" required>
+                  <option value="" disabled selected>Cor/raça</option>
+                  <option value="Branco">Branco</option>
+                  <option value="Preto">Preto</option>
+                  <option value="Pardo">Pardo</option>
+                  <option value="Amarelo">Amarelo</option>
+                  <option value="Indídena">Indídena</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <select name="sangue" required>
+                  <option value="" disabled selected>Tipo Sanguíneo</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-group">
+                <input type="text" name="formacao" placeholder="Formação acadêmica" required />
+              </div>
+
+              <div class="input-group">
+                <input type="text" name="disciplina" placeholder="Disciplina" required />
+              </div>
+
+              <div class="input-group">
+                <select name="turma" required>
+                  <option value="" disabled selected>Turma</option>
+                  <option value="6º ano">6º ano</option>
+                  <option value="7º ano">7º ano</option>
+                  <option value="8º ano">8º ano</option>
+                  <option value="9º ano">9º ano</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-group">
+                <input type="text" name="rua" placeholder="Nome da Rua" />
+              </div>
+
+              <div class="input-group">
+                <input type="text" name="numero" placeholder="Número" />
+              </div>
+
+              <div class="input-group">
+                <input type="text" name="bairro" placeholder="Bairro" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-group">
+                <input type="text" name="cidade" placeholder="Cidade" />
+              </div>
+
+              <div class="input-group">
+                <input type="text" name="complemento" placeholder="Complemento" />
+              </div>
+
+              <div class="input-group">
+                <input type="text" name="cep" placeholder="CEP" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-group">
+                <input type="text" name="telefone" placeholder="Telefone" required />
+              </div>
+
+              <div class="input-group">
+                <input type="text" name="email" placeholder="Email" required />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-group">
+                <img src="img/senha.png" alt="Ícone Senha" />
+                <input type="password" name="senha1" placeholder="Senha" required />
+              </div>
+
+              <div class="input-group">
+                <img src="img/senha.png" alt="Ícone Confirmar Senha" />
+                <input type="password" name="senha2" placeholder="Repetir senha" required />
+              </div>
+            </div>
+
+            <div class="row">
+              <button type="submit" name="submit" class="button-enviar-laranja">
+                Cadastrar
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+      <!-- canvas do avisos -->
+      <div class="box-main" id="tela-03">
       </div>
     </main>
   </div>
