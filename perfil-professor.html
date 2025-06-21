@@ -5,14 +5,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/perfil.css">
-  <title>Perfil do Responsável</title>
-
-
+  <title>Perfil do Professor</title>
 </head>
 
+  <header id="header">
+        <div class="box-header">
+
+            <div class="flex">
+
+                <a href="index.html">
+                    <img src="img/logotexto.png" alt="Logo">
+                </a>
+           </div>
+        </div>
+  </header>
 <body>
   <div class="perfil-container">
-    <h1>Perfil do Responsável</h1>
+    <h1>Perfil do Professor</h1>
     <form>
       <div class="imagem">
         <img style="width: 9rem; padding-block: 1rem;" src="img/Imagem leo.jpg" alt="">
@@ -34,15 +43,22 @@
       </div>
 
       <div>
+        <label for="senha">Senha atual:</label>
+        <input type="password" id="senha" name="senha" placeholder="Digite a senha atual.." />
+      </div>
+
+      <div>
         <label for="senha">Nova Senha:</label>
         <input type="password" id="senha" name="senha" placeholder="Digite nova senha.." />
       </div>
 
       <div>
-        <label for="filhos">Filhos Cadastrados:</label>
-        <select id="filhos" name="filhos">
-          <option>João Raimundo - 2° mod DS</option>
-          <option>Ismael Bione - 2° mod DS</option>
+        <label for="turmas">Turmas:</label>
+        <select id="turmas" name="turmas">
+          <option>1° ano A</option>
+          <option>1° ano B</option>
+          <option>3° ano A</option>
+          <option>3° ano B</option>
         </select>
       </div>
 
