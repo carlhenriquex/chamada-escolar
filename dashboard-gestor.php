@@ -67,21 +67,21 @@
             <div class="row">
               <div class="input-group">
                 <img src="img/usuario.png" alt="Ícone Usuário" />
-                <input type="text" name="nome" placeholder="Nome Completo" required/>
+                <input type="text" name="nome" placeholder="Nome Completo" required />
               </div>
             </div>
 
             <div class="row">
               <div class="input-group">
-                <input type="date" name="nascimento" placeholder="Nascimento" required/>
+                <input type="date" name="nascimento" placeholder="Nascimento" required />
               </div>
 
               <div class="input-group">
-                <input type="text" name="rg" placeholder="RG" required/>
+                <input type="text" name="rg" placeholder="RG" required />
               </div>
 
               <div class="input-group">
-                <input type="text" name="cpf" placeholder="CPF" required/>
+                <input type="text" name="cpf" placeholder="CPF" required />
               </div>
             </div>
 
@@ -160,20 +160,9 @@
                 <input type="checkbox" onclick="gerirSeletorDoResponsavel(this.checked)" />
               </div>
               <div class="input-group">
-                <select name="responsavel" id="seletor-responsavel" style="background-color: #ccc" disabled>
-                  <option value="" disabled selected>
-                    Selecione o responsável
-                  </option>
-                  <option value="resp-01">
-                    Fulano de Tal - CPF 111.111.111-11
-                  </option>
-                  <option value="resp-02">
-                    Cicrano da Silva - CPF 222.222.222-22
-                  </option>
-                  <option value="resp-03">
-                    Beltrano da Costa - CPF 333.333.333-33
-                  </option>
-                </select>
+                <input type="text" name="responsavel" id="seletor-responsavel" placeholder="Se houver responsável, informe o e-mail">
+
+                </input>
               </div>
             </div>
 
@@ -215,51 +204,51 @@
 
               <div class="row">
                 <div class="input-group">
-                  <input type="text" name="rua" placeholder="Nome da rua" required/>
+                  <input type="text" name="rua" placeholder="Nome da rua" required />
                 </div>
 
                 <div class="input-group">
-                  <input type="text" name="numero" placeholder="Número" required/>
+                  <input type="text" name="numero" placeholder="Número" required />
                 </div>
 
                 <div class="input-group">
-                  <input type="text" name="bairro" placeholder="Bairro" required/>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="input-group">
-                  <input type="text" name="cidade" placeholder="Cidade" required/>
-                </div>
-
-                <div class="input-group">
-                  <input type="text" name="complemento" placeholder="Complemento" required/>
-                </div>
-
-                <div class="input-group">
-                  <input type="text" name="cep" placeholder="CEP" required/>
+                  <input type="text" name="bairro" placeholder="Bairro" required />
                 </div>
               </div>
 
               <div class="row">
                 <div class="input-group">
-                  <input type="text" name="telefone" placeholder="Telefone" required/>
+                  <input type="text" name="cidade" placeholder="Cidade" required />
                 </div>
 
                 <div class="input-group">
-                  <input type="text" name="email" placeholder="Email" required/>
+                  <input type="text" name="complemento" placeholder="Complemento" required />
+                </div>
+
+                <div class="input-group">
+                  <input type="text" name="cep" placeholder="CEP" required />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="input-group">
+                  <input type="text" name="telefone" placeholder="Telefone" required />
+                </div>
+
+                <div class="input-group">
+                  <input type="text" name="email" placeholder="Email" required />
                 </div>
               </div>
 
               <div class="row">
                 <div class="input-group">
                   <img src="img/senha.png" alt="Ícone Senha" />
-                  <input type="password" name="senha1" placeholder="Senha" required/>
+                  <input type="password" name="senha1" placeholder="Senha" required />
                 </div>
 
                 <div class="input-group">
                   <img src="img/senha.png" alt="Ícone Confirmar Senha" />
-                  <input type="password" name="senha2" placeholder="Repetir senha" required/>
+                  <input type="password" name="senha2" placeholder="Repetir senha" required />
                 </div>
               </div>
             </div>
