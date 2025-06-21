@@ -149,8 +149,7 @@
                 <input type="checkbox" name="" onclick="gerirInputDeDeficiencia(this.checked)" />
               </div>
               <div class="input-group">
-                <input type="text" name="deficiencia" style="background-color: #ccc" id="texto-deficiencia"
-                  placeholder="Se houver deficiência, informe-a" />
+                <input type="text" name="deficiencia" style="background-color: #ccc" id="texto-deficiencia" placeholder="Se houver deficiência, informe-a" disabled/>
               </div>
             </div>
 
@@ -160,7 +159,9 @@
                 <input type="checkbox" onclick="gerirSeletorDoResponsavel(this.checked)" />
               </div>
               <div class="input-group">
-                <input type="text" name="responsavel" id="seletor-responsavel" placeholder="Se houver responsável, informe o e-mail">
+                <input type="text" name="responsavel" style="background-color: #ccc" id="seletor-responsavel" placeholder="Se houver responsável, informe o e-mail" disabled>
+
+                </input>
               </div>
             </div>
 
@@ -489,35 +490,6 @@
     </main>
   </div>
 </body>
-<script src="scripts/navegacao.js"></script>
-<script>
-  function gerirInputDeDeficiencia(statusCheckbox) {
-    let inputDeficiencia = document.getElementById("texto-deficiencia");
-    if (statusCheckbox === true) {
-      inputDeficiencia.disabled = false;
-      inputDeficiencia.style.backgroundColor = "";
-    } else {
-      inputDeficiencia.disabled = true;
-      inputDeficiencia.style.backgroundColor = "#ccc";
-    }
-  }
-
-  function gerirSeletorDoResponsavel(statusCheckbox) {
-    let seletorResponsavel = document.getElementById("seletor-responsavel");
-    let sectionResponsaveis = document.getElementById("section-responsaveis");
-    if (statusCheckbox === true) {
-      //fazer sumir os campos de cadastro do responsavel
-      seletorResponsavel.disabled = false;
-      seletorResponsavel.required = true;
-      seletorResponsavel.style.backgroundColor = "";
-      sectionResponsaveis.style.display = "none";
-    } else {
-      seletorResponsavel.disabled = true;
-      seletorResponsavel.required = false;
-      seletorResponsavel.style.backgroundColor = "#ccc";
-      sectionResponsaveis.style.display = "";
-    }
-  }
-</script>
+<script src="scripts/dashboard.js"></script>
 
 </html>
