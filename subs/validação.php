@@ -73,7 +73,7 @@ switch ($tipo_acesso) {
         break;
 
     case 'responsavel':
-        header("Location: ../dashboard-responsavel.html");
+        header("Location: ../dashboard-responsavel.php");
         break;
 }
 exit;
