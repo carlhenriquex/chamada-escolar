@@ -55,7 +55,7 @@
       <!-- canvas do cadastro alunos/responsavel -->
       <div class="box-main" id="tela-01">
         <div class="main-header">
-          <form class="container-direito">
+          <form class="container-direito" method="post" action="subs/cadastro-aluno.php">
             <div class="row form-icon">
               <img class="icon-estudante" src="img/icon_estudante.png" class="logo-img" alt="ícone estudante" />
             </div>
@@ -67,27 +67,27 @@
             <div class="row">
               <div class="input-group">
                 <img src="img/usuario.png" alt="Ícone Usuário" />
-                <input type="text" placeholder="Nome Completo" />
+                <input type="text" name="nome" placeholder="Nome Completo" required/>
               </div>
             </div>
 
             <div class="row">
               <div class="input-group">
-                <input type="date" placeholder="Nascimento" />
+                <input type="date" name="nascimento" placeholder="Nascimento" required/>
               </div>
 
               <div class="input-group">
-                <input type="text" placeholder="RG" />
+                <input type="text" name="rg" placeholder="RG" required/>
               </div>
 
               <div class="input-group">
-                <input type="text" placeholder="CPF" />
+                <input type="text" name="cpf" placeholder="CPF" required/>
               </div>
             </div>
 
             <div class="row">
               <div class="input-group">
-                <select name="setor" required>
+                <select name="sexo" required>
                   <option value="" disabled selected>Sexo</option>
                   <option value="Masculino">Masculino</option>
                   <option value="Feminino">Feminino</option>
@@ -98,7 +98,7 @@
               </div>
 
               <div class="input-group">
-                <select name="setor" required>
+                <select name="raca" required>
                   <option value="" disabled selected>Cor/raça</option>
                   <option value="Branco">Branco</option>
                   <option value="Preto">Preto</option>
@@ -109,7 +109,7 @@
               </div>
 
               <div class="input-group">
-                <select name="setor" required>
+                <select name="sangue" required>
                   <option value="" disabled selected>Tipo Sanguíneo</option>
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
@@ -133,12 +133,12 @@
               </div>
 
               <div class="input-group">
-                <select name="setor" required>
+                <select name="turma" required>
                   <option value="" disabled selected>Turma</option>
-                  <option value="1º ano  A">1º ano A</option>
-                  <option value="1º ano  B">1º ano B</option>
-                  <option value="3º ano  A">3º ano A</option>
-                  <option value="3º ano  B">3º ano B</option>
+                  <option value="6º ano">6º ano</option>
+                  <option value="7º ano">7º ano</option>
+                  <option value="8º ano">8º ano</option>
+                  <option value="9º ano">9º ano</option>
                 </select>
               </div>
             </div>
@@ -149,7 +149,7 @@
                 <input type="checkbox" name="" onclick="gerirInputDeDeficiencia(this.checked)" />
               </div>
               <div class="input-group">
-                <input type="text" name="" style="background-color: #ccc" id="texto-deficiencia"
+                <input type="text" name="deficiencia" style="background-color: #ccc" id="texto-deficiencia"
                   placeholder="Se houver deficiência, informe-a" />
               </div>
             </div>
@@ -160,7 +160,7 @@
                 <input type="checkbox" onclick="gerirSeletorDoResponsavel(this.checked)" />
               </div>
               <div class="input-group">
-                <select name="setor" id="seletor-responsavel" style="background-color: #ccc" disabled>
+                <select name="responsavel" id="seletor-responsavel" style="background-color: #ccc" disabled>
                   <option value="" disabled selected>
                     Selecione o responsável
                   </option>
@@ -185,21 +185,21 @@
               <div class="row">
                 <div class="input-group">
                   <img src="img/usuario.png" alt="Ícone Usuário" />
-                  <input type="text" placeholder="Nome Completo" />
+                  <input type="text" name="nome_responsavel" placeholder="Nome Completo" />
                 </div>
               </div>
 
               <div class="row">
                 <div class="input-group">
-                  <input type="text" placeholder="RG" />
+                  <input type="text" name="rg_responsavel" placeholder="RG" />
                 </div>
 
                 <div class="input-group">
-                  <input type="text" placeholder="CPF" />
+                  <input type="text" name="cpf_responsavel" placeholder="CPF" />
                 </div>
 
                 <div class="input-group">
-                  <select name="setor" required>
+                  <select name="parentesto" required>
                     <option value="" disabled selected>
                       Grau de parentesco
                     </option>
@@ -215,61 +215,57 @@
 
               <div class="row">
                 <div class="input-group">
-                  <input type="text" placeholder="Nome da Rua" />
+                  <input type="text" name="rua" placeholder="Nome da rua" required/>
                 </div>
 
                 <div class="input-group">
-                  <input type="text" placeholder="Número" />
+                  <input type="text" name="numero" placeholder="Número" required/>
                 </div>
 
                 <div class="input-group">
-                  <input type="text" placeholder="Bairro" />
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="input-group">
-                  <input type="text" placeholder="Cidade" />
-                </div>
-
-                <div class="input-group">
-                  <input type="text" placeholder="Complemento" />
-                </div>
-
-                <div class="input-group">
-                  <input type="text" placeholder="CEP" />
+                  <input type="text" name="bairro" placeholder="Bairro" required/>
                 </div>
               </div>
 
               <div class="row">
                 <div class="input-group">
-                  <input type="text" placeholder="Telefone" />
+                  <input type="text" name="cidade" placeholder="Cidade" required/>
                 </div>
 
                 <div class="input-group">
-                  <input type="text" placeholder="Email" />
+                  <input type="text" name="complemento" placeholder="Complemento" required/>
                 </div>
 
                 <div class="input-group">
-                  <input type="text" placeholder="Confirmar Email" />
+                  <input type="text" name="cep" placeholder="CEP" required/>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="input-group">
+                  <input type="text" name="telefone" placeholder="Telefone" required/>
+                </div>
+
+                <div class="input-group">
+                  <input type="text" name="email" placeholder="Email" required/>
                 </div>
               </div>
 
               <div class="row">
                 <div class="input-group">
                   <img src="img/senha.png" alt="Ícone Senha" />
-                  <input type="password" placeholder="Senha" />
+                  <input type="password" name="senha1" placeholder="Senha" required/>
                 </div>
 
                 <div class="input-group">
                   <img src="img/senha.png" alt="Ícone Confirmar Senha" />
-                  <input type="password" placeholder="Repetir senha" />
+                  <input type="password" name="senha2" placeholder="Repetir senha" required/>
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <button type="submit" class="button-enviar-laranja">
+              <button type="submit" name="submit" class="button-enviar-laranja">
                 Cadastrar
               </button>
             </div>
@@ -500,7 +496,7 @@
 
       <!-- canvas do relatório -->
       <div class="box-main" id="tela-04">
-        <h2>relatorios</h2>
+        <h2>relatórios</h2>
       </div>
 
     </main>
