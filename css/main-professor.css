@@ -155,3 +155,42 @@ input[type="checkbox"] {
 .botao-enviar button:hover {
   background-color: darkorange;
 }
+
+.action-btn {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.btn {
+    background-color: #436fa5;
+    border: none;
+    padding: 5px 10px;
+    color: #fff;
+    font-size: 0.9em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #072142;
+}
+
+.submit-btn {
+    background-color: #ffb74d;
+    border: none;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+.submit-btn:hover {
+    background-color: #ffa726;
+}
