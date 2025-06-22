@@ -144,7 +144,7 @@ header a {
   white-space: nowrap;
 }
 
-.main-header-title-input {
+.title-avisos {
   display: block;
   width: 100%;
   min-width: 120px;
@@ -159,7 +159,7 @@ header a {
   margin-top: 0;
 }
 
-.main-header-desc-textarea {
+.desc-avisos {
   width: 100%;
   min-width: 180px;
   padding: 0.5rem;

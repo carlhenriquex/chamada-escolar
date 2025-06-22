@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if ((!isset($_SESSION["email"]) == true)) {
+  header("Location: login.php");
+} else {
+  $logado = $_SESSION["email"];
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -37,7 +48,8 @@
         <a class="button-enviar" data-target="tela-01">Cadastro de Aluno</a>
         <a class="button-enviar" data-target="tela-02">Cadastro de Professor</a>
         <a class="button-enviar" data-target="tela-03">Avisos</a>
-        <a class="button-enviar" data-target="tela-04">Relatório</a>
+        <a class="button-enviar" data-target="tela-04">Gestão de usuários</a>
+        <a class="button-enviar" style="background-color: red;" href="subs/sair.php">Sair</a>
 
         <a href="perfil.html" class="button-enviar perfil-mobile">
           Perfil
@@ -149,7 +161,7 @@
                 <input type="checkbox" name="" onclick="gerirInputDeDeficiencia(this.checked)" />
               </div>
               <div class="input-group">
-                <input type="text" name="deficiencia" style="background-color: #ccc" id="texto-deficiencia" placeholder="Se houver deficiência, informe-a" disabled/>
+                <input type="text" name="deficiencia" style="background-color: #ccc" id="texto-deficiencia" placeholder="Se houver deficiência, informe-a" disabled />
               </div>
             </div>
 
@@ -416,13 +428,13 @@
 
       <!-- canvas do avisos -->
       <div class="box-main" id="tela-03">
-        <form class="main-header">
+        <form action="subs/addaviso.php" method="post" class="main-header">
           <div class="main-header-row">
             <h4>Adicione um novo aviso:</h4>
             <button type="submit" class="button-enviar-laranja">Enviar</button>
           </div>
-          <input type="text" placeholder="Título" class="main-header-title-input" />
-          <textarea placeholder="Descrição" rows="2" class="main-header-desc-textarea"></textarea>
+          <input type="text" placeholder="Título" name="titulo_aviso" class="title-avisos" required />
+          <textarea placeholder="Descrição" rows="2" name="aviso" class="desc-avisos" required></textarea>
         </form>
 
         <section class="home-section">
@@ -484,7 +496,13 @@
 
       <!-- canvas do relatório -->
       <div class="box-main" id="tela-04">
-        <h2>relatórios</h2>
+        <h2>gestao de usuarios</h2>
+        <?php
+        if (isset($_SESSION["mensagem"])) {
+          echo "<p class='mensagem'>" . $_SESSION["mensagem"] . "</p>";
+          unset($_SESSION["mensagem"]);
+        }
+        ?>
       </div>
 
     </main>

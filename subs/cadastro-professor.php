@@ -3,10 +3,10 @@ session_start();
 
 include("../config/connection.php");
 
-function redirecionarComErro($mensagem) {
+function redirecionar($mensagem) {
     $_SESSION["mensagem"] = $mensagem;
 
-    global $stmt, $verifica, $conn;
+    global $stmt, $verifica, $conexao;
     if (isset($stmt)) $stmt->close();
     if (isset($verifica)) $verifica->close();
     if (isset($conexao)) $conexao->close();
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     if ($senha !== $confirmar_senha) {
-        redirecionarComErro("Erro: As senhas não coincidem.");
+        redirecionar("Erro: As senhas não coincidem.");
     }
 
     $verifica = $conexao->prepare("SELECT id FROM professores WHERE email = ?");
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $verifica->store_result();
 
     if ($verifica->num_rows > 0) {
-        redirecionarComErro("E-mail já cadastrado no sistema!");
+        redirecionar("E-mail já cadastrado no sistema!");
     }
 
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
@@ -82,9 +82,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     );
 
     if ($stmt->execute()) {
-        redirecionarComErro("Cadastro realizado com sucesso!");
+        redirecionar("Cadastro realizado com sucesso!");
     } else {
-        redirecionarComErro("Erro ao cadastrar.");
+        redirecionar("Erro ao cadastrar.");
     }
 
     $stmt->close();

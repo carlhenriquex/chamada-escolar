@@ -19,7 +19,6 @@ sidebarButtons.forEach((btn) => {
         mainSections.forEach((section) => {
             section.style.display = section.id === targetId ? "flex" : "none";
         });
-        // Fecha o menu sanduíche no mobile ao clicar
         sidebar.classList.remove("sidebar-open");
         menuToggle.classList.remove("open");
     });
@@ -29,6 +28,8 @@ sidebarButtons.forEach((btn) => {
 mainSections.forEach((section, idx) => {
     section.style.display = idx === 0 ? "flex" : "none";
 });
+
+// CHECKBOX DEFICIENCIA E RESPONSAVEL DO CADASTRO DE ALUNO
 
 function gerirInputDeDeficiencia(statusCheckbox) {
     let inputDeficiencia = document.getElementById("texto-deficiencia");
@@ -40,8 +41,6 @@ function gerirInputDeDeficiencia(statusCheckbox) {
         inputDeficiencia.style.backgroundColor = "#ccc";
     }
 }
-
-// CHECKBOX DEFICIENCIA E RESPONSAVEL DO CADASTRO DE ALUNO
 
 function gerirSeletorDoResponsavel(statusCheckbox) {
     let seletorResponsavel = document.getElementById("seletor-responsavel");

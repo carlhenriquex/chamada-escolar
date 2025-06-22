@@ -52,7 +52,7 @@ if ($result->num_rows == 0) {
 
 $usuario = $result->fetch_assoc();
 
-if ($usuario["senha"] !== $password) {
+if (!password_verify($password, $usuario["senha"])) {
     $_SESSION["mensagem"] = "Senha incorreta:";
     header("Location: ../login.php");
     exit;
@@ -69,7 +69,7 @@ switch ($tipo_acesso) {
         break;
 
     case 'professor':
-        header("Location: ../dashboard-professor.html");
+        header("Location: ../dashboard-professor.php");
         break;
 
     case 'responsavel':
