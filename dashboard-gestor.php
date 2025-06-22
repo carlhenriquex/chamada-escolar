@@ -518,7 +518,7 @@ if ((!isset($_SESSION["email"]) == true)) {
               echo "<ul class='list-group'>";
               while ($p = $resultado->fetch_assoc()) {
                 $id = $p['id'];
-                echo "<li class='list-group-item' id='professor-$id'>";
+                echo "<li class='list-group-item' id='professor-{$id}'>";
 
                 // Dados visíveis
                 echo "<div class='dados-visiveis'>";
@@ -534,7 +534,7 @@ if ((!isset($_SESSION["email"]) == true)) {
                 echo "</div>";
 
                 // Formulário de edição embutido
-                echo "<form method='post' action='subs/editar-professor.php' id='form-editar-$id' style='display:none; margin-top:10px;'>";
+                echo "<form method='post' action='subs/editar-professor.php' id='form-editar-{$id}' style='display:none; margin-top:10px;'>";
 
                 echo "<input type='hidden' name='id' value='{$id}'>";
 
@@ -614,7 +614,7 @@ if ((!isset($_SESSION["email"]) == true)) {
               echo "<ul class='list-group'>";
               while ($a = $resultado->fetch_assoc()) {
                 $id = $a['id'];
-                echo "<li class='list-group-item'>";
+                echo "<li class='list-group-item' id='alunos-{$id}>";
 
                 // Dados visíveis
                 echo "<div class='dados-visiveis'>";
@@ -631,7 +631,7 @@ if ((!isset($_SESSION["email"]) == true)) {
                 echo "</div>";
                 echo "</div>";
 
-                echo "<form method='post' action='subs/editar-aluno.php' id='form-editar-$id' style='display:none; margin-top:10px;'>";
+                echo "<form method='post' action='subs/editar-aluno.php' id='form-editar-{$id}' style='display:none; margin-top:10px;'>";
 
                 echo "<input type='hidden' name='id' value='{$a['id']}'>";
 
