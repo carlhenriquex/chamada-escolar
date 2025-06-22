@@ -81,6 +81,45 @@
   margin-top: 8px;
 }
 
+/* TELA 4 - GESTÃO DE USUÁRIOS CADASTRADOS */
+
+.tab-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tab-nav button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.tab-nav button.active {
+  background-color: #ccc;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.list-group {
+  list-style: none;
+  padding: 0;
+}
+
+.list-group-item {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+
 /* Sidebar responsiva */
 @media (max-width: 900px) {
   .perfil-desktop {

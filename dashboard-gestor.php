@@ -16,7 +16,9 @@ if ((!isset($_SESSION["email"]) == true)) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Gestor</title>
+
   <link rel="stylesheet" href="css/main-gestor.css" />
+
 </head>
 
 <body>
@@ -496,18 +498,268 @@ if ((!isset($_SESSION["email"]) == true)) {
 
       <!-- canvas do relatório -->
       <div class="box-main" id="tela-04">
-        <h2>gestao de usuarios</h2>
-        <?php
-        if (isset($_SESSION["mensagem"])) {
-          echo "<p class='mensagem'>" . $_SESSION["mensagem"] . "</p>";
-          unset($_SESSION["mensagem"]);
-        }
-        ?>
+        <div class="container-admin">
+          <h1 class="mb-4">gestão de usuários</h1>
+
+          <div class="tab-nav">
+            <button class="tab-link active" data-target="professores">Professores</button>
+            <button class="tab-link" data-target="alunos">Alunos</button>
+            <button class="tab-link" data-target="responsaveis">Responsáveis</button>
+            <button class="tab-link" data-target="avisos">Avisos</button>
+          </div>
+
+          <div class="tab-content active" id="professores">
+            <?php
+            include_once("config/connection.php");
+            $sql = "SELECT * FROM professores";
+            $resultado = $conexao->query($sql);
+
+            if ($resultado->num_rows > 0) {
+              echo "<ul class='list-group'>";
+              while ($p = $resultado->fetch_assoc()) {
+                $id = $p['id'];
+                echo "<li class='list-group-item' id='professor-$id'>";
+
+                // Dados visíveis
+                echo "<div class='dados-visiveis'>";
+                echo "<strong>{$p['nome']}</strong> - {$p['email']}";
+
+                echo "<div style='margin-top: 5px;'>";
+                echo "<button type='button' onclick=\"toggleEditar('$id')\">Editar</button>";
+                echo "<form method='post' action='subs/deletar-professor.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este professor?');\">";
+                echo "<input type='hidden' name='delete_id' value='{$id}'>";
+                echo "<button type='submit'>Remover</button>";
+                echo "</form>";
+                echo "</div>";
+                echo "</div>";
+
+                // Formulário de edição embutido
+                echo "<form method='post' action='subs/editar-professor.php' id='form-editar-$id' style='display:none; margin-top:10px;'>";
+
+                echo "<input type='hidden' name='id' value='{$id}'>";
+
+                // Linha 1 - nome
+                echo "<input type='text' name='nome' value='" . htmlspecialchars($p['nome']) . "' placeholder='Nome completo' required>";
+
+                // Linha 2 - nascimento, RG, CPF
+                echo "<input type='date' name='nascimento' value='{$p['nascimento']}' required>";
+                echo "<input type='text' name='rg' value='{$p['rg']}' placeholder='RG' required>";
+                echo "<input type='text' name='cpf' value='{$p['cpf']}' placeholder='CPF' required>";
+
+                // Linha 3 - sexo, raça, tipo sanguíneo
+                echo "<select name='sexo' required>";
+                foreach (['Masculino', 'Feminino', 'Prefiro não informar'] as $opcao) {
+                  $selected = ($p['sexo'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<select name='raca' required>";
+                foreach (['Branco', 'Preto', 'Pardo', 'Amarelo', 'Indídena'] as $opcao) {
+                  $selected = ($p['raca'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<select name='sangue' required>";
+                foreach (['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $opcao) {
+                  $selected = ($p['sangue'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                // Linha 4 - formação, disciplina, turma
+                echo "<input type='text' name='formacao' value='{$p['formacao']}' placeholder='Formação acadêmica' required>";
+                echo "<input type='text' name='disciplina' value='{$p['disciplina']}' placeholder='Disciplina' required>";
+
+                echo "<select name='turma' required>";
+                foreach (['6º ano', '7º ano', '8º ano', '9º ano'] as $opcao) {
+                  $selected = ($p['turma'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                // Linha 5 - endereço
+                echo "<input type='text' name='rua' value='{$p['rua']}' placeholder='Rua' required>";
+                echo "<input type='text' name='numero' value='{$p['numero']}' placeholder='Número' required>";
+                echo "<input type='text' name='bairro' value='{$p['bairro']}' placeholder='Bairro' required>";
+                echo "<input type='text' name='cidade' value='{$p['cidade']}' placeholder='Cidade' required>";
+                echo "<input type='text' name='complemento' value='{$p['complemento']}' placeholder='Complemento'>";
+                echo "<input type='text' name='cep' value='{$p['cep']}' placeholder='CEP' required>";
+
+                // Linha 6 - contato
+                echo "<input type='text' name='telefone' value='{$p['telefone']}' placeholder='Telefone' required>";
+                echo "<input type='email' name='email' value='{$p['email']}' placeholder='Email' required>";
+
+                // Botões
+                echo "<button type='submit'>Salvar</button>";
+                echo "<button type='button' onclick=\"toggleEditar('$id')\">Cancelar</button>";
+
+                echo "</form>";
+                echo "</li>";
+              }
+              echo "</ul>";
+            } else {
+              echo "<p>Nenhum professor cadastrado.</p>";
+            }
+            ?>
+
+          </div>
+
+          <div class="tab-content" id="alunos">
+            <?php
+            $sql = "SELECT * FROM alunos";
+            $resultado = $conexao->query($sql);
+            if ($resultado->num_rows > 0) {
+              echo "<ul class='list-group'>";
+              while ($a = $resultado->fetch_assoc()) {
+                $id = $a['id'];
+                echo "<li class='list-group-item'>";
+
+                // Dados visíveis
+                echo "<div class='dados-visiveis'>";
+                echo "<strong>{$a['nome']}</strong> - {$a['turma']}";
+
+                echo "<div style='margin-top: 5px;'>";
+                echo "<button type='button' onclick=\"toggleEditar('$id')\">Editar</button>";
+
+                echo "<form method='post' action='subs/deletar-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
+                echo "<input type='hidden' name='delete_id' value='{$id}'>";
+                echo "<button type='submit'>Remover</button>";
+                echo "</form>";
+
+                echo "</div>";
+                echo "</div>";
+
+                echo "<form method='post' action='subs/editar-aluno.php' id='form-editar-$id' style='display:none; margin-top:10px;'>";
+
+                echo "<input type='hidden' name='id' value='{$a['id']}'>";
+
+                echo "<input type='text' name='nome' value='{$a['nome']}' required>";
+                echo "<input type='date' name='nascimento' value='{$a['nascimento']}' required>";
+                echo "<input type='text' name='rg' value='{$a['rg']}' required>";
+                echo "<input type='text' name='cpf' value='{$a['cpf']}' required>";
+
+                echo "<select name='sexo' required>";
+                $sexos = ['Masculino', 'Feminino', 'Prefiro não informar'];
+                foreach ($sexos as $opcao) {
+                  $selected = $a["sexo"] === $opcao ? "selected" : "";
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<select name='raca' required>";
+                $racas = ['Branco', 'Preto', 'Pardo', 'Amarelo', 'Indídena'];
+                foreach ($racas as $opcao) {
+                  $selected = $a["raca"] === $opcao ? "selected" : "";
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<select name='sangue' required>";
+                $tipos = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+                foreach ($tipos as $opcao) {
+                  $selected = $a["sangue"] === $opcao ? "selected" : "";
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<input type='text' name='nacionalidade' value='{$a['nacionalidade']}' required>";
+                echo "<input type='text' name='naturalidade' value='{$a['naturalidade']}' required>";
+
+                echo "<select name='turma' required>";
+                $turmas = ['6º ano', '7º ano', '8º ano', '9º ano'];
+                foreach ($turmas as $opcao) {
+                  $selected = $a["turma"] === $opcao ? "selected" : "";
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<input type='text' name='deficiencia' value='{$a['deficiencia']}'>";
+
+                echo "<label>Responsável:</label>";
+                echo "<select name='responsavel_id'>";
+                echo "<option value=''>Nenhum</option>";
+
+                // Lista de responsáveis para dropdown
+                $res = $conexao->query("SELECT id, nome FROM responsaveis");
+                while ($resp = $res->fetch_assoc()) {
+                  $selected = $a["responsavel_id"] == $resp["id"] ? "selected" : "";
+                  echo "<option value='{$resp["id"]}' $selected>{$resp["nome"]}</option>";
+                }
+
+                echo "</select>";
+
+                echo "<button type='submit'>Salvar</button>";
+                echo "</form>";
+
+                echo "</li>";
+              }
+              echo "</ul>";
+            } else {
+              echo "<p>Nenhum aluno cadastrado.</p>";
+            }
+            ?>
+          </div>
+
+          <div class="tab-content" id="responsaveis">
+            <?php
+            $sql = "SELECT * FROM responsaveis";
+            $resultado = $conexao->query($sql);
+            if ($resultado->num_rows > 0) {
+              echo "<ul class='list-group'>";
+              while ($r = $resultado->fetch_assoc()) {
+                echo "<li class='list-group-item'><strong>" . $r["nome"] . "</strong> - " . $r["email"];
+
+                echo "<form method='post' onsubmit=\"return confirm('Tem certeza que deseja remover este responsável?');\">";
+                echo "<input type='hidden' name='delete_id' value='{$r['id']}'>";
+                echo "<button type='submit'>Remover</button>";
+                echo "</form>";
+                echo "</li>";
+              }
+              echo "</ul>";
+            } else {
+              echo "<p>Nenhum responsável cadastrado.</p>";
+            }
+            ?>
+          </div>
+
+          <div class="tab-content" id="avisos">
+            <?php
+            $sql = "SELECT avisos.*, 
+              CASE 
+                  WHEN autor_tipo = 'gestor' THEN gestores.username
+                  WHEN autor_tipo = 'professor' THEN professores.nome 
+              END AS autor_nome
+              FROM avisos
+              LEFT JOIN gestores ON autor_tipo = 'gestor' AND autor_id = gestores.id
+              LEFT JOIN professores ON autor_tipo = 'professor' AND autor_id = professores.id
+              ORDER BY data_publicacao DESC";
+            $resultado = $conexao->query($sql);
+            if ($resultado->num_rows > 0) {
+              echo "<ul class='list-group'>";
+              while ($av = $resultado->fetch_assoc()) {
+                echo "<li class='list-group-item'><strong>" . $av["titulo"] . "</strong> - " . $av["descricao"] . "<br><small>Por: " . $av["autor_nome"] . " em " . $av["data_publicacao"] . "</small>";
+
+                echo "<form method='post' onsubmit=\"return confirm('Tem certeza que deseja remover este aviso?');\">";
+                echo "<input type='hidden' name='delete_id' value='{$av['id']}'>";
+                echo "<button type='submit'>Remover</button>";
+                echo "</form>";
+                echo "</li>";
+              }
+              echo "</ul>";
+            } else {
+              echo "<p>Nenhum aviso publicado.</p>";
+            }
+            ?>
+          </div>
+        </div>
       </div>
 
     </main>
   </div>
 </body>
 <script src="scripts/dashboard.js"></script>
+<script src="scripts/gestaoUsers.js"></script>
 
 </html>
