@@ -22,6 +22,7 @@ if ((!isset($_SESSION["email"]) == true)) {
 </head>
 
 <body>
+  <!-- HEADER -->
   <header>
     <img src="img/logotexto.png" alt="" />
     <h3>Dashboard Gestor</h3>
@@ -45,6 +46,8 @@ if ((!isset($_SESSION["email"]) == true)) {
   </header>
 
   <div class="container">
+
+    <!-- MENU LATERAL -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-buttons">
         <a class="button-enviar" data-target="tela-01">Cadastro de Aluno</a>
@@ -65,8 +68,9 @@ if ((!isset($_SESSION["email"]) == true)) {
       </div>
     </aside>
 
+    <!-- TELA CENTRAL DO DASHBOARD -->
     <main>
-      <!-- canvas do cadastro alunos/responsavel -->
+      <!-- TELA DO CADASTRO ALUNO/RESPONSAVEL -->
       <div class="box-main" id="tela-01">
         <div class="main-header">
           <form class="container-direito" method="post" action="subs/cadastro-aluno.php">
@@ -275,7 +279,7 @@ if ((!isset($_SESSION["email"]) == true)) {
         </div>
       </div>
 
-      <!-- canvas do cadastro professor -->
+      <!-- TELA DO CADASTRO PROFESSOR -->
       <div class="box-main" id="tela-02">
 
         <div class="main-header">
@@ -428,7 +432,7 @@ if ((!isset($_SESSION["email"]) == true)) {
         </div>
       </div>
 
-      <!-- canvas do avisos -->
+      <!-- TELA DO CADASTRO AVISOS -->
       <div class="box-main" id="tela-03">
         <form action="subs/addaviso.php" method="post" class="main-header">
           <div class="main-header-row">
@@ -496,7 +500,7 @@ if ((!isset($_SESSION["email"]) == true)) {
         </section>
       </div>
 
-      <!-- canvas do relatório -->
+      <!-- GESTAO DE USUARIOS, VISUALIZACAO, EDICAO, EXCLUSAO -->
       <div class="box-main" id="tela-04">
         <div class="container-admin">
           <h1 class="mb-4">gestão de usuários</h1>
@@ -508,6 +512,7 @@ if ((!isset($_SESSION["email"]) == true)) {
             <button class="tab-link" data-target="avisos">Avisos</button>
           </div>
 
+          <!-- LISTAGENS PROFESSORES ALUNOS RESPONSAVEIS AVISOS -->
           <div class="tab-content active" id="professores">
             <?php
             include_once("config/connection.php");

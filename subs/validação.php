@@ -19,7 +19,6 @@ $email = mysqli_real_escape_string($conexao, $_POST['email']);
 $password = $_POST['senha'];
 $tipo_acesso = $_POST['tipo_acesso'];
 
-
 switch ($tipo_acesso) {
     case 'gestor':
         $table = "gestores";
