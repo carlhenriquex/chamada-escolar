@@ -525,7 +525,8 @@ if ((!isset($_SESSION["email"]) == true)) {
                 echo "<strong>{$p['nome']}</strong> - {$p['email']}";
 
                 echo "<div style='margin-top: 5px;'>";
-                echo "<button type='button' onclick=\"toggleEditar('$id')\">Editar</button>";
+                echo "<button type='button' onclick=\"toggleEditar('professor-$id')\">Editar</button>";
+
                 echo "<form method='post' action='subs/deletar-professor.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este professor?');\">";
                 echo "<input type='hidden' name='delete_id' value='{$id}'>";
                 echo "<button type='submit'>Remover</button>";
@@ -534,7 +535,7 @@ if ((!isset($_SESSION["email"]) == true)) {
                 echo "</div>";
 
                 // Formulário de edição embutido
-                echo "<form method='post' action='subs/editar-professor.php' id='form-editar-{$id}' style='display:none; margin-top:10px;'>";
+                echo "<form method='post' action='subs/editar-professor.php' id='form-editar-professor-{$id}' style='display:none; margin-top:10px;'>";
 
                 echo "<input type='hidden' name='id' value='{$id}'>";
 
@@ -610,87 +611,81 @@ if ((!isset($_SESSION["email"]) == true)) {
             <?php
             $sql = "SELECT * FROM alunos";
             $resultado = $conexao->query($sql);
+
             if ($resultado->num_rows > 0) {
               echo "<ul class='list-group'>";
               while ($a = $resultado->fetch_assoc()) {
                 $id = $a['id'];
-                echo "<li class='list-group-item' id='alunos-{$id}>";
+                echo "<li class='list-group-item' id='aluno-{$id}'>";
 
                 // Dados visíveis
                 echo "<div class='dados-visiveis'>";
                 echo "<strong>{$a['nome']}</strong> - {$a['turma']}";
-
                 echo "<div style='margin-top: 5px;'>";
-                echo "<button type='button' onclick=\"toggleEditar('$id')\">Editar</button>";
+                echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
 
                 echo "<form method='post' action='subs/deletar-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
                 echo "<input type='hidden' name='delete_id' value='{$id}'>";
                 echo "<button type='submit'>Remover</button>";
                 echo "</form>";
-
                 echo "</div>";
                 echo "</div>";
 
-                echo "<form method='post' action='subs/editar-aluno.php' id='form-editar-{$id}' style='display:none; margin-top:10px;'>";
+                // Formulário de edição embutido
 
-                echo "<input type='hidden' name='id' value='{$a['id']}'>";
+                echo "<form method='post' action='subs/editar-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
+                echo "<input type='hidden' name='id' value='{$id}'>";
 
-                echo "<input type='text' name='nome' value='{$a['nome']}' required>";
+                echo "<input type='text' name='nome' value='{$a['nome']}' placeholder='Nome completo' required>";
                 echo "<input type='date' name='nascimento' value='{$a['nascimento']}' required>";
-                echo "<input type='text' name='rg' value='{$a['rg']}' required>";
-                echo "<input type='text' name='cpf' value='{$a['cpf']}' required>";
+                echo "<input type='text' name='rg' value='{$a['rg']}' placeholder='RG' required>";
+                echo "<input type='text' name='cpf' value='{$a['cpf']}' placeholder='CPF' required>";
 
                 echo "<select name='sexo' required>";
-                $sexos = ['Masculino', 'Feminino', 'Prefiro não informar'];
-                foreach ($sexos as $opcao) {
-                  $selected = $a["sexo"] === $opcao ? "selected" : "";
+                foreach (['Masculino', 'Feminino', 'Prefiro não informar'] as $opcao) {
+                  $selected = ($a['sexo'] == $opcao) ? 'selected' : '';
                   echo "<option value='$opcao' $selected>$opcao</option>";
                 }
                 echo "</select>";
 
                 echo "<select name='raca' required>";
-                $racas = ['Branco', 'Preto', 'Pardo', 'Amarelo', 'Indídena'];
-                foreach ($racas as $opcao) {
-                  $selected = $a["raca"] === $opcao ? "selected" : "";
+                foreach (['Branco', 'Preto', 'Pardo', 'Amarelo', 'Indídena'] as $opcao) {
+                  $selected = ($a['raca'] == $opcao) ? 'selected' : '';
                   echo "<option value='$opcao' $selected>$opcao</option>";
                 }
                 echo "</select>";
 
                 echo "<select name='sangue' required>";
-                $tipos = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-                foreach ($tipos as $opcao) {
-                  $selected = $a["sangue"] === $opcao ? "selected" : "";
+                foreach (['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $opcao) {
+                  $selected = ($a['sangue'] == $opcao) ? 'selected' : '';
                   echo "<option value='$opcao' $selected>$opcao</option>";
                 }
                 echo "</select>";
 
-                echo "<input type='text' name='nacionalidade' value='{$a['nacionalidade']}' required>";
-                echo "<input type='text' name='naturalidade' value='{$a['naturalidade']}' required>";
+                echo "<input type='text' name='nacionalidade' value='{$a['nacionalidade']}' placeholder='Nacionalidade' required>";
+                echo "<input type='text' name='naturalidade' value='{$a['naturalidade']}' placeholder='Naturalidade' required>";
 
                 echo "<select name='turma' required>";
-                $turmas = ['6º ano', '7º ano', '8º ano', '9º ano'];
-                foreach ($turmas as $opcao) {
-                  $selected = $a["turma"] === $opcao ? "selected" : "";
+                foreach (['6º ano', '7º ano', '8º ano', '9º ano'] as $opcao) {
+                  $selected = ($a['turma'] == $opcao) ? 'selected' : '';
                   echo "<option value='$opcao' $selected>$opcao</option>";
                 }
                 echo "</select>";
 
-                echo "<input type='text' name='deficiencia' value='{$a['deficiencia']}'>";
+                echo "<input type='text' name='deficiencia' value='{$a['deficiencia']}' placeholder='Deficiência (se houver)'>";
 
                 echo "<label>Responsável:</label>";
                 echo "<select name='responsavel_id'>";
                 echo "<option value=''>Nenhum</option>";
-
-                // Lista de responsáveis para dropdown
                 $res = $conexao->query("SELECT id, nome FROM responsaveis");
                 while ($resp = $res->fetch_assoc()) {
-                  $selected = $a["responsavel_id"] == $resp["id"] ? "selected" : "";
-                  echo "<option value='{$resp["id"]}' $selected>{$resp["nome"]}</option>";
+                  $selected = ($a['responsavel_id'] == $resp['id']) ? 'selected' : '';
+                  echo "<option value='{$resp['id']}' $selected>{$resp['nome']}</option>";
                 }
-
                 echo "</select>";
 
                 echo "<button type='submit'>Salvar</button>";
+                echo "<button type='button' onclick=\"toggleEditar('{$id}')\">Cancelar</button>";
                 echo "</form>";
 
                 echo "</li>";

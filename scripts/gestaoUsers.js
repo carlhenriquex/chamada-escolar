@@ -20,5 +20,9 @@ tabLinks.forEach(btn => {
 
 function toggleEditar(id) {
   const form = document.getElementById('form-editar-' + id);
-  form.style.display = form.style.display === 'block' ? 'none' : 'block';
+  if (form) {
+    form.style.display = form.style.display === 'block' ? 'none' : 'block';
+  } else {
+    console.warn('Formulário de edição não encontrado para ID:', id);
+  }
 }
