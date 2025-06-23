@@ -32,13 +32,13 @@
             <img src="img/rodape_logo.png" class="logo-img" alt="Logo Chamada Escolar">
 
             <div class="input-group tipo-acesso">
-                <input type="radio" name="tipo_acesso" id="gestor" value="gestor" required>
+                <input type="radio" name="tipo" id="gestor" value="gestor">
                 <label for="gestor">Gestor</label>
 
-                <input type="radio" name="tipo_acesso" id="professor" value="professor">
+                <input type="radio" name="tipo" id="professor" value="professor">
                 <label for="professor">Professor</label>
 
-                <input type="radio" name="tipo_acesso" id="responsavel" value="responsavel">
+                <input type="radio" name="tipo" id="responsavel" value="responsavel">
                 <label for="responsavel">Responsável</label>
             </div>
 

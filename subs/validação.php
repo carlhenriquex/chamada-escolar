@@ -10,16 +10,16 @@ function redirecionar($mensagem)
 
 if (
     isset($_POST['submit']) &&
-    (empty($_POST['email']) || empty($_POST['senha']) || empty($_POST['tipo_acesso']))
+    (empty($_POST['email']) || empty($_POST['senha'] || empty($_POST['tipo'])))
 ) {
-    redirecionar("Preencha os campos");
+    redirecionar("Preencha os campos e selecione um usuário");
 }
 
 include("../config/connection.php");
 
 $email = $_POST['email'];
 $password = $_POST['senha'];
-$tipo = $_POST['tipo_acesso'];
+$tipo = $_POST['tipo'];
 
 switch ($tipo) {
     case 'gestor':

@@ -57,21 +57,17 @@ body {
 }
 
 .logo-img {
-    width: 20rem;
+    width: 18rem;
     height: auto;
     margin-bottom: 1rem;
 }
 
-.input-group {
-    position: relative;
-    width: 70%;
-    margin-bottom: .9rem;
-}
-
 .tipo-acesso {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: .7rem;
     margin-bottom: 20px;
+    width: 90%;
 }
 
 .tipo-acesso input[type="radio"] {
@@ -80,15 +76,15 @@ body {
 
 .tipo-acesso label {
     flex: 1;
+    min-width: 100px;
     text-align: center;
     padding: 10px 0;
-    margin: 0 5px;
     border: 1px solid #ccc;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    font-size: .9rem;
-    font-weight: 500;
+    font-size: .85rem;
+    font-weight: 600;
     color: #333;
     background-color: #f7f7f7;
 }
@@ -99,6 +95,11 @@ body {
     border-color: #000850;
 }
 
+.input-group {
+    position: relative;
+    width: 80%;
+    margin-bottom: .9rem;
+}
 
 .input-group input {
     width: 100%;
@@ -107,6 +108,10 @@ body {
     border-radius: 50px;
     font-size: 1rem;
     outline: none;
+}
+
+.input-group input::placeholder {
+    font-size: .9rem;
 }
 
 .input-group img {
@@ -210,11 +215,19 @@ body {
     }
 
     .container-direito form {
-        width: 65%;
+        width: 75%;
+    }
+
+    .tipo-acesso label {
+        min-width: 90px;
     }
 
     .logo-img {
-        width: 15rem;
+        width: 13rem;
+    }
+
+    .tipo-acesso label {
+        font-size: .75rem;
     }
 }
 
@@ -222,6 +235,10 @@ body {
 
     .container-direito form {
         width: 95%;
+    }
+
+    .tipo-acesso {
+        gap: .4rem;
     }
 
     .tipo-acesso label {
@@ -234,18 +251,23 @@ body {
         font-size: .85rem;
     }
 
+    .input-group input::placeholder {
+        font-size: .8rem;
+    }
+
     .esqueci-senha {
         font-size: .8rem;
     }
 
+    .input-group,
     .google-login,
     .login-button {
         width: 90%;
     }
 
     .google-login img {
-        width: 18px;
-        height: 18px;
+        width: 16px;
+        height: 16px;
     }
 
     form .logo-img {
