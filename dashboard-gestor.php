@@ -516,7 +516,7 @@ if ((!isset($_SESSION["email"]) == true)) {
           <div class="tab-content active" id="professores">
             <?php
             include_once("config/connection.php");
-            $sql = "SELECT * FROM professores";
+            $sql = "SELECT * FROM professores WHERE removido_em IS NULL";
             $resultado = $conexao->query($sql);
 
             if ($resultado->num_rows > 0) {
@@ -532,7 +532,7 @@ if ((!isset($_SESSION["email"]) == true)) {
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('professor-$id')\">Editar</button>";
 
-                echo "<form method='post' action='subs/deletar-professor.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este professor?');\">";
+                echo "<form method='post' action='subs/del-edit-professor.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este professor?');\">";
                 echo "<input type='hidden' name='delete_id' value='{$id}'>";
                 echo "<button type='submit'>Remover</button>";
                 echo "</form>";
@@ -540,7 +540,7 @@ if ((!isset($_SESSION["email"]) == true)) {
                 echo "</div>";
 
                 // Formulário de edição embutido
-                echo "<form method='post' action='subs/editar-professor.php' id='form-editar-professor-{$id}' style='display:none; margin-top:10px;'>";
+                echo "<form method='post' action='subs/del-edit-professor.php' id='form-editar-professor-{$id}' style='display:none; margin-top:10px;'>";
 
                 echo "<input type='hidden' name='id' value='{$id}'>";
 
@@ -614,7 +614,7 @@ if ((!isset($_SESSION["email"]) == true)) {
 
           <div class="tab-content" id="alunos">
             <?php
-            $sql = "SELECT * FROM alunos";
+            $sql = "SELECT * FROM alunos WHERE removido_em IS NULL";
             $resultado = $conexao->query($sql);
 
             if ($resultado->num_rows > 0) {
@@ -704,7 +704,7 @@ if ((!isset($_SESSION["email"]) == true)) {
 
           <div class="tab-content" id="responsaveis">
             <?php
-            $sql = "SELECT * FROM responsaveis";
+            $sql = "SELECT * FROM responsaveis WHERE removido_em IS NULL";
             $resultado = $conexao->query($sql);
             if ($resultado->num_rows > 0) {
               echo "<ul class='list-group'>";
