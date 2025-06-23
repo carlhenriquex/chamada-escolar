@@ -5,6 +5,10 @@ body {
     flex-direction: row;
 }
 
+.bi {
+    color: #fff;
+}
+
 .btn-voltar {
     position: fixed;
     top: 20px;

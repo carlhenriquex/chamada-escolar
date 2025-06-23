@@ -92,42 +92,42 @@ if ((!isset($_SESSION["email"]) == true)) {
         </form>
 
         <section class="home-section">
-          <h1>AVISOS!</h1>
+          <h1>Avisos da Turma</h1>
           <div class="feed">
-            <div class="feed-item">
-              <p><strong>Comunicado: FERIADO MUNICIPAL!</strong></p>
-              <div class="repo-card">
-                Boa Tarde! Comunicamos que dia 20 de julho não haverá aula pois será feriado em Camaragibe
-              </div>
-              <small>4 horas atrás</small>
-            </div>
-            <div class="feed-item">
-              <p><strong>Comunicado: Trabalho Extra</strong></p>
-              <div class="repo-card">
-                Cada aluno será responsável por construir uma maquete que represente diferentes aspectos do Egito antigo: A vida no vale do Nilo, a construção de grandes monumentos, a agricultura, a vida social, as contribuições na arquitetura, medicina, na escrita, entre outros.
-              </div>
-              <small>2 dias atrás</small>
-            </div>
-            <div class="feed-item">
-              <p><strong>Comunicado: Cinema Escola!</strong></p>
-              <div class="repo-card">
-                Informamos que amanhã não será trazer os livros, a aula será diferenciada, os alunos poderão trazer lanche de sua preferência e aprovitar um momento especial no dia de CINEMA ESCOLA.
-              </div>
-              <small>2 dias atrás</small>
-            </div>
-            <div class="feed-item">
-              <p><strong>Comunido: Olimpiadas de Matemática OBMEP.</strong></p>
-              <div class="repo-card">
-                Temos o prazer de informar que nossa escola estará participando da Olimpiada Brasileira de Matemática das Escolas Públicas "OBMEP" 2025. Essa é uma exxelente oportunidade para todos os alunos do 1º ao 3º ano do ensino médio.</div>
-              <small>2 dias atrás</small>
-            </div>
-            <div class="feed-item">
-              <p><strong>Comunicado: Reunão Pedagogica.</strong></p>
-              <div class="repo-card">
-                Convidamos os pais ou responsáveis para a reunião de pais e professores que acontecerá no dia 15 de agosto as 14:00 h em nossa escola. Nesse não haverá aula.
-              </div>
-              <small>4 dias atrás</small>
-            </div>
+            <?php
+            include_once("config/connection.php");
+
+            $sql = "SELECT avisos.*, 
+              CASE 
+                WHEN autor_tipo = 'gestor' THEN gestores.username
+                WHEN autor_tipo = 'professor' THEN professores.nome 
+              END AS autor_nome
+            FROM avisos
+            LEFT JOIN gestores ON autor_tipo = 'gestor' AND autor_id = gestores.id
+            LEFT JOIN professores ON autor_tipo = 'professor' AND autor_id = professores.id
+            ORDER BY data_publicacao DESC
+            LIMIT 10";
+
+            $resultado = $conexao->query($sql);
+
+            if ($resultado->num_rows > 0) {
+              while ($aviso = $resultado->fetch_assoc()) {
+                $id = $aviso['id'];
+                echo "<div class='feed-item'>";
+                echo "<p><strong>" . htmlspecialchars($aviso['titulo']) . "</strong></p>";
+                echo "<div class='repo-card'>" . nl2br(htmlspecialchars($aviso['descricao'])) . "</div>";
+                echo "<small>Por " . htmlspecialchars($aviso['autor_nome']) . " em " . date("d/m/Y H:i", strtotime($aviso['data_publicacao'])) . "</small>";
+
+                echo "<form method='post' action='subs/del-edit-aviso.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aviso?');\">";
+                echo "<input type='hidden' name='delete_id' value='{$id}'>";
+                echo "<button type='submit'>Remover</button>";
+                echo "</form>";
+                echo "</div>";
+              }
+            } else {
+              echo "<p>Nenhum aviso publicado.</p>";
+            }
+            ?>
           </div>
         </section>
       </div>

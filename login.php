@@ -6,14 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fazer Login</title>
     <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
 
 <body>
     <a href="index.html" class="btn-voltar">
-        <i class="fas fa-arrow-left"></i>
+        <i class="bi bi-arrow-left"></i>
     </a>
 
     <div class="container-esquerdo">
@@ -26,9 +24,9 @@
 
             <?php
             session_start();
-            if (isset($_SESSION["mensagem"])) {
-                echo "<p class='mensagem'>" . $_SESSION["mensagem"] . "</p>";
-                unset($_SESSION["mensagem"]);
+            if (isset($_SESSION["msg"])) {
+                echo "<p class='mensagem'>" . $_SESSION["msg"] . "</p>";
+                unset($_SESSION["msg"]);
             }
             ?>
             <img src="img/rodape_logo.png" class="logo-img" alt="Logo Chamada Escolar">

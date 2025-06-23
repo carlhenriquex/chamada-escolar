@@ -446,62 +446,48 @@ if ((!isset($_SESSION["email"]) == true)) {
         <section class="home-section">
           <h1>Avisos da Turma</h1>
           <div class="feed">
-            <div class="feed-item">
-              <p><strong>Título do aviso 1</strong></p>
-              <div class="repo-card">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptate incidunt neque pariatur accusamus aliquam a laboriosam
-                vitae recusandae vero, modi corrupti explicabo deleniti tenetur
-                facilis at, veritatis, est nulla accusantium!
-              </div>
-              <small>4 horas atrás</small>
-            </div>
-            <div class="feed-item">
-              <p><strong>Título do aviso 2</strong></p>
-              <div class="repo-card">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-                quam minima eius tempora at libero fugiat corrupti magni tempore
-                obcaecati? Repudiandae omnis dolorum velit illum veritatis.
-                Dignissimos atque eveniet assumenda.
-              </div>
-              <small>2 dias atrás</small>
-            </div>
-            <div class="feed-item">
-              <p><strong>Título do aviso 3</strong></p>
-              <div class="repo-card">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-                quam minima eius tempora at libero fugiat corrupti magni tempore
-                obcaecati? Repudiandae omnis dolorum velit illum veritatis.
-                Dignissimos atque eveniet assumenda.
-              </div>
-              <small>2 dias atrás</small>
-            </div>
-            <div class="feed-item">
-              <p><strong>Título do aviso 4</strong></p>
-              <div class="repo-card">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-                quam minima eius tempora at libero fugiat corrupti magni tempore
-                obcaecati? Repudiandae omnis dolorum velit illum veritatis.
-                Dignissimos atque eveniet assumenda.
-              </div>
-              <small>2 dias atrás</small>
-            </div>
-            <div class="feed-item">
-              <p><strong>Título do aviso 5</strong></p>
-              <div class="repo-card">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-                quam minima eius tempora at libero fugiat corrupti magni tempore
-                obcaecati? Repudiandae omnis dolorum velit illum veritatis.
-                Dignissimos atque eveniet assumenda.
-              </div>
-              <small>4 dias atrás</small>
-            </div>
+            <?php
+            include_once("config/connection.php");
+
+            $sql = "SELECT avisos.*, 
+              CASE 
+                WHEN autor_tipo = 'gestor' THEN gestores.username
+                WHEN autor_tipo = 'professor' THEN professores.nome 
+              END AS autor_nome
+            FROM avisos
+            LEFT JOIN gestores ON autor_tipo = 'gestor' AND autor_id = gestores.id
+            LEFT JOIN professores ON autor_tipo = 'professor' AND autor_id = professores.id
+            ORDER BY data_publicacao DESC
+            LIMIT 10";
+
+            $resultado = $conexao->query($sql);
+
+            if ($resultado->num_rows > 0) {
+              while ($aviso = $resultado->fetch_assoc()) {
+                $id = $aviso['id'];
+                echo "<div class='feed-item'>";
+                echo "<p><strong>" . htmlspecialchars($aviso['titulo']) . "</strong></p>";
+                echo "<div class='repo-card'>" . nl2br(htmlspecialchars($aviso['descricao'])) . "</div>";
+                echo "<small>Por " . htmlspecialchars($aviso['autor_nome']) . " em " . date("d/m/Y H:i", strtotime($aviso['data_publicacao'])) . "</small>";
+
+                echo "<form method='post' action='subs/del-edit-aviso.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aviso?');\">";
+                echo "<input type='hidden' name='delete_id' value='{$id}'>";
+                echo "<button type='submit'>Remover</button>";
+                echo "</form>";
+                echo "</div>";
+              }
+            } else {
+              echo "<p>Nenhum aviso publicado.</p>";
+            }
+            ?>
           </div>
         </section>
+
       </div>
 
       <!-- GESTAO DE USUARIOS, VISUALIZACAO, EDICAO, EXCLUSAO -->
       <div class="box-main" id="tela-04">
+        
         <div class="container-admin">
           <h1 class="mb-4">gestão de usuários</h1>
 
@@ -509,10 +495,9 @@ if ((!isset($_SESSION["email"]) == true)) {
             <button class="tab-link active" data-target="professores">Professores</button>
             <button class="tab-link" data-target="alunos">Alunos</button>
             <button class="tab-link" data-target="responsaveis">Responsáveis</button>
-            <button class="tab-link" data-target="avisos">Avisos</button>
           </div>
 
-          <!-- LISTAGENS PROFESSORES, ALUNOS, RESPONSAVEIS, AVISOS -->
+          <!-- LISTAGENS PROFESSORES, ALUNOS, RESPONSAVEIS -->
           <div class="tab-content active" id="professores">
             <?php
             include_once("config/connection.php");
@@ -706,14 +691,55 @@ if ((!isset($_SESSION["email"]) == true)) {
             <?php
             $sql = "SELECT * FROM responsaveis WHERE removido_em IS NULL";
             $resultado = $conexao->query($sql);
+
             if ($resultado->num_rows > 0) {
               echo "<ul class='list-group'>";
               while ($r = $resultado->fetch_assoc()) {
-                echo "<li class='list-group-item'><strong>" . $r["nome"] . "</strong> - " . $r["email"];
+                $id = $r['id'];
+                echo "<li class='list-group-item' id='responsavel-{$id}'>";
 
-                echo "<form method='post' onsubmit=\"return confirm('Tem certeza que deseja remover este responsável?');\">";
-                echo "<input type='hidden' name='delete_id' value='{$r['id']}'>";
+                // Dados visíveis
+                echo "<div class='dados-visiveis'>";
+                echo "<strong>{$r['nome']}</strong> - {$r['email']}";
+
+                echo "<div style='margin-top: 5px;'>";
+                echo "<button type='button' onclick=\"toggleEditar('$id')\">Editar</button>";
+                echo "<form method='post' action='subs/del-edit-responsavel.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este responsável?');\">";
+                echo "<input type='hidden' name='delete_id' value='{$id}'>";
                 echo "<button type='submit'>Remover</button>";
+                echo "</form>";
+                echo "</div>";
+                echo "</div>";
+
+                // Formulário de edição embutido
+                echo "<form method='post' action='subs/del-edit-responsavel.php' id='form-editar-{$id}' style='display:none; margin-top:10px;'>";
+
+                echo "<input type='hidden' name='id' value='{$id}'>";
+                echo "<input type='text' name='nome' value='" . htmlspecialchars($r['nome']) . "' placeholder='Nome completo' required>";
+                echo "<input type='text' name='rg' value='{$r['rg']}' placeholder='RG'>";
+                echo "<input type='text' name='cpf' value='{$r['cpf']}' placeholder='CPF'>";
+
+                echo "<select name='parentesco' required>";
+                $parentescos = ['Pai', 'Mãe', 'Avô(ó)', 'Tio(a)', 'Responsável Legal'];
+                foreach ($parentescos as $opcao) {
+                  $selected = $r['parentesco'] == $opcao ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<input type='text' name='rua' value='{$r['rua']}' placeholder='Rua' required>";
+                echo "<input type='text' name='numero' value='{$r['numero']}' placeholder='Número' required>";
+                echo "<input type='text' name='bairro' value='{$r['bairro']}' placeholder='Bairro' required>";
+                echo "<input type='text' name='cidade' value='{$r['cidade']}' placeholder='Cidade' required>";
+                echo "<input type='text' name='complemento' value='{$r['complemento']}' placeholder='Complemento'>";
+                echo "<input type='text' name='cep' value='{$r['cep']}' placeholder='CEP' required>";
+
+                echo "<input type='text' name='telefone' value='{$r['telefone']}' placeholder='Telefone' required>";
+                echo "<input type='email' name='email' value='{$r['email']}' placeholder='Email' required>";
+
+                echo "<button type='submit'>Salvar</button>";
+                echo "<button type='button' onclick=\"toggleEditar('$id')\">Cancelar</button>";
+
                 echo "</form>";
                 echo "</li>";
               }
@@ -724,35 +750,6 @@ if ((!isset($_SESSION["email"]) == true)) {
             ?>
           </div>
 
-          <div class="tab-content" id="avisos">
-            <?php
-            $sql = "SELECT avisos.*, 
-              CASE 
-                  WHEN autor_tipo = 'gestor' THEN gestores.username
-                  WHEN autor_tipo = 'professor' THEN professores.nome 
-              END AS autor_nome
-              FROM avisos
-              LEFT JOIN gestores ON autor_tipo = 'gestor' AND autor_id = gestores.id
-              LEFT JOIN professores ON autor_tipo = 'professor' AND autor_id = professores.id
-              ORDER BY data_publicacao DESC";
-            $resultado = $conexao->query($sql);
-            if ($resultado->num_rows > 0) {
-              echo "<ul class='list-group'>";
-              while ($av = $resultado->fetch_assoc()) {
-                echo "<li class='list-group-item'><strong>" . $av["titulo"] . "</strong> - " . $av["descricao"] . "<br><small>Por: " . $av["autor_nome"] . " em " . $av["data_publicacao"] . "</small>";
-
-                echo "<form method='post' onsubmit=\"return confirm('Tem certeza que deseja remover este aviso?');\">";
-                echo "<input type='hidden' name='delete_id' value='{$av['id']}'>";
-                echo "<button type='submit'>Remover</button>";
-                echo "</form>";
-                echo "</li>";
-              }
-              echo "</ul>";
-            } else {
-              echo "<p>Nenhum aviso publicado.</p>";
-            }
-            ?>
-          </div>
         </div>
       </div>
 

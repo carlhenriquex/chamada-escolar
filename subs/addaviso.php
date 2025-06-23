@@ -6,7 +6,7 @@ function redirecionar($msg){
 
     $_SESSION["mensagem"] = $msg;
 
-    if (isset($_SESSION["tipo_acesso"]) && $_SESSION["tipo_acesso"] === "professor") {
+    if (isset($_SESSION["tipo"]) && $_SESSION["tipo"] === "professor") {
         header("Location: ../dashboard-professor.php");
     } else {
         header("Location: ../dashboard-gestor.php");
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         redirecionar("Preencha todos os campos.");
     }
 
-    if (!isset($_SESSION["id"]) || !isset($_SESSION["tipo_acesso"])) {
+    if (!isset($_SESSION["id"]) || !isset($_SESSION["tipo"])) {
         redirecionar("Erro: usuário não autenticado.");
     }
 
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $autor_id = $_SESSION["id"];
-    $autor_tipo = $_SESSION["tipo_acesso"];
+    $autor_tipo = $_SESSION["tipo"];
 
     $stmt = $conexao->prepare("INSERT INTO avisos (titulo, descricao, autor_id, autor_tipo) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("ssis", $titulo, $descricao, $autor_id, $autor_tipo);

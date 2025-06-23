@@ -1,76 +1,69 @@
 <?php
-
 session_start();
 
-if (
-
-    isset($_POST['submit']) &&
-    (empty($_POST['email']) || empty($_POST['senha']) || empty($_POST['tipo_acesso']))
-
-) {
-    $_SESSION["mensagem"] = "Preencha os campos";
+function redirecionar($mensagem)
+{
+    $_SESSION["msg"] = $mensagem;
     header("Location: ../login.php");
     exit;
+}
+
+if (
+    isset($_POST['submit']) &&
+    (empty($_POST['email']) || empty($_POST['senha']) || empty($_POST['tipo_acesso']))
+) {
+    redirecionar("Preencha os campos");
 }
 
 include("../config/connection.php");
 
-$email = mysqli_real_escape_string($conexao, $_POST['email']);
+$email = $_POST['email'];
 $password = $_POST['senha'];
-$tipo_acesso = $_POST['tipo_acesso'];
+$tipo = $_POST['tipo_acesso'];
 
-switch ($tipo_acesso) {
+switch ($tipo) {
     case 'gestor':
         $table = "gestores";
         break;
-
     case 'professor':
         $table = "professores";
         break;
-
     case 'responsavel':
         $table = "responsaveis";
         break;
-    
     default:
-        $_SESSION["mensagem"] = "Selecione um tipo de usuário";
-        header("Location: ../login.php");
-        break;
-        exit;
+        redirecionar("Selecione um tipo de usuário");
 }
 
-$sql = "SELECT * FROM $table WHERE email = '$email'";
-
-$result = $conexao->query($sql);
+$stmt = $conexao->prepare("SELECT * FROM $table WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows == 0) {
-    $_SESSION["mensagem"] = "E-mail não encontrado:";
-    header("Location: ../login.php");
-    exit;
+    redirecionar("E-mail não encontrado.");
 }
 
 $usuario = $result->fetch_assoc();
 
 if (!password_verify($password, $usuario["senha"])) {
-    $_SESSION["mensagem"] = "Senha incorreta:";
-    header("Location: ../login.php");
-    exit;
+    redirecionar("Senha incorreta.");
 }
 
+// Sessões
 $_SESSION["email"] = $email;
-$_SESSION["nome"] = $usuario["username"];
 $_SESSION["id"] = $usuario["id"];
-$_SESSION["tipo_acesso"] = $tipo_acesso;
+$_SESSION["tipo"] = $tipo;
+$_SESSION["nome"] = $usuario["nome"] ?? $usuario["username"];
 
-switch ($tipo_acesso) {
+// Redirecionamento
+switch ($tipo) {
     case 'gestor':
         header("Location: ../dashboard-gestor.php");
         break;
-
     case 'professor':
         header("Location: ../dashboard-professor.php");
         break;
-
     case 'responsavel':
         header("Location: ../dashboard-responsavel.php");
         break;
