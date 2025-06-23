@@ -68,7 +68,7 @@ if ((!isset($_SESSION["email"]) == true)) {
       </div>
     </aside>
 
-    <!-- TELA CENTRAL DO DASHBOARD -->
+    <!-- CONTAINER CENTRAL DO DASHBOARD -->
     <main>
       <!-- TELA DO CADASTRO ALUNO/RESPONSAVEL -->
       <div class="box-main" id="tela-01">
@@ -512,7 +512,7 @@ if ((!isset($_SESSION["email"]) == true)) {
             <button class="tab-link" data-target="avisos">Avisos</button>
           </div>
 
-          <!-- LISTAGENS PROFESSORES ALUNOS RESPONSAVEIS AVISOS -->
+          <!-- LISTAGENS PROFESSORES, ALUNOS, RESPONSAVEIS, AVISOS -->
           <div class="tab-content active" id="professores">
             <?php
             include_once("config/connection.php");
