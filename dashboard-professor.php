@@ -1,16 +1,32 @@
 <?php
 session_start();
-include_once("config/connection.php");
-
 $tipoPermitido = 'professor';
-include("subs/verificaPermissao.php");
-
 $turma = $_GET["turma"] ?? "6º Ano";
 
-$stmt = $conexao->prepare("SELECT id, nome FROM alunos WHERE turma = ? AND removido_em IS NULL ORDER BY nome");
-$stmt->bind_param("s", $turma);
+include_once("config/connection.php");
+include("subs/verificaPermissao.php");
+
+$sql = "SELECT aluno_id, unidade, n1, n2, media FROM notas 
+WHERE aluno_id IN (SELECT id FROM alunos WHERE turma = ? AND removido_em IS NULL)";
+
+$stmt = $conexao->prepare($sql);
+$stmt->bind_param("s", $turma); // Ex: "6º Ano"
 $stmt->execute();
-$alunos = $stmt->get_result();
+$resultado = $stmt->get_result();
+
+$notas = [];
+
+while ($row = $resultado->fetch_assoc()) {
+  $alunoId = $row['aluno_id'];
+  $unidade = $row['unidade'];
+
+  $notas[$unidade][$alunoId] = [
+    'n1' => $row['n1'],
+    'n2' => $row['n2'],
+    'media' => $row['media'],
+  ];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +40,14 @@ $alunos = $stmt->get_result();
 </head>
 
 <body>
+
+<?php
+            
+            if (isset($_SESSION["mensagem"])) {
+                echo "<p class='mensagem'>" . $_SESSION["mensagem"] . "</p>";
+                unset($_SESSION["mensagem"]);
+            }
+            ?>
   <header>
     <img src="img/logotexto.png" alt="" />
     <h3>Dashboard Professor</h3>
@@ -99,7 +123,6 @@ $alunos = $stmt->get_result();
           <h1>Avisos da Turma</h1>
           <div class="feed">
             <?php
-            include_once("config/connection.php");
 
             $sql = "SELECT avisos.*, 
               CASE 
@@ -146,7 +169,7 @@ $alunos = $stmt->get_result();
 
             <input type="hidden" name="turma" value="<?= htmlspecialchars($turma) ?>">
             <h3 class="lf-subtitle">Selecione a data</h3>
-            <input type="date" class="lf-input-date" name="data" required />
+            <input type="date" class="lf-input-date" name="data_presenca" required />
 
             <table class="lf-tabela">
               <thead>
@@ -157,7 +180,16 @@ $alunos = $stmt->get_result();
               </thead>
               <tbody>
               <tbody>
-                <?php if ($alunos && $alunos->num_rows > 0): ?>
+                <?php
+
+                $turma = $_GET["turma"] ?? "6º Ano";
+
+                $stmt = $conexao->prepare("SELECT id, nome FROM alunos WHERE turma = ? AND removido_em IS NULL ORDER BY nome");
+                $stmt->bind_param("s", $turma);
+                $stmt->execute();
+                $alunos = $stmt->get_result();
+
+                if ($alunos && $alunos->num_rows > 0): ?>
                   <?php while ($aluno = $alunos->fetch_assoc()) { ?>
                     <tr>
                       <td><?= htmlspecialchars($aluno["nome"]) ?></td>
@@ -185,6 +217,7 @@ $alunos = $stmt->get_result();
       </div>
 
       <div class="box-main" id="tela-03">
+
         <h1>Lançar Notas</h1>
 
         <div class="bloco-unidades">
@@ -195,8 +228,10 @@ $alunos = $stmt->get_result();
             <button type="button" class="botao-unidade" data-unidade="4">4ª Unidade</button>
           </div>
 
-          <form method="post" action="subs/salvar-notas.php">
-            <!-- Repetir para cada unidade -->
+          <form method="post" action="subs/salvarNotas.php">
+
+            <input type="hidden" name="turma" value="<?= htmlspecialchars($turma) ?>">
+
             <div class="tabela-unidade" id="unidade-1">
               <h2>Notas da 1ª Unidade</h2>
               <table class="tabela-notas">
@@ -209,42 +244,126 @@ $alunos = $stmt->get_result();
                   </tr>
                 </thead>
                 <tbody>
-                  <?php while ($aluno = $alunos->fetch_assoc()) { ?>
-                    <tr>
-                      <td><?= htmlspecialchars($aluno["nome"]) ?></td>
-                      <td><input type="number" step="0.1" max="10" name="notas[<?= $unidade ?>][<?= $aluno['id'] ?>][n1]"></td>
-                      <td><input type="number" step="0.1" max="10" name="notas[<?= $unidade ?>][<?= $aluno['id'] ?>][n2]"></td>
-                      <td>-</td>
-                    </tr>
-                  <?php } ?>
-
-                  <?php
-                  while ($aluno = $alunos->fetch_assoc()) {
+                  <?php foreach ($alunos as $aluno) {
                     $id = $aluno['id'];
                     $nome = htmlspecialchars($aluno['nome']);
-                    $n1 = $notas[$id]['n1'] ?? '';
-                    $n2 = $notas[$id]['n2'] ?? '';
-                    $media = ($n1 !== '' && $n2 !== '') ? number_format(($n1 + $n2) / 2, 1) : '';
+
+                    $n1 = $notas[1][$id]['n1'] ?? '';
+                    $n2 = $notas[1][$id]['n2'] ?? '';
+                    $media = $notas[1][$id]['media'] ?? '';
+
                   ?>
                     <tr>
                       <td><?= $nome ?></td>
-                      <td><input type="number" name="notas[1][<?= $id ?>][n1]" min="0" max="10" step="0.1" value="<?= $n1 ?>" required></td>
-                      <td><input type="number" name="notas[1][<?= $id ?>][n2]" min="0" max="10" step="0.1" value="<?= $n2 ?>" required></td>
+                      <td><input type="number" name="notas[1][<?= $id ?>][n1]" min="0" max="10" step="0.1" value="<?= $n1 ?>"></td>
+                      <td><input type="number" name="notas[1][<?= $id ?>][n2]" min="0" max="10" step="0.1" value="<?= $n2 ?>"></td>
                       <td><?= $media ?></td>
                     </tr>
                   <?php } ?>
-
                 </tbody>
               </table>
             </div>
 
-            <!-- Repetir o bloco acima para unidade 2, 3 e 4, alterando id="unidade-X" e name="notas[X][id][n1/n2]" -->
+            <div class="tabela-unidade" id="unidade-2">
+              <h2>Notas da 2ª Unidade</h2>
+              <table class="tabela-notas">
+                <thead>
+                  <tr>
+                    <th>Aluno</th>
+                    <th>N1 (Atividades)</th>
+                    <th>N2 (Prova)</th>
+                    <th>Média</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($alunos as $aluno) {
+                    $id = $aluno['id'];
+                    $nome = htmlspecialchars($aluno['nome']);
+
+                    $n1 = $notas[2][$id]['n1'] ?? '';
+                    $n2 = $notas[2][$id]['n2'] ?? '';
+                    $media = $notas[2][$id]['media'] ?? '';
+                  ?>
+                    <tr>
+                      <td><?= $nome ?></td>
+                      <td><input type="number" name="notas[2][<?= $id ?>][n1]" min="0" max="10" step="0.1" value="<?= $n1 ?>"></td>
+                      <td><input type="number" name="notas[2][<?= $id ?>][n2]" min="0" max="10" step="0.1" value="<?= $n2 ?>"></td>
+                      <td><?= $media ?></td>
+                    </tr>
+                  <?php } ?>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="tabela-unidade" id="unidade-3">
+              <h2>Notas da 3ª Unidade</h2>
+              <table class="tabela-notas">
+                <thead>
+                  <tr>
+                    <th>Aluno</th>
+                    <th>N1 (Atividades)</th>
+                    <th>N2 (Prova)</th>
+                    <th>Média</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($alunos as $aluno) {
+                    $id = $aluno['id'];
+                    $nome = htmlspecialchars($aluno['nome']);
+
+                    $n1 = $notas[3][$id]['n1'] ?? '';
+                    $n2 = $notas[3][$id]['n2'] ?? '';
+                    $media = $notas[3][$id]['media'] ?? '';
+                  ?>
+                    <tr>
+                      <td><?= $nome ?></td>
+                      <td><input type="number" name="notas[3][<?= $id ?>][n1]" min="0" max="10" step="0.1" value="<?= $n1 ?>"></td>
+                      <td><input type="number" name="notas[3][<?= $id ?>][n2]" min="0" max="10" step="0.1" value="<?= $n2 ?>"></td>
+                      <td><?= $media ?></td>
+                    </tr>
+                  <?php } ?>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="tabela-unidade" id="unidade-4">
+              <h2>Notas da 4ª Unidade</h2>
+              <table class="tabela-notas">
+                <thead>
+                  <tr>
+                    <th>Aluno</th>
+                    <th>N1 (Atividades)</th>
+                    <th>N2 (Prova)</th>
+                    <th>Média</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($alunos as $aluno) {
+                    $id = $aluno['id'];
+                    $nome = htmlspecialchars($aluno['nome']);
+
+                    $n1 = $notas[4][$id]['n1'] ?? '';
+                    $n2 = $notas[4][$id]['n2'] ?? '';
+                    $media = $notas[4][$id]['media'] ?? '';
+                  ?>
+                    <tr>
+                      <td><?= $nome ?></td>
+                      <td><input type="number" name="notas[4][<?= $id ?>][n1]" min="0" max="10" step="0.1" value="<?= $n1 ?>"></td>
+                      <td><input type="number" name="notas[4][<?= $id ?>][n2]" min="0" max="10" step="0.1" value="<?= $n2 ?>"></td>
+                      <td><?= $media ?></td>
+                    </tr>
+                  <?php } ?>
+                </tbody>
+              </table>
+            </div>
+
 
             <div class="botao-enviar">
               <button type="submit">Salvar Notas</button>
             </div>
           </form>
         </div>
+
 
       </div>
 

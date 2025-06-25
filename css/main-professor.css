@@ -139,7 +139,6 @@
   color: #fff;
 }
 
-/* Tabela de notas */
 .tabela-unidade {
   display: none;
 }
@@ -187,7 +186,6 @@
   border: 1px solid #ccc;
 }
 
-/* Botão de envio */
 .botao-enviar {
   text-align: center;
   margin-top: 1.5rem;
@@ -209,7 +207,6 @@
   background-color: #218838;
 }
 
-/* Responsivo */
 @media (max-width: 768px) {
   .tabela-notas th,
   .tabela-notas td {
