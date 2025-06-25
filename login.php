@@ -12,6 +12,7 @@
 <body>
 
     <?php
+    session_start();
     if (isset($_SESSION["msg"])) {
         $tipo = $_SESSION["tipoMensagem"] ?? "sucesso";
         echo "<div class='mensagem {$tipo}'>";

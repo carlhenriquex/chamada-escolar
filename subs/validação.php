@@ -3,7 +3,7 @@ session_start();
 
 function redirecionar($msg, $sucesso = false) {
     $_SESSION["msg"] = $msg;
-    $_SESSION["tipo_msg"] = $sucesso ? "sucesso" : "erro";
+    $_SESSION["tipoMensagem"] = $sucesso ? "sucesso" : "erro";
     header("Location: ../login.php");
     exit;
 }
@@ -61,9 +61,9 @@ if ($tipo === "professor") {
     $_SESSION["turma"] = $usuario["turma"];
 }
 
-// ✅ Redirecionamento sem erro (login bem-sucedido)
-$_SESSION["msg"] = "Login realizado com sucesso!";
-$_SESSION["tipo_msg"] = "sucesso";
+
+$_SESSION["mensagem"] = "Login realizado com sucesso!";
+$_SESSION["tipoMensagem"] = "sucesso";
 
 switch ($tipo) {
     case 'gestor':

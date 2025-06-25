@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once("config/connection.php"); // ajuste o caminho se necessário
+include_once("../config/connection.php");
 
 $mensagem = "";
 
