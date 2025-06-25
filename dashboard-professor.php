@@ -1,12 +1,16 @@
 <?php
 session_start();
+include_once("config/connection.php");
 
-if ((!isset($_SESSION["email"]) == true)) {
-  header("Location: login.php");
-} else {
-  $logado = $_SESSION["email"];
-}
+$tipoPermitido = 'professor';
+include("subs/verificaPermissao.php");
 
+$turma = $_GET["turma"] ?? "6º Ano";
+
+$stmt = $conexao->prepare("SELECT id, nome FROM alunos WHERE turma = ? AND removido_em IS NULL ORDER BY nome");
+$stmt->bind_param("s", $turma);
+$stmt->execute();
+$alunos = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -50,16 +54,16 @@ if ((!isset($_SESSION["email"]) == true)) {
 
   <div class="container">
     <aside class="sidebar" id="sidebar">
-      <p class="sidebar-title">Selecione a Turma</p>
-      <select
-        class="sidebar-dropdown"
-        name="aluno-selecionado"
-        id="select-alunos">
-        <option value="id-01" selected>1º Ano A</option>
-        <option value="id-02">1º Ano B</option>
-        <option value="id-03">3º Ano A</option>
-        <option value="id-04">3º Ano A</option>
-      </select>
+      <form method="get" action="">
+        <h4 class="sidebar-title">Selecione a Turma</h4>
+        <select class="sidebar-dropdown" name="turma" id="select-alunos" onchange="this.form.submit()">
+          <option value="6º Ano" <?= (isset($_GET["turma"]) && $_GET["turma"] === "6º Ano") ? "selected" : "" ?>>6º Ano</option>
+          <option value="7º Ano" <?= (isset($_GET["turma"]) && $_GET["turma"] === "7º Ano") ? "selected" : "" ?>>7º Ano</option>
+          <option value="8º Ano" <?= (isset($_GET["turma"]) && $_GET["turma"] === "8º Ano") ? "selected" : "" ?>>8º Ano</option>
+          <option value="9º Ano" <?= (isset($_GET["turma"]) && $_GET["turma"] === "9º Ano") ? "selected" : "" ?>>9º Ano</option>
+        </select>
+      </form>
+
       <div class="sidebar-buttons">
         <a class="button-enviar" data-target="tela-01">Avisos</a>
         <a class="button-enviar" data-target="tela-02">Frequência</a>
@@ -134,269 +138,120 @@ if ((!isset($_SESSION["email"]) == true)) {
 
       <div class="box-main" id="tela-02">
         <!-- html-lancar-frequencia -->
+
         <div class="lf-container">
           <h1 class="lf-title">Lançar Frequência</h1>
 
-          <h3 class="lf-subtitle">Selecione a data</h3>
-          <input type="date" class="lf-input-date" name="" id="" />
+          <form method="post" action="subs/salvarFrequencia.php">
 
-          <table class="lf-tabela">
-            <thead>
-              <tr class="lf-header-tabela">
-                <th>Aluno</th>
-                <th>Número de Faltas</th>
-                <th>Status presença</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>João da Silva</td>
-                <td>2</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    name="presenca_joao"
-                    class="lf-checkbox" />
-                </td>
-              </tr>
-              <tr>
-                <td>Maria Oliveira</td>
-                <td>0</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    name="presenca_maria"
-                    class="lf-checkbox" />
-                </td>
-              </tr>
-              <tr>
-                <td>Carlos Souza</td>
-                <td>1</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    name="presenca_carlos"
-                    class="lf-checkbox" />
-                </td>
-              </tr>
-              <tr>
-                <td>Fernanda Lima</td>
-                <td>3</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    name="presenca_fernanda"
-                    class="lf-checkbox" />
-                </td>
-              </tr>
-              <tr>
-                <td>Lucas Pereira</td>
-                <td>0</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    name="presenca_lucas"
-                    class="lf-checkbox" />
-                </td>
-              </tr>
-              <tr>
-                <td>Luciana Souza</td>
-                <td>5</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    name="presenca_luciana"
-                    class="lf-checkbox" />
-                </td>
-              </tr>
-              <tr>
-                <td>Eduarda Elvira</td>
-                <td>3</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    name="presenca_eduarda"
-                    class="lf-checkbox" />
-                </td>
-              </tr>
-              <tr>
-                <td>Fábio Alves</td>
-                <td>4</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    name="presenca_fabio"
-                    class="lf-checkbox" />
-                </td>
-              </tr>
-              <tr>
-                <td>Carlos Henrique</td>
-                <td>2</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    name="presenca_carlos"
-                    class="lf-checkbox" />
-                </td>
-              </tr>
-              <tr>
-                <td>Abrivaldo Pereira</td>
-                <td>0</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    name="presenca_abrivaldo"
-                    class="lf-checkbox" />
-                </td>
-              </tr>
-              <tr>
-                <td>Paulo Oliveira</td>
-                <td>3</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    name="presenca_paulo"
-                    class="lf-checkbox" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            <input type="hidden" name="turma" value="<?= htmlspecialchars($turma) ?>">
+            <h3 class="lf-subtitle">Selecione a data</h3>
+            <input type="date" class="lf-input-date" name="data" required />
 
-          <div class="lf-button-enviar">
-            <button class="lf-button">Enviar</button>
-          </div>
+            <table class="lf-tabela">
+              <thead>
+                <tr class="lf-header-tabela">
+                  <th>Aluno</th>
+                  <th>Status presença</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tbody>
+                <?php if ($alunos && $alunos->num_rows > 0): ?>
+                  <?php while ($aluno = $alunos->fetch_assoc()) { ?>
+                    <tr>
+                      <td><?= htmlspecialchars($aluno["nome"]) ?></td>
+                      <td>
+                        <input type="checkbox" class="lf-checkbox" name="presenca[<?= $aluno["id"] ?>]" checked>
+                      </td>
+                    </tr>
+                  <?php } ?>
+                <?php else: ?>
+                  <tr>
+                    <td colspan="2">Nenhum aluno encontrado para esta turma.</td>
+                  </tr>
+                <?php endif; ?>
+              </tbody>
+
+              </tbody>
+            </table>
+
+            <div class="lf-button-enviar">
+              <button type="submit" class="lf-button">Enviar</button>
+            </div>
+          </form>
         </div>
+
       </div>
 
       <div class="box-main" id="tela-03">
-        <h1>Input boletim professores</h1>
-        <div class="container2">
-          <table>
-            <thead>
-              <tr>
-                <th>Aluno</th>
-                <th>Notas</th>
-                <th>
-                  <select class="unidade-select">
-                    <option value="id-01" selected>I unidade</option>
-                    <option value="id-02">II unidade</option>
-                    <option value="id-03">III unidade</option>
-                    <option value="id-04">IV unidade</option>
-                  </select>
-                </th>
-            </thead>
-            <tbody>
-              <tr>
-                <td>João da Silva</td>
-                <td><input type="text" id="nota" placeholder="Digite de 0 a 10"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
-                if (this.value.split('.').length > 2) this.value = this.value.replace(/\.+$/, '');
-                if (parseFloat(this.value) > 10) this.value = '10';">
-                </td>
-                <td></td>
+        <h1>Lançar Notas</h1>
 
-              </tr>
-              <tr>
-                <td>Maria Oliveira</td>
-                <td><input type="text" id="nota" placeholder="Digite de 0 a 10"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
-                if (this.value.split('.').length > 2) this.value = this.value.replace(/\.+$/, '');
-                if (parseFloat(this.value) > 10) this.value = '10';">
-                </td>
-                <td></td>
-
-              </tr>
-              <tr>
-                <td>Carlos Souza</td>
-                <td><input type="text" id="nota" placeholder="Digite de 0 a 10"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
-                if (this.value.split('.').length > 2) this.value = this.value.replace(/\.+$/, '');
-                if (parseFloat(this.value) > 10) this.value = '10';">
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Fernanda Lima</td>
-                <td><input type="text" id="nota" placeholder="Digite de 0 a 10"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
-                if (this.value.split('.').length > 2) this.value = this.value.replace(/\.+$/, '');
-                if (parseFloat(this.value) > 10) this.value = '10';">
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Lucas Pereira</td>
-                <td><input type="text" id="nota" placeholder="Digite de 0 a 10"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
-                if (this.value.split('.').length > 2) this.value = this.value.replace(/\.+$/, '');
-                if (parseFloat(this.value) > 10) this.value = '10';"></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Luciana Souza </td>
-                <td><input type="text" id="nota" placeholder="Digite de 0 a 10"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
-                if (this.value.split('.').length > 2) this.value = this.value.replace(/\.+$/, '');
-                if (parseFloat(this.value) > 10) this.value = '10';">
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Eduarda Elvira</td>
-                <td><input type="text" id="nota" placeholder="Digite de 0 a 10"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
-                if (this.value.split('.').length > 2) this.value = this.value.replace(/\.+$/, '');
-                if (parseFloat(this.value) > 10) this.value = '10';">
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Fábio Alves</td>
-                <td><input type="text" id="nota" placeholder="Digite de 0 a 10"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
-                if (this.value.split('.').length > 2) this.value = this.value.replace(/\.+$/, '');
-                if (parseFloat(this.value) > 10) this.value = '10';">
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Carlos Henrique</td>
-                <td><input type="text" id="nota" placeholder="Digite de 0 a 10"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
-                if (this.value.split('.').length > 2) this.value = this.value.replace(/\.+$/, '');
-                if (parseFloat(this.value) > 10) this.value = '10';">
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Abrivaldo Pereira</td>
-                <td><input type="text" id="nota" placeholder="Digite de 0 a 10"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
-                if (this.value.split('.').length > 2) this.value = this.value.replace(/\.+$/, '');
-                if (parseFloat(this.value) > 10) this.value = '10';">
-                </td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Paulo Oliveira</td>
-                <td><input type="text" id="nota" placeholder="Digite de 0 a 10"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, ''); 
-                if (this.value.split('.').length > 2) this.value = this.value.replace(/\.+$/, '');
-                if (parseFloat(this.value) > 10) this.value = '10';">
-                </td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="botao-enviar">
-            <button>Enviar</button>
+        <div class="bloco-unidades">
+          <div class="botoes-unidade">
+            <button type="button" class="botao-unidade ativo" data-unidade="1">1ª Unidade</button>
+            <button type="button" class="botao-unidade" data-unidade="2">2ª Unidade</button>
+            <button type="button" class="botao-unidade" data-unidade="3">3ª Unidade</button>
+            <button type="button" class="botao-unidade" data-unidade="4">4ª Unidade</button>
           </div>
+
+          <form method="post" action="subs/salvar-notas.php">
+            <!-- Repetir para cada unidade -->
+            <div class="tabela-unidade" id="unidade-1">
+              <h2>Notas da 1ª Unidade</h2>
+              <table class="tabela-notas">
+                <thead>
+                  <tr>
+                    <th>Aluno</th>
+                    <th>N1 (Atividades)</th>
+                    <th>N2 (Prova)</th>
+                    <th>Média</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php while ($aluno = $alunos->fetch_assoc()) { ?>
+                    <tr>
+                      <td><?= htmlspecialchars($aluno["nome"]) ?></td>
+                      <td><input type="number" step="0.1" max="10" name="notas[<?= $unidade ?>][<?= $aluno['id'] ?>][n1]"></td>
+                      <td><input type="number" step="0.1" max="10" name="notas[<?= $unidade ?>][<?= $aluno['id'] ?>][n2]"></td>
+                      <td>-</td>
+                    </tr>
+                  <?php } ?>
+
+                  <?php
+                  while ($aluno = $alunos->fetch_assoc()) {
+                    $id = $aluno['id'];
+                    $nome = htmlspecialchars($aluno['nome']);
+                    $n1 = $notas[$id]['n1'] ?? '';
+                    $n2 = $notas[$id]['n2'] ?? '';
+                    $media = ($n1 !== '' && $n2 !== '') ? number_format(($n1 + $n2) / 2, 1) : '';
+                  ?>
+                    <tr>
+                      <td><?= $nome ?></td>
+                      <td><input type="number" name="notas[1][<?= $id ?>][n1]" min="0" max="10" step="0.1" value="<?= $n1 ?>" required></td>
+                      <td><input type="number" name="notas[1][<?= $id ?>][n2]" min="0" max="10" step="0.1" value="<?= $n2 ?>" required></td>
+                      <td><?= $media ?></td>
+                    </tr>
+                  <?php } ?>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Repetir o bloco acima para unidade 2, 3 e 4, alterando id="unidade-X" e name="notas[X][id][n1/n2]" -->
+
+            <div class="botao-enviar">
+              <button type="submit">Salvar Notas</button>
+            </div>
+          </form>
         </div>
+
       </div>
+
     </main>
   </div>
 </body>
 <script src="scripts/dashboard.js"></script>
+
 
 </html>

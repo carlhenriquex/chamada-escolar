@@ -54,6 +54,7 @@ if (!password_verify($password, $usuario["senha"])) {
 $_SESSION["email"] = $email;
 $_SESSION["id"] = $usuario["id"];
 $_SESSION["tipo"] = $tipo;
+$_SESSION["turma"] = $usuario["turma"];
 $_SESSION["nome"] = $usuario["nome"] ?? $usuario["username"];
 
 // Redirecionamento

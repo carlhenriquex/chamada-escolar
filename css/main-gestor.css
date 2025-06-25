@@ -112,13 +112,18 @@
 .list-group {
   list-style: none;
   padding: 0;
+  margin-bottom: 2rem;
 }
 
 .list-group-item {
+  list-style: none;
   padding: 0.5rem;
   border-bottom: 1px solid #ddd;
 }
 
+.naUser {
+  margin-bottom: 2rem;
+}
 
 /* Sidebar responsiva */
 @media (max-width: 900px) {

@@ -1,11 +1,8 @@
 <?php
 session_start();
 
-if ((!isset($_SESSION["email"]) == true)) {
-  header("Location: login.php");
-} else {
-  $logado = $_SESSION["email"];
-}
+$tipoPermitido = 'responsavel';
+include("subs/verificaPermissao.php");
 
 ?>
 

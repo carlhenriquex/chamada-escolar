@@ -1,11 +1,8 @@
 <?php
 session_start();
 
-if ((!isset($_SESSION["email"]) == true)) {
-  header("Location: login.php");
-} else {
-  $logado = $_SESSION["email"];
-}
+$tipoPermitido = 'gestor';
+include("subs/verificaPermissao.php");
 
 ?>
 
@@ -487,7 +484,7 @@ if ((!isset($_SESSION["email"]) == true)) {
 
       <!-- GESTAO DE USUARIOS, VISUALIZACAO, EDICAO, EXCLUSAO -->
       <div class="box-main" id="tela-04">
-        
+
         <div class="container-admin">
           <h1 class="mb-4">gestão de usuários</h1>
 
@@ -512,7 +509,7 @@ if ((!isset($_SESSION["email"]) == true)) {
 
                 // Dados visíveis
                 echo "<div class='dados-visiveis'>";
-                echo "<strong>{$p['nome']}</strong> - {$p['email']}";
+                echo "<strong>{$p['nome']}</strong> - {$p['disciplina']}";
 
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('professor-$id')\">Editar</button>";
@@ -599,13 +596,284 @@ if ((!isset($_SESSION["email"]) == true)) {
 
           <div class="tab-content" id="alunos">
             <?php
-            $sql = "SELECT * FROM alunos WHERE removido_em IS NULL";
+            $sql = "SELECT * FROM alunos WHERE removido_em IS NULL AND turma = '6º ano' ORDER BY nome;";
             $resultado = $conexao->query($sql);
 
+            echo "<h4>6° ano</h4>";
             if ($resultado->num_rows > 0) {
               echo "<ul class='list-group'>";
               while ($a = $resultado->fetch_assoc()) {
                 $id = $a['id'];
+
+                echo "<li class='list-group-item' id='aluno-{$id}'>";
+
+                // Dados visíveis
+                echo "<div class='dados-visiveis'>";
+                echo "<strong>{$a['nome']}</strong> - {$a['turma']}";
+                echo "<div style='margin-top: 5px;'>";
+                echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
+
+                echo "<form method='post' action='subs/deletar-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
+                echo "<input type='hidden' name='delete_id' value='{$id}'>";
+                echo "<button type='submit'>Remover</button>";
+                echo "</form>";
+                echo "</div>";
+                echo "</div>";
+
+                // Formulário de edição embutido
+
+                echo "<form method='post' action='subs/editar-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
+                echo "<input type='hidden' name='id' value='{$id}'>";
+
+                echo "<input type='text' name='nome' value='{$a['nome']}' placeholder='Nome completo' required>";
+                echo "<input type='date' name='nascimento' value='{$a['nascimento']}' required>";
+                echo "<input type='text' name='rg' value='{$a['rg']}' placeholder='RG' required>";
+                echo "<input type='text' name='cpf' value='{$a['cpf']}' placeholder='CPF' required>";
+
+                echo "<select name='sexo' required>";
+                foreach (['Masculino', 'Feminino', 'Prefiro não informar'] as $opcao) {
+                  $selected = ($a['sexo'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<select name='raca' required>";
+                foreach (['Branco', 'Preto', 'Pardo', 'Amarelo', 'Indídena'] as $opcao) {
+                  $selected = ($a['raca'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<select name='sangue' required>";
+                foreach (['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $opcao) {
+                  $selected = ($a['sangue'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<input type='text' name='nacionalidade' value='{$a['nacionalidade']}' placeholder='Nacionalidade' required>";
+                echo "<input type='text' name='naturalidade' value='{$a['naturalidade']}' placeholder='Naturalidade' required>";
+
+                echo "<select name='turma' required>";
+                foreach (['6º ano', '7º ano', '8º ano', '9º ano'] as $opcao) {
+                  $selected = ($a['turma'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<input type='text' name='deficiencia' value='{$a['deficiencia']}' placeholder='Deficiência (se houver)'>";
+
+                echo "<label>Responsável:</label>";
+                echo "<select name='responsavel_id'>";
+                echo "<option value=''>Nenhum</option>";
+                $res = $conexao->query("SELECT id, nome FROM responsaveis");
+                while ($resp = $res->fetch_assoc()) {
+                  $selected = ($a['responsavel_id'] == $resp['id']) ? 'selected' : '';
+                  echo "<option value='{$resp['id']}' $selected>{$resp['nome']}</option>";
+                }
+                echo "</select>";
+
+                echo "<button type='submit'>Salvar</button>";
+                echo "<button type='button' onclick=\"toggleEditar('{$id}')\">Cancelar</button>";
+                echo "</form>";
+
+                echo "</li>";
+              }
+              echo "</ul>";
+            } else {
+              echo "<p class= 'naUser';>Nenhum aluno cadastrado.</p>";
+            }
+            ?>
+            <?php
+            $sql = "SELECT * FROM alunos WHERE removido_em IS NULL AND turma = '7º ano' ORDER BY nome;";
+            $resultado = $conexao->query($sql);
+
+            echo "<h4>7° ano</h4>";
+            if ($resultado->num_rows > 0) {
+              echo "<ul class='list-group'>";
+              while ($a = $resultado->fetch_assoc()) {
+                $id = $a['id'];
+
+                echo "<li class='list-group-item' id='aluno-{$id}'>";
+
+                // Dados visíveis
+                echo "<div class='dados-visiveis'>";
+                echo "<strong>{$a['nome']}</strong> - {$a['turma']}";
+                echo "<div style='margin-top: 5px;'>";
+                echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
+
+                echo "<form method='post' action='subs/deletar-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
+                echo "<input type='hidden' name='delete_id' value='{$id}'>";
+                echo "<button type='submit'>Remover</button>";
+                echo "</form>";
+                echo "</div>";
+                echo "</div>";
+
+                // Formulário de edição embutido
+
+                echo "<form method='post' action='subs/editar-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
+                echo "<input type='hidden' name='id' value='{$id}'>";
+
+                echo "<input type='text' name='nome' value='{$a['nome']}' placeholder='Nome completo' required>";
+                echo "<input type='date' name='nascimento' value='{$a['nascimento']}' required>";
+                echo "<input type='text' name='rg' value='{$a['rg']}' placeholder='RG' required>";
+                echo "<input type='text' name='cpf' value='{$a['cpf']}' placeholder='CPF' required>";
+
+                echo "<select name='sexo' required>";
+                foreach (['Masculino', 'Feminino', 'Prefiro não informar'] as $opcao) {
+                  $selected = ($a['sexo'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<select name='raca' required>";
+                foreach (['Branco', 'Preto', 'Pardo', 'Amarelo', 'Indídena'] as $opcao) {
+                  $selected = ($a['raca'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<select name='sangue' required>";
+                foreach (['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $opcao) {
+                  $selected = ($a['sangue'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<input type='text' name='nacionalidade' value='{$a['nacionalidade']}' placeholder='Nacionalidade' required>";
+                echo "<input type='text' name='naturalidade' value='{$a['naturalidade']}' placeholder='Naturalidade' required>";
+
+                echo "<select name='turma' required>";
+                foreach (['6º ano', '7º ano', '8º ano', '9º ano'] as $opcao) {
+                  $selected = ($a['turma'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<input type='text' name='deficiencia' value='{$a['deficiencia']}' placeholder='Deficiência (se houver)'>";
+
+                echo "<label>Responsável:</label>";
+                echo "<select name='responsavel_id'>";
+                echo "<option value=''>Nenhum</option>";
+                $res = $conexao->query("SELECT id, nome FROM responsaveis");
+                while ($resp = $res->fetch_assoc()) {
+                  $selected = ($a['responsavel_id'] == $resp['id']) ? 'selected' : '';
+                  echo "<option value='{$resp['id']}' $selected>{$resp['nome']}</option>";
+                }
+                echo "</select>";
+
+                echo "<button type='submit'>Salvar</button>";
+                echo "<button type='button' onclick=\"toggleEditar('{$id}')\">Cancelar</button>";
+                echo "</form>";
+
+                echo "</li>";
+              }
+              echo "</ul>";
+            } else {
+              echo "<p class= 'naUser';>Nenhum aluno cadastrado.</p>";
+            }
+            ?>
+
+            <!-- LISTAGEM ALUNOS 8 ANO -->
+            <?php
+            $sql = "SELECT * FROM alunos WHERE removido_em IS NULL AND turma = '8º ano' ORDER BY nome;";
+            $resultado = $conexao->query($sql);
+
+            echo "<h4>8° ano</h4>";
+            if ($resultado->num_rows > 0) {
+              echo "<ul class='list-group'>";
+              while ($a = $resultado->fetch_assoc()) {
+                $id = $a['id'];
+
+                echo "<li class='list-group-item' id='aluno-{$id}'>";
+
+                // Dados visíveis
+                echo "<div class='dados-visiveis'>";
+                echo "<strong>{$a['nome']}</strong> - {$a['turma']}";
+                echo "<div style='margin-top: 5px;'>";
+                echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
+
+                echo "<form method='post' action='subs/deletar-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
+                echo "<input type='hidden' name='delete_id' value='{$id}'>";
+                echo "<button type='submit'>Remover</button>";
+                echo "</form>";
+                echo "</div>";
+                echo "</div>";
+
+                // Formulário de edição embutido
+
+                echo "<form method='post' action='subs/editar-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
+                echo "<input type='hidden' name='id' value='{$id}'>";
+
+                echo "<input type='text' name='nome' value='{$a['nome']}' placeholder='Nome completo' required>";
+                echo "<input type='date' name='nascimento' value='{$a['nascimento']}' required>";
+                echo "<input type='text' name='rg' value='{$a['rg']}' placeholder='RG' required>";
+                echo "<input type='text' name='cpf' value='{$a['cpf']}' placeholder='CPF' required>";
+
+                echo "<select name='sexo' required>";
+                foreach (['Masculino', 'Feminino', 'Prefiro não informar'] as $opcao) {
+                  $selected = ($a['sexo'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<select name='raca' required>";
+                foreach (['Branco', 'Preto', 'Pardo', 'Amarelo', 'Indídena'] as $opcao) {
+                  $selected = ($a['raca'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<select name='sangue' required>";
+                foreach (['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $opcao) {
+                  $selected = ($a['sangue'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<input type='text' name='nacionalidade' value='{$a['nacionalidade']}' placeholder='Nacionalidade' required>";
+                echo "<input type='text' name='naturalidade' value='{$a['naturalidade']}' placeholder='Naturalidade' required>";
+
+                echo "<select name='turma' required>";
+                foreach (['6º ano', '7º ano', '8º ano', '9º ano'] as $opcao) {
+                  $selected = ($a['turma'] == $opcao) ? 'selected' : '';
+                  echo "<option value='$opcao' $selected>$opcao</option>";
+                }
+                echo "</select>";
+
+                echo "<input type='text' name='deficiencia' value='{$a['deficiencia']}' placeholder='Deficiência (se houver)'>";
+
+                echo "<label>Responsável:</label>";
+                echo "<select name='responsavel_id'>";
+                echo "<option value=''>Nenhum</option>";
+                $res = $conexao->query("SELECT id, nome FROM responsaveis");
+                while ($resp = $res->fetch_assoc()) {
+                  $selected = ($a['responsavel_id'] == $resp['id']) ? 'selected' : '';
+                  echo "<option value='{$resp['id']}' $selected>{$resp['nome']}</option>";
+                }
+                echo "</select>";
+
+                echo "<button type='submit'>Salvar</button>";
+                echo "<button type='button' onclick=\"toggleEditar('{$id}')\">Cancelar</button>";
+                echo "</form>";
+
+                echo "</li>";
+              }
+              echo "</ul>";
+            } else {
+              echo "<p class= 'naUser';>Nenhum aluno cadastrado.</p>";
+            }
+            ?>
+            <?php
+            $sql = "SELECT * FROM alunos WHERE removido_em IS NULL AND turma = '9º ano' ORDER BY nome;";
+            $resultado = $conexao->query($sql);
+
+            echo "<h4>9° ano</h4>";
+            if ($resultado->num_rows > 0) {
+              echo "<ul class='list-group'>";
+              while ($a = $resultado->fetch_assoc()) {
+                $id = $a['id'];
+
                 echo "<li class='list-group-item' id='aluno-{$id}'>";
 
                 // Dados visíveis

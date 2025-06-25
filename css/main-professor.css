@@ -102,95 +102,128 @@
   /* tom mais escuro */
 }
 
-.container2 {
+/* Bloco principal */
+.bloco-unidades {
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+/* Botões de unidade */
+.botoes-unidade {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
-table {
-  border-collapse: collapse;
-  width: 90%;
-  max-width: 800px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-}
-
-th,
-td {
-  text-align: center;
-  padding: 12px;
-  border: 1px solid #ccc;
-}
-
-th {
-  background-color: #9dbcf7;
-  color: #000;
-}
-
-tbody tr:nth-child(even) {
-  background-color: #f1f5fb;
-}
-
-input[type="checkbox"] {
-  transform: scale(1.5);
+.botao-unidade {
+  background-color: #cfd8ff;
+  color: #000850;
+  border: none;
+  padding: 10px 16px;
+  font-weight: bold;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+.botao-unidade:hover {
+  background-color: #9db8ff;
+}
+
+.botao-unidade.ativo {
+  background-color: #1a38aa;
+  color: #fff;
+}
+
+/* Tabela de notas */
+.tabela-unidade {
+  display: none;
+}
+
+.tabela-unidade.ativa {
+  display: block;
+}
+
+.tabela-unidade h2 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #000850;
+}
+
+.tabela-notas {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tabela-notas thead {
+  background-color: #000850;
+  color: white;
+}
+
+.tabela-notas th {
+  color: #fff;
+}
+
+.tabela-notas th,
+.tabela-notas td {
+  padding: 12px 16px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabela-notas td input[type="number"] {
+  width: 100%;
+  padding: 6px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Botão de envio */
 .botao-enviar {
-  margin-top: 20px;
+  text-align: center;
+  margin-top: 1.5rem;
 }
 
 .botao-enviar button {
-  background-color: orange;
+  background-color: #28a745;
   color: white;
   border: none;
-  padding: 12px 30px;
-  font-size: 16px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .botao-enviar button:hover {
-  background-color: darkorange;
+  background-color: #218838;
 }
 
-.action-btn {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
+/* Responsivo */
+@media (max-width: 768px) {
+  .tabela-notas th,
+  .tabela-notas td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .botao-unidade {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .tabela-unidade h2 {
+    font-size: 1.2rem;
+  }
 }
 
-.btn {
-    background-color: #436fa5;
-    border: none;
-    padding: 5px 10px;
-    color: #fff;
-    font-size: 0.9em;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-    background-color: #072142;
-}
-
-.submit-btn {
-    background-color: #ffb74d;
-    border: none;
-    padding: 10px 20px;
-    color: #fff;
-    font-size: 1em;
-    font-weight: bold;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-    display: block;
-    margin: 0 auto;
-}
-
-.submit-btn:hover {
-    background-color: #ffa726;
-}

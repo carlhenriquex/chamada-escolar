@@ -2,17 +2,25 @@
 session_start();
 include_once("../config/connection.php");
 
-if (!isset($_POST["delete_id"])) {
-    $_SESSION["mensagem"] = "ID do aviso não informado.";
-    header("Location: ../dashboard-gestor.php");
+// Função de redirecionamento com mensagem
+function redirecionar($mensagem, $tipo)
+{
+    $_SESSION["mensagem"] = $mensagem;
+    $destino = $tipo === 'professor' ? "../dashboard-professor.php" : "../dashboard-gestor.php";
+    header("Location: $destino");
     exit;
 }
 
+
+if (!isset($_POST["delete_id"])) {
+    redirecionar("ID do aviso não informado.", $_SESSION["tipo"]);
+}
+
 $id_aviso = $_POST["delete_id"];
-$tipo_usuario = $_SESSION["tipo"]; // 'gestor' ou 'professor'
+$tipo_usuario = $_SESSION["tipo"];
 $id_usuario = $_SESSION["id"];
 
-// Busca o aviso
+
 $sql = "SELECT * FROM avisos WHERE id = ?";
 $stmt = $conexao->prepare($sql);
 $stmt->bind_param("i", $id_aviso);
@@ -20,14 +28,11 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows == 0) {
-    $_SESSION["mensagem"] = "Aviso não encontrado.";
-    header("Location: ../dashboard-gestor.php");
-    exit;
+    redirecionar("Aviso não encontrado.", $tipo_usuario);
 }
 
 $aviso = $result->fetch_assoc();
 
-// Verificação de permissão usando ID da sessão
 $autorizado = false;
 
 if ($tipo_usuario === 'gestor') {
@@ -37,21 +42,15 @@ if ($tipo_usuario === 'gestor') {
 }
 
 if (!$autorizado) {
-    $_SESSION["mensagem"] = "Você não tem permissão para remover este aviso.";
-    header("Location: ../dashboard-gestor.php");
-    exit;
+    redirecionar("Você não tem permissão para remover este aviso.", $tipo_usuario);
 }
 
-// Exclusão
 $sql_delete = "DELETE FROM avisos WHERE id = ?";
 $stmt_delete = $conexao->prepare($sql_delete);
 $stmt_delete->bind_param("i", $id_aviso);
 
 if ($stmt_delete->execute()) {
-    $_SESSION["mensagem"] = "Aviso removido com sucesso.";
+    redirecionar("Aviso removido com sucesso.", $tipo_usuario);
 } else {
-    $_SESSION["mensagem"] = "Erro ao remover o aviso.";
+    redirecionar("Erro ao remover o aviso.", $tipo_usuario);
 }
-
-header("Location: ../dashboard-gestor.php");
-exit;
