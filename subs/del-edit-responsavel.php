@@ -2,14 +2,15 @@
 session_start();
 include_once("../config/connection.php");
 
-// Função para redirecionar com mensagem
-function redirecionar($mensagem) {
+// Função para redirecionar com mensagem e tipo
+function redirecionar($mensagem, $sucesso = true) {
     $_SESSION["mensagem"] = $mensagem;
-    header("Location: ../dashboard-gestor.php");
+    $_SESSION["tipo_msg"] = $sucesso ? "sucesso" : "erro";
+    header("Location: ../dashboard-gestor.php#tela-04");
     exit;
 }
 
-// REMOÇÃO: Se recebeu delete_id, marca como removido
+// REMOÇÃO
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["delete_id"])) {
     $id = intval($_POST["delete_id"]);
     $query = "UPDATE responsaveis SET removido_em = NOW() WHERE id = ?";
@@ -19,15 +20,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["delete_id"])) {
     if ($stmt->execute()) {
         redirecionar("Responsável removido com sucesso.");
     } else {
-        redirecionar("Erro ao remover responsável: " . $stmt->error);
+        redirecionar("Erro ao remover responsável: " . $stmt->error, false);
     }
 }
 
-// EDIÇÃO: Se recebeu dados de edição, atualiza os campos
+// EDIÇÃO
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
     $id = intval($_POST["id"]);
 
-    // Dados
     $nome = $_POST["nome"];
     $rg = $_POST["rg"];
     $cpf = $_POST["cpf"];
@@ -54,9 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
     if ($stmt->execute()) {
         redirecionar("Responsável atualizado com sucesso.");
     } else {
-        redirecionar("Erro ao atualizar responsável: " . $stmt->error);
+        redirecionar("Erro ao atualizar responsável: " . $stmt->error, false);
     }
 }
 
-redirecionar("Ação inválida.");
-?>
+redirecionar("Ação inválida.", false);

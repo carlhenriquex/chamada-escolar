@@ -623,7 +623,7 @@ include("subs/verificaPermissao.php");
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
 
-                echo "<form method='post' action='subs/deletar-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
+                echo "<form method='post' action='subs/del-edit-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
                 echo "<input type='hidden' name='delete_id' value='{$id}'>";
                 echo "<button type='submit'>Remover</button>";
                 echo "</form>";
@@ -632,7 +632,7 @@ include("subs/verificaPermissao.php");
 
                 // Formulário de edição embutido
 
-                echo "<form method='post' action='subs/editar-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
+                echo "<form method='post' action='subs/del-edit-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
                 echo "<input type='hidden' name='id' value='{$id}'>";
 
                 echo "<input type='text' name='nome' value='{$a['nome']}' placeholder='Nome completo' required>";
@@ -712,7 +712,7 @@ include("subs/verificaPermissao.php");
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
 
-                echo "<form method='post' action='subs/deletar-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
+                echo "<form method='post' action='subs/del-edit-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
                 echo "<input type='hidden' name='delete_id' value='{$id}'>";
                 echo "<button type='submit'>Remover</button>";
                 echo "</form>";
@@ -721,7 +721,7 @@ include("subs/verificaPermissao.php");
 
                 // Formulário de edição embutido
 
-                echo "<form method='post' action='subs/editar-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
+                echo "<form method='post' action='subs/del-edit-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
                 echo "<input type='hidden' name='id' value='{$id}'>";
 
                 echo "<input type='text' name='nome' value='{$a['nome']}' placeholder='Nome completo' required>";
@@ -803,7 +803,7 @@ include("subs/verificaPermissao.php");
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
 
-                echo "<form method='post' action='subs/deletar-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
+                echo "<form method='post' action='subs/del-edit-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
                 echo "<input type='hidden' name='delete_id' value='{$id}'>";
                 echo "<button type='submit'>Remover</button>";
                 echo "</form>";
@@ -812,7 +812,7 @@ include("subs/verificaPermissao.php");
 
                 // Formulário de edição embutido
 
-                echo "<form method='post' action='subs/editar-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
+                echo "<form method='post' action='subs/del-edit-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
                 echo "<input type='hidden' name='id' value='{$id}'>";
 
                 echo "<input type='text' name='nome' value='{$a['nome']}' placeholder='Nome completo' required>";
@@ -892,7 +892,7 @@ include("subs/verificaPermissao.php");
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
 
-                echo "<form method='post' action='subs/deletar-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
+                echo "<form method='post' action='subs/del-edit-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
                 echo "<input type='hidden' name='delete_id' value='{$id}'>";
                 echo "<button type='submit'>Remover</button>";
                 echo "</form>";
@@ -901,7 +901,7 @@ include("subs/verificaPermissao.php");
 
                 // Formulário de edição embutido
 
-                echo "<form method='post' action='subs/editar-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
+                echo "<form method='post' action='subs/del-edit-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
                 echo "<input type='hidden' name='id' value='{$id}'>";
 
                 echo "<input type='text' name='nome' value='{$a['nome']}' placeholder='Nome completo' required>";

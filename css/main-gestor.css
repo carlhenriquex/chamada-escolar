@@ -125,6 +125,174 @@
   margin-bottom: 2rem;
 }
 
+/* Container principal */
+.box-main {
+  padding: 40px;
+  background-color: #0b1025;
+  color: #f0f0f0;
+  min-height: 100vh;
+}
+
+.container-admin {
+  max-width: 1000px;
+  margin: auto;
+  background-color: #11193a;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px #00000050;
+}
+
+/* Título */
+.container-admin h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+/* Navegação entre abas */
+.tab-nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.tab-link {
+  background-color: #1c2541;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.tab-link.active,
+.tab-link:hover {
+  background-color: #3a4f81;
+}
+
+/* Listagem */
+.list-group {
+  list-style: none;
+  padding: 0;
+}
+
+.list-group-item {
+  background-color: #1b2344;
+  border: 1px solid #2d365a;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  transition: background 0.3s;
+}
+
+.list-group-item:hover {
+  background-color: #242e5c;
+}
+
+/* Dados visíveis */
+.dados-visiveis {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dados-visiveis strong {
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+/* Formulários */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+form input,
+form select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #3d4f7c;
+  background-color: #111c3b;
+  color: #fff;
+  flex: 1 1 150px;
+}
+
+form input::placeholder {
+  color: #ccc;
+}
+
+/* Botões */
+form button,
+.dados-visiveis button {
+  background-color: #2f80ed;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+form button[type="button"] {
+  background-color: #e74c3c;
+}
+
+form button:hover,
+.dados-visiveis button:hover {
+  background-color: #1c60c2;
+}
+
+form button[type="button"]:hover {
+  background-color: #c0392b;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .form-group {
+    flex-direction: column;
+  }
+
+  .dados-visiveis {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  form input,
+  form select {
+    flex: 1 1 100%;
+  }
+}
+
+/* Mensagens */
+.mensagem {
+  text-align: center;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.mensagem.sucesso {
+  background-color: #2ecc71;
+  color: #ffffff;
+}
+
+.mensagem.erro {
+  background-color: #e74c3c;
+  color: #ffffff;
+}
+
+
 /* Sidebar responsiva */
 @media (max-width: 900px) {
   .perfil-desktop {

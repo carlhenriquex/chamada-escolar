@@ -66,9 +66,10 @@ CREATE TABLE alunos (
   responsavel_id INT,
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   removido_em DATETIME DEFAULT NULL,
-  FOREIGN KEY (responsavel_id) REFERENCES responsaveis(id) ON DELETE SET NULL
+  FOREIGN KEY (responsavel_id) REFERENCES responsaveis(id) ON DELETE
+  SET
+    NULL
 );
-
 
 CREATE TABLE avisos (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -77,4 +78,32 @@ CREATE TABLE avisos (
   data_publicacao DATETIME DEFAULT CURRENT_TIMESTAMP,
   autor_id INT NOT NULL,
   autor_tipo ENUM('gestor', 'professor') NOT NULL
+);
+
+CREATE TABLE notas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  aluno_id INT NOT NULL,
+  disciplina VARCHAR(100) NOT NULL,
+  unidade TINYINT NOT NULL CHECK (
+    unidade BETWEEN 1
+    AND 4
+  ),
+  n1 DECIMAL(4, 1) NOT NULL,
+  n2 DECIMAL(4, 1) NOT NULL,
+  media DECIMAL(4, 1) GENERATED ALWAYS AS ((n1 + n2) / 2) STORED,
+  data_lancamento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (aluno_id, disciplina, unidade),
+  FOREIGN KEY (aluno_id) REFERENCES alunos(id) ON DELETE CASCADE
+);
+
+CREATE TABLE presencas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  aluno_id INT NOT NULL,
+  data_presenca DATE NOT NULL,
+  presente BOOLEAN NOT NULL,
+  turma VARCHAR(20) NOT NULL,
+  disciplina VARCHAR(100) NOT NULL,
+  data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (aluno_id, data_presenca, turma, disciplina),
+  FOREIGN KEY (aluno_id) REFERENCES alunos(id) ON DELETE CASCADE
 );
