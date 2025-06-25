@@ -6,28 +6,32 @@ menuToggle.addEventListener("click", () => {
     menuToggle.classList.toggle("open");
 });
 
-// SPA simples: alterna telas
-const mainSections = document.querySelectorAll(".box-main");
-const sidebarButtons = document.querySelectorAll(
-    ".sidebar-buttons .button-enviar[data-target]"
-);
 
-sidebarButtons.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const targetId = btn.getAttribute("data-target");
-        mainSections.forEach((section) => {
-            section.style.display = section.id === targetId ? "flex" : "none";
-        });
-        sidebar.classList.remove("sidebar-open");
-        menuToggle.classList.remove("open");
+const mainSections = document.querySelectorAll(".box-main");
+const sidebarButtons = document.querySelectorAll(".sidebar-buttons .button-enviar");
+
+function exibirTela(id) {
+    mainSections.forEach(section => {
+        section.style.display = section.id === id ? "flex" : "none";
+    });
+    window.location.hash = `#${id}`;
+}
+
+// Trocar de tela ao clicar no botão
+sidebarButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        const destino = button.dataset.target;
+        exibirTela(destino);
+        window.scrollTo({ top: 0, behavior: "smooth" });
     });
 });
 
-// Exibe apenas a primeira tela ao carregar
-mainSections.forEach((section, idx) => {
-    section.style.display = idx === 0 ? "flex" : "none";
-});
+
+// Mostrar a tela correta ao carregar a página
+const hash = window.location.hash || "#tela-01";
+const telaInicial = hash.substring(1); // remove o #
+exibirTela(telaInicial);
+
 
 // CHECKBOX DEFICIENCIA E RESPONSAVEL DO CADASTRO DE ALUNO
 
