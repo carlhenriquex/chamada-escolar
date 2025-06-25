@@ -83,22 +83,15 @@
 
 /* TELA 4 - GESTÃO DE USUÁRIOS CADASTRADOS */
 
-.tab-nav {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
 .tab-nav button {
   padding: 0.5rem 1rem;
   cursor: pointer;
-  background-color: #eee;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .tab-nav button.active {
-  background-color: #ccc;
+  background-color: orange;
 }
 
 .tab-content {
@@ -128,18 +121,16 @@
 /* Container principal */
 .box-main {
   padding: 40px;
-  background-color: #0b1025;
   color: #f0f0f0;
   min-height: 100vh;
 }
 
 .container-admin {
-  max-width: 1000px;
-  margin: auto;
-  background-color: #11193a;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 10px #00000050;
+  border: 2px solid var(--secondary-color);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  background: var(--card-bg);
+  margin-bottom: 1rem;
 }
 
 /* Título */
@@ -160,7 +151,7 @@
 }
 
 .tab-link {
-  background-color: #1c2541;
+  background-color: var(--tertiary-color);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -182,16 +173,12 @@
 }
 
 .list-group-item {
-  background-color: #1b2344;
+  background-color: var(--primary-color);
   border: 1px solid #2d365a;
   border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 15px;
+  padding: .6rem 15px;
+  margin-bottom: .5rem;
   transition: background 0.3s;
-}
-
-.list-group-item:hover {
-  background-color: #242e5c;
 }
 
 /* Dados visíveis */
@@ -204,20 +191,25 @@
 }
 
 .dados-visiveis strong {
-  font-size: 1.1rem;
+  font-size: .9rem;
+  color: #ffffff;
+}
+
+.dados-visiveis p {
+  font-size: .8rem;
   color: #ffffff;
 }
 
 /* Formulários */
-form {
+#tela-04 form {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 15px;
 }
 
-form input,
-form select {
+#tela-04 form input,
+#tela-04 form select {
   padding: 8px 10px;
   border-radius: 8px;
   border: 1px solid #3d4f7c;
@@ -226,12 +218,12 @@ form select {
   flex: 1 1 150px;
 }
 
-form input::placeholder {
+#tela-04 form input::placeholder {
   color: #ccc;
 }
 
 /* Botões */
-form button,
+#tela-04 form button,
 .dados-visiveis button {
   background-color: #2f80ed;
   color: white;
@@ -240,19 +232,20 @@ form button,
   padding: 8px 15px;
   cursor: pointer;
   font-weight: bold;
+  margin-right: .5rem;
   transition: background-color 0.3s;
 }
 
-form button[type="button"] {
+#tela-04 form button[type="button"] {
   background-color: #e74c3c;
 }
 
-form button:hover,
+#tela-04 form button:hover,
 .dados-visiveis button:hover {
   background-color: #1c60c2;
 }
 
-form button[type="button"]:hover {
+#tela-04 form button[type="button"]:hover {
   background-color: #c0392b;
 }
 
@@ -271,25 +264,6 @@ form button[type="button"]:hover {
   form select {
     flex: 1 1 100%;
   }
-}
-
-/* Mensagens */
-.mensagem {
-  text-align: center;
-  padding: 12px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.mensagem.sucesso {
-  background-color: #2ecc71;
-  color: #ffffff;
-}
-
-.mensagem.erro {
-  background-color: #e74c3c;
-  color: #ffffff;
 }
 
 

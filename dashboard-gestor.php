@@ -519,7 +519,7 @@ include("subs/verificaPermissao.php");
 
                 // Dados visíveis
                 echo "<div class='dados-visiveis'>";
-                echo "<strong>{$p['nome']}</strong> - {$p['disciplina']}";
+                echo "<strong>{$p['nome']}</strong><p>{$p['disciplina']}</p>";
 
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('professor-$id')\">Editar</button>";
@@ -605,6 +605,8 @@ include("subs/verificaPermissao.php");
           </div>
 
           <div class="tab-content" id="alunos">
+
+            <!-- LISTAGEM ALUNOS 6 ANO -->
             <?php
             $sql = "SELECT * FROM alunos WHERE removido_em IS NULL AND turma = '6º ano' ORDER BY nome;";
             $resultado = $conexao->query($sql);
@@ -619,7 +621,7 @@ include("subs/verificaPermissao.php");
 
                 // Dados visíveis
                 echo "<div class='dados-visiveis'>";
-                echo "<strong>{$a['nome']}</strong> - {$a['turma']}";
+                echo "<strong>{$a['nome']}</strong>";
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
 
@@ -694,6 +696,8 @@ include("subs/verificaPermissao.php");
               echo "<p class= 'naUser';>Nenhum aluno cadastrado.</p>";
             }
             ?>
+
+            <!-- LISTAGEM ALUNOS 7 ANO -->
             <?php
             $sql = "SELECT * FROM alunos WHERE removido_em IS NULL AND turma = '7º ano' ORDER BY nome;";
             $resultado = $conexao->query($sql);
@@ -706,9 +710,9 @@ include("subs/verificaPermissao.php");
 
                 echo "<li class='list-group-item' id='aluno-{$id}'>";
 
-                // Dados visíveis
+                
                 echo "<div class='dados-visiveis'>";
-                echo "<strong>{$a['nome']}</strong> - {$a['turma']}";
+                echo "<strong>{$a['nome']}</strong>";
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
 
@@ -719,7 +723,6 @@ include("subs/verificaPermissao.php");
                 echo "</div>";
                 echo "</div>";
 
-                // Formulário de edição embutido
 
                 echo "<form method='post' action='subs/del-edit-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
                 echo "<input type='hidden' name='id' value='{$id}'>";
@@ -797,9 +800,9 @@ include("subs/verificaPermissao.php");
 
                 echo "<li class='list-group-item' id='aluno-{$id}'>";
 
-                // Dados visíveis
+               
                 echo "<div class='dados-visiveis'>";
-                echo "<strong>{$a['nome']}</strong> - {$a['turma']}";
+                echo "<strong>{$a['nome']}</strong>";
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
 
@@ -874,6 +877,8 @@ include("subs/verificaPermissao.php");
               echo "<p class= 'naUser';>Nenhum aluno cadastrado.</p>";
             }
             ?>
+
+            <!-- LISTAGEM ALUNOS 9 ANO -->
             <?php
             $sql = "SELECT * FROM alunos WHERE removido_em IS NULL AND turma = '9º ano' ORDER BY nome;";
             $resultado = $conexao->query($sql);
@@ -888,7 +893,7 @@ include("subs/verificaPermissao.php");
 
                 // Dados visíveis
                 echo "<div class='dados-visiveis'>";
-                echo "<strong>{$a['nome']}</strong> - {$a['turma']}";
+                echo "<strong>{$a['nome']}</strong>";
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
 
@@ -978,7 +983,7 @@ include("subs/verificaPermissao.php");
 
                 // Dados visíveis
                 echo "<div class='dados-visiveis'>";
-                echo "<strong>{$r['nome']}</strong> - {$r['email']}";
+                echo "<strong>{$r['nome']}</strong><p>{$r['email']}</p>";
 
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('$id')\">Editar</button>";
