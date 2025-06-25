@@ -6,7 +6,7 @@ $tipoPermitido = 'professor';
 include_once("verificaPermissao.php");
 
 function redirecionar($mensagem, $turma) {
-    $_SESSION["msg"] = $mensagem;
+    $_SESSION["mensagem"] = $mensagem;
     header("Location: ../dashboard-professor.php?turma=" . urlencode($turma) . "#tela-03");
     exit;
 }
@@ -57,7 +57,7 @@ foreach ($notasRecebidas as $unidade => $alunos) {
         $n2Preenchido = isset($notas["n2"]) && $notas["n2"] !== '';
 
         if (!$n1Preenchido && !$n2Preenchido) {
-            continue; // Ignora aluno sem notas
+            continue;
         }
 
         $n1 = $n1Preenchido ? floatval($notas["n1"]) : null;

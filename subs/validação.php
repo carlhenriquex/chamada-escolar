@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-function redirecionar($mensagem)
+function redirecionar($msg)
 {
-    $_SESSION["msg"] = $mensagem;
+    $_SESSION["msg"] = $msg;
     header("Location: ../login.php");
     exit;
 }

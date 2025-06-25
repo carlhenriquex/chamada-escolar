@@ -19,6 +19,16 @@ include("subs/verificaPermissao.php");
 </head>
 
 <body>
+
+  <?php
+  if (isset($_SESSION["mensagem"])) {
+    $tipo = $_SESSION["tipoMensagem"] ?? "sucesso";
+    echo "<div class='mensagem {$tipo}'>";
+    echo "<p class='mensagemText'>" . $_SESSION["mensagem"] . "</p>";
+    unset($_SESSION["mensagem"]);
+    echo "</div>";
+  }
+  ?>
   <!-- HEADER -->
   <header>
     <img src="img/logotexto.png" alt="" />

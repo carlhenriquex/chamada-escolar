@@ -3,8 +3,8 @@ session_start();
 include_once("../config/connection.php");
 
 // Função para redirecionar com mensagem
-function redirecionar($msg) {
-    $_SESSION["mensagem"] = $msg;
+function redirecionar($mensagem) {
+    $_SESSION["mensagem"] = $mensagem;
     header("Location: ../dashboard-gestor.php");
     exit;
 }

@@ -67,7 +67,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <a href="index.html" class="btn-voltar">
+
+    <?php
+    if (isset($_SESSION["msg"])) {
+        $tipo = $_SESSION["tipoMensagem"] ?? "sucesso";
+        echo "<div class='mensagem {$tipo}'>";
+        echo "<p class='mensagemText'>" . $_SESSION["msg"] . "</p>";
+        unset($_SESSION["msg"]);
+        echo "</div>";
+    }
+    ?>
+
+    <a href="login.php" class="btn-voltar">
         <i class="bi bi-arrow-left"></i>
     </a>
 
@@ -79,12 +90,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <form action="esqueceu-senha.php" method="post">
 
-            <?php
-            if (isset($_SESSION["msg"])) {
-                echo "<p class='mensagem'>" . $_SESSION["msg"] . "</p>";
-                unset($_SESSION["msg"]);
-            }
-            ?>
             <img src="img/rodape_logo.png" class="logo-img" alt="Logo Chamada Escolar">
 
             <div class="input-group">

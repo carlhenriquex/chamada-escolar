@@ -17,6 +17,16 @@ include("subs/verificaPermissao.php");
 </head>
 
 <body>
+
+  <?php
+  if (isset($_SESSION["mensagem"])) {
+    $tipo = $_SESSION["tipoMensagem"] ?? "sucesso";
+    echo "<div class='mensagem {$tipo}'>";
+    echo "<p class='mensagemText'>" . $_SESSION["mensagem"] . "</p>";
+    unset($_SESSION["mensagem"]);
+    echo "</div>";
+  }
+  ?>
   <header>
     <img src="img/logotexto.png" alt="" />
     <h3>Dashboard Responsável</h3>
@@ -66,9 +76,9 @@ include("subs/verificaPermissao.php");
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
               <circle cx="10" cy="6.5" r="4" fill="#fff" />
               <path
-              d="M3 17c0-2.7614 3.134-5 7-5s7 2.2386 7 5"
-              stroke-linecap="round"
-              fill="#fff" />
+                d="M3 17c0-2.7614 3.134-5 7-5s7 2.2386 7 5"
+                stroke-linecap="round"
+                fill="#fff" />
             </svg>
           </span>
         </a>

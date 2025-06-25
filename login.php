@@ -10,6 +10,17 @@
 </head>
 
 <body>
+
+    <?php
+    if (isset($_SESSION["msg"])) {
+        $tipo = $_SESSION["tipoMensagem"] ?? "sucesso";
+        echo "<div class='mensagem {$tipo}'>";
+        echo "<p class='mensagemText'>" . $_SESSION["msg"] . "</p>";
+        unset($_SESSION["msg"]);
+        echo "</div>";
+    }
+    ?>
+
     <a href="index.html" class="btn-voltar">
         <i class="bi bi-arrow-left"></i>
     </a>
@@ -22,13 +33,6 @@
 
         <form action="subs/validação.php" method="post">
 
-            <?php
-            session_start();
-            if (isset($_SESSION["msg"])) {
-                echo "<p class='mensagem'>" . $_SESSION["msg"] . "</p>";
-                unset($_SESSION["msg"]);
-            }
-            ?>
             <img src="img/rodape_logo.png" class="logo-img" alt="Logo Chamada Escolar">
 
             <div class="input-group tipo-acesso">

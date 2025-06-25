@@ -2,14 +2,16 @@
 session_start();
 include_once("../config/connection.php");
 
-function redirecionar($msg){
-    $_SESSION["mensagem"] = $msg;
-    header("Location: ../dashboard-gestor.php");
+function redirecionar($mensagem, $sucesso = true)
+{
+    $_SESSION["mensagem"] = $mensagem;
+    $_SESSION["tipoMensagem"] = $sucesso ? "sucesso" : "erro";
+    header("Location: ../dashboard-gestor.php#tela-03");
     exit;
 }
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    redirecionar("Requisição inválida.");
+    redirecionar("Requisição inválida.", false);
 }
 
 // REMOÇÃO
@@ -22,7 +24,7 @@ if (isset($_POST["delete_id"])) {
     if ($stmt->execute()) {
         redirecionar("Professor removido com sucesso.");
     } else {
-        redirecionar("Erro ao remover professor: " . $stmt->error);
+        redirecionar("Erro ao remover professor: " . $stmt->error, false);
     }
 }
 
@@ -50,29 +52,14 @@ if (isset($_POST["id"]) && isset($_POST["nome"])) {
     $email = $_POST["email"];
 
     $stmt = $conexao->prepare("UPDATE professores SET 
-    nome = ?, 
-    nascimento = ?, 
-    rg = ?, 
-    cpf = ?, 
-    sexo = ?, 
-    raca = ?, 
-    tipo_sanguineo = ?, 
-    formacao = ?, 
-    disciplina = ?, 
-    turma = ?, 
-    rua = ?, 
-    numero = ?, 
-    bairro = ?, 
-    cidade = ?, 
-    complemento = ?, 
-    cep = ?, 
-    telefone = ?, 
-    email = ?
-    WHERE id = ?
+        nome = ?, nascimento = ?, rg = ?, cpf = ?, sexo = ?, raca = ?, tipo_sanguineo = ?, 
+        formacao = ?, disciplina = ?, turma = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, 
+        complemento = ?, cep = ?, telefone = ?, email = ?
+        WHERE id = ?
     ");
 
     if (!$stmt) {
-        redirecionar("Erro ao preparar a consulta: " . $conexao->error);
+        redirecionar("Erro ao preparar a consulta: " . $conexao->error, false);
     }
 
     $stmt->bind_param(
@@ -101,8 +88,8 @@ if (isset($_POST["id"]) && isset($_POST["nome"])) {
     if ($stmt->execute()) {
         redirecionar("Dados do professor atualizados com sucesso.");
     } else {
-        redirecionar("Erro ao atualizar dados: " . $stmt->error);
+        redirecionar("Erro ao atualizar dados: " . $stmt->error, false);
     }
 }
 
-redirecionar("Ação inválida.");
+redirecionar("Ação inválida.", false);

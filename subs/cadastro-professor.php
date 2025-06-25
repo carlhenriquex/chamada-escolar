@@ -1,22 +1,21 @@
 <?php
 session_start();
-
 include("../config/connection.php");
 
-function redirecionar($mensagem) {
+function redirecionar($mensagem, $sucesso = true) {
     $_SESSION["mensagem"] = $mensagem;
+    $_SESSION["tipoMensagem"] = $sucesso ? "sucesso" : "erro";
 
     global $stmt, $verifica, $conexao;
     if (isset($stmt)) $stmt->close();
     if (isset($verifica)) $verifica->close();
     if (isset($conexao)) $conexao->close();
 
-    header("Location: ../dashboard-gestor.php");
+    header("Location: ../dashboard-gestor.php#tela-02");
     exit;
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nome = $_POST['nome'];
     $nascimento = $_POST['nascimento'];
     $rg = $_POST['rg'];
@@ -38,9 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $senha = $_POST['senha1'];
     $confirmar_senha = $_POST['senha2'];
 
-
     if ($senha !== $confirmar_senha) {
-        redirecionar("Erro: As senhas não coincidem.");
+        redirecionar("Erro: As senhas não coincidem.", false);
     }
 
     $verifica = $conexao->prepare("SELECT id FROM professores WHERE email = ?");
@@ -49,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $verifica->store_result();
 
     if ($verifica->num_rows > 0) {
-        redirecionar("E-mail já cadastrado no sistema!");
+        redirecionar("E-mail já cadastrado no sistema!", false);
     }
 
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
@@ -84,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->execute()) {
         redirecionar("Cadastro realizado com sucesso!");
     } else {
-        redirecionar("Erro ao cadastrar.");
+        redirecionar("Erro ao cadastrar: " . $stmt->error, false);
     }
 
     $stmt->close();
