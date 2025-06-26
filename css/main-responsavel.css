@@ -79,69 +79,36 @@
 
 /*TELA 3 - BOLETIM RESPONSÁVEIS */
 
-
-.resp-container {
-  width: 100%;
-  height: 85vh;
-  background-color: white;
-  padding: 50px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-}
-
-.resp-titulo {
-  text-align: center;
-  color: #ff6600;
-  margin-bottom: 20px;
-}
-
-.resp-info {
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.resp-tabela {
-  width: 100%;
+.tabela-boletim {
+  width: 600px;
   border-collapse: collapse;
-  font-size: 14px;
+  text-align: center;
 }
 
-.resp-tabela thead tr:first-child {
-  background-color: #3399ff;
-  color: white;
-}
-
-.resp-tabela thead tr:nth-child(2) {
-  background-color: #b3d9ff;
-}
-
-.resp-tabela th,
-.resp-tabela td {
+.tabela-boletim th,
+.tabela-boletim td {
   border: 1px solid #ccc;
   padding: 8px;
-  text-align: center;
+  font-size: .8rem;
 }
 
-.resp-aprovado {
-  color: green;
+.tabela-boletim th {
+  background-color: #e1ecf4;
   font-weight: bold;
 }
 
-.resp-recuperacao {
-  color: rgb(128, 47, 0);
+.tabela-boletim tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.media-verde {
+  background-color: #d4edda;
+  color: #155724;
   font-weight: bold;
 }
 
-.resp-reprovado {
-  color: red;
+.media-vermelha {
+  background-color: #f8d7da;
+  color: #721c24;
   font-weight: bold;
-}
-
-.resp-legenda {
-  margin-top: 20px;
-  text-align: left;
-  font-size: 14px;
 }

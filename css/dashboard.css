@@ -58,9 +58,9 @@ header a {
   background-color: var(--card-bg);
   color: var(--text-bg);
   border: none;
-  padding: 0.5rem 2rem;
+  padding: 0.7rem .4rem;
   border-radius: 0.7rem;
-  font-size: 1rem;
+  font-size: .8rem;
   margin-bottom: 1rem;
   cursor: pointer;
   width: 100%;

@@ -36,31 +36,58 @@ exibirTela(telaInicial);
 // CHECKBOX DEFICIENCIA E RESPONSAVEL DO CADASTRO DE ALUNO
 
 function gerirInputDeDeficiencia(statusCheckbox) {
-    let inputDeficiencia = document.getElementById("texto-deficiencia");
+    const inputDeficiencia = document.getElementById("texto-deficiencia");
+
+    inputDeficiencia.value = ""; // Limpa texto ao alternar
+
     if (statusCheckbox === true) {
         inputDeficiencia.disabled = false;
+        inputDeficiencia.required = true;
         inputDeficiencia.style.backgroundColor = "";
     } else {
         inputDeficiencia.disabled = true;
+        inputDeficiencia.required = false;
         inputDeficiencia.style.backgroundColor = "#ccc";
     }
 }
 
+
 function gerirSeletorDoResponsavel(statusCheckbox) {
-    let seletorResponsavel = document.getElementById("seletor-responsavel");
-    let sectionResponsaveis = document.getElementById("section-responsaveis");
+    const seletorResponsavel = document.getElementById("seletor-responsavel");
+    const sectionResponsaveis = document.getElementById("section-responsaveis");
+    const inputsResponsavel = sectionResponsaveis.querySelectorAll("input, select");
+
+    seletorResponsavel.value = ""; // Limpa o campo ao alternar
+
     if (statusCheckbox === true) {
+        // Usa responsável já cadastrado
         seletorResponsavel.disabled = false;
         seletorResponsavel.required = true;
         seletorResponsavel.style.backgroundColor = "";
         sectionResponsaveis.style.display = "none";
+
+        // Desativa os required dos campos ocultos
+        inputsResponsavel.forEach(input => {
+            input.dataset.originalRequired = input.required;
+            input.required = false;
+        });
     } else {
+        // Vai cadastrar novo responsável
         seletorResponsavel.disabled = true;
         seletorResponsavel.required = false;
         seletorResponsavel.style.backgroundColor = "#ccc";
         sectionResponsaveis.style.display = "";
+
+        // Restaura os required conforme estavam originalmente
+        inputsResponsavel.forEach(input => {
+            if (input.dataset.originalRequired === "true") {
+                input.required = true;
+            }
+        });
     }
 }
+
+
 
 // Troca visual da unidade
 const botoes = document.querySelectorAll('.botao-unidade');
@@ -90,4 +117,3 @@ function calcularMedia(input) {
     const media = ((n1 + n2) / 2).toFixed(1);
     row.querySelector('.media-input').value = media;
 }
-

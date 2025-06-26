@@ -10,7 +10,7 @@ $sql = "SELECT aluno_id, unidade, n1, n2, media FROM notas
 WHERE aluno_id IN (SELECT id FROM alunos WHERE turma = ? AND removido_em IS NULL)";
 
 $stmt = $conexao->prepare($sql);
-$stmt->bind_param("s", $turma); // Ex: "6º Ano"
+$stmt->bind_param("s", $turma);
 $stmt->execute();
 $resultado = $stmt->get_result();
 
@@ -55,7 +55,7 @@ while ($row = $resultado->fetch_assoc()) {
     <img src="img/logotexto.png" alt="" />
     <h3>Dashboard Professor</h3>
     <a
-      href="perfil-professor.html"
+      href="perfil-professor.php"
       class="perfil-desktop"
       data-target="tela-04">
       Perfil

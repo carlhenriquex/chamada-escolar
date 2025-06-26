@@ -1,8 +1,29 @@
 <?php
 session_start();
+include_once("config/connection.php");
 
 $tipoPermitido = 'responsavel';
 include("subs/verificaPermissao.php");
+
+$responsavel_id = $_SESSION["id"];
+
+$sql = "SELECT id, nome FROM alunos WHERE responsavel_id = ? AND removido_em IS NULL";
+$stmt = $conexao->prepare($sql);
+$stmt->bind_param("i", $responsavel_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$alunos = [];
+while ($row = $result->fetch_assoc()) {
+  $alunos[] = $row;
+}
+
+
+if (!isset($_GET["aluno"]) && count($alunos) > 0) {
+  $primeiroId = $alunos[0]["id"];
+  header("Location: ?aluno=$primeiroId");
+  exit;
+}
 
 ?>
 
@@ -31,7 +52,7 @@ include("subs/verificaPermissao.php");
     <img src="img/logotexto.png" alt="" />
     <h3>Dashboard Responsável</h3>
     <a
-      href="perfil-responsavel.html"
+      href="perfil-responsavel.php"
       class="perfil-desktop"
       data-target="tela-04">
       Perfil
@@ -57,15 +78,20 @@ include("subs/verificaPermissao.php");
 
   <div class="container">
     <aside class="sidebar" id="sidebar">
-      <p class="sidebar-title">Selecione o Aluno</p>
-      <select
-        class="sidebar-dropdown"
-        name="aluno-selecionado"
-        id="select-alunos">
-        <option value="id-01" selected>Carlos Henrique</option>
-        <option value="id-02">Luciana Souza</option>
-        <option value="id-03">Eduarda Elvira</option>
-      </select>
+      <form method="get" action="">
+        <h4 class="sidebar-title">Selecione o Aluno</h4>
+        <select class="sidebar-dropdown" name="aluno" id="select-alunos" onchange="this.form.submit()">
+          <?php foreach ($alunos as $aluno): ?>
+            <option value="<?= $aluno['id'] ?>" <?= ($_GET["aluno"] == $aluno['id']) ? "selected" : "" ?>>
+              <?= htmlspecialchars($aluno['nome']) ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </form>
+
+
+
+
       <div class="sidebar-buttons">
         <a class="button-enviar" data-target="tela-01">Avisos</a>
         <a class="button-enviar" data-target="tela-02">Frequência</a>
@@ -87,255 +113,170 @@ include("subs/verificaPermissao.php");
     </aside>
 
     <main>
+      <!-- AVISOS -->
       <div class="box-main" id="tela-01">
         <section class="home-section">
-          <h1>Avisos do Aluno</h1>
+          <h1>Avisos da Turma</h1>
           <div class="feed">
-            <div class="feed-item">
-              <p><strong>Título do aviso 1</strong></p>
-              <div class="repo-card">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptate incidunt neque pariatur accusamus aliquam a
-                laboriosam vitae recusandae vero, modi corrupti explicabo
-                deleniti tenetur facilis at, veritatis, est nulla accusantium!
-              </div>
-              <small>4 horas atrás</small>
-            </div>
-            <div class="feed-item">
-              <p><strong>Título do aviso 2</strong></p>
-              <div class="repo-card">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quidem quam minima eius tempora at libero fugiat corrupti
-                magni tempore obcaecati? Repudiandae omnis dolorum velit illum
-                veritatis. Dignissimos atque eveniet assumenda.
-              </div>
-              <small>2 dias atrás</small>
-            </div>
-            <div class="feed-item">
-              <p><strong>Título do aviso 3</strong></p>
-              <div class="repo-card">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quidem quam minima eius tempora at libero fugiat corrupti
-                magni tempore obcaecati? Repudiandae omnis dolorum velit illum
-                veritatis. Dignissimos atque eveniet assumenda.
-              </div>
-              <small>2 dias atrás</small>
-            </div>
-            <div class="feed-item">
-              <p><strong>Título do aviso 4</strong></p>
-              <div class="repo-card">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quidem quam minima eius tempora at libero fugiat corrupti
-                magni tempore obcaecati? Repudiandae omnis dolorum velit illum
-                veritatis. Dignissimos atque eveniet assumenda.
-              </div>
-              <small>2 dias atrás</small>
-            </div>
-            <div class="feed-item">
-              <p><strong>Título do aviso 5</strong></p>
-              <div class="repo-card">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quidem quam minima eius tempora at libero fugiat corrupti
-                magni tempore obcaecati? Repudiandae omnis dolorum velit illum
-                veritatis. Dignissimos atque eveniet assumenda.
-              </div>
-              <small>4 dias atrás</small>
-            </div>
+            <?php
+            include_once("config/connection.php");
+
+            $sql = "SELECT avisos.*, 
+              CASE 
+                WHEN autor_tipo = 'gestor' THEN gestores.username
+                WHEN autor_tipo = 'professor' THEN professores.nome 
+              END AS autor_nome
+            FROM avisos
+            LEFT JOIN gestores ON autor_tipo = 'gestor' AND autor_id = gestores.id
+            LEFT JOIN professores ON autor_tipo = 'professor' AND autor_id = professores.id
+            ORDER BY data_publicacao DESC
+            LIMIT 10";
+
+            $resultado = $conexao->query($sql);
+
+            if ($resultado->num_rows > 0) {
+              while ($aviso = $resultado->fetch_assoc()) {
+                $id = $aviso['id'];
+                echo "<div class='feed-item'>";
+                echo "<p><strong>" . htmlspecialchars($aviso['titulo']) . "</strong></p>";
+                echo "<div class='repo-card'>" . nl2br(htmlspecialchars($aviso['descricao'])) . "</div>";
+                echo "<small>Por " . htmlspecialchars($aviso['autor_nome']) . " em " . date("d/m/Y H:i", strtotime($aviso['data_publicacao'])) . "</small>";
+
+                echo "<form method='post' action='subs/del-edit-aviso.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aviso?');\">";
+                echo "<input type='hidden' name='delete_id' value='{$id}'>";
+                echo "<button type='submit'>Remover</button>";
+                echo "</form>";
+                echo "</div>";
+              }
+            } else {
+              echo "<p>Nenhum aviso publicado.</p>";
+            }
+            ?>
           </div>
         </section>
       </div>
 
+
+      <!-- FREQUÊNCIA -->
       <div class="box-main" id="tela-02">
         <div class="vf-container">
-          <h3 class="vf-subtitle">Selecione o Mês</h3>
-          <input
-            type="month"
-            id="vf-mesAno"
-            name="mesAno"
-            class="vf-input-month" />
+          <?php
+          if (!isset($_GET["aluno"])) {
+            echo "<p>Aluno não selecionado.</p>";
+          } else {
+            $aluno_id = intval($_GET["aluno"]);
+            $sql = "SELECT data_presenca, presente FROM presencas WHERE aluno_id = ? ORDER BY data_presenca DESC";
+            $stmt = $conexao->prepare($sql);
 
-          <div class="vf-tabela-wrapper">
-            <table class="vf-tabela">
-              <thead>
-                <tr>
-                  <th>Seg</th>
-                  <th>Ter</th>
-                  <th>Qua</th>
-                  <th>Qui</th>
-                  <th>Sex</th>
-                </tr>
-              </thead>
-              <tbody id="vf-tabela-corpo"></tbody>
-            </table>
-          </div>
+            if (!$stmt) {
+              echo "<p>Erro ao preparar a consulta: " . $conexao->error . "</p>";
+            } else {
+              $stmt->bind_param("i", $aluno_id);
+              $stmt->execute();
+              $result = $stmt->get_result();
+
+              if ($result->num_rows === 0) {
+                echo "<p>Nenhuma frequência registrada para este aluno.</p>";
+              } else {
+                echo "<table class='tabela-frequencia'>";
+                echo "<tr><th>Data</th><th>Status</th></tr>";
+                while ($linha = $result->fetch_assoc()) {
+                  echo "<tr>";
+                  echo "<td>" . date("d/m/Y", strtotime($linha["data_presenca"])) . "</td>";
+                  echo "<td>" . ($linha["presente"] ? "Presente" : "Faltou") . "</td>";
+                  echo "</tr>";
+                }
+                echo "</table>";
+              }
+            }
+          }
+          ?>
         </div>
-        <script src="scripts/calendario_responsavel.js"></script>
       </div>
 
+      <!-- BOLETIM -->
       <div class="box-main" id="tela-03">
-        <div class="resp-container">
-          <h1 class="resp-titulo">Boletim Escolar</h1>
+        <div class="vn-container">
+          <?php
+          if (!isset($_GET["aluno"])) {
+            echo "<p>Aluno não selecionado.</p>";
+          } else {
+            $aluno_id = intval($_GET["aluno"]);
+            $sql = "SELECT disciplina, unidade, n1, n2, media FROM notas WHERE aluno_id = ? ORDER BY disciplina, unidade";
+            $stmt = $conexao->prepare($sql);
 
-          <div class="resp-info">
-            <span><strong>Aluno:</strong> Carlos Henrique Souza Santos</span>
-            <span><strong>Série:</strong> 3 ano</span>
-            <span><strong>Turma:</strong> A</span>
-          </div>
+            if (!$stmt) {
+              echo "<p>Erro ao preparar a consulta: " . $conexao->error . "</p>";
+            } else {
+              $stmt->bind_param("i", $aluno_id);
+              $stmt->execute();
+              $result = $stmt->get_result();
 
-          <table class="resp-tabela">
-            <thead>
-              <tr>
-                <th>Disciplina</th>
-                <th colspan="2">1º Bimestre</th>
-                <th colspan="2">2º Bimestre</th>
-                <th colspan="2">3º Bimestre</th>
-                <th colspan="2">4º Bimestre</th>
-                <th>Média</th>
-                <th>% Freq</th>
-                <th>Nota recup</th>
-                <th>Média anual</th>
-                <th>Situação</th>
-              </tr>
-              <tr>
-                <th></th>
-                <th>N</th>
-                <th>F</th>
-                <th>N</th>
-                <th>F</th>
-                <th>N</th>
-                <th>F</th>
-                <th>N</th>
-                <th>F</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Artes</td>
-                <td>5,0</td>
-                <td>2</td>
-                <td>9,0</td>
-                <td>1</td>
-                <td>9,0</td>
-                <td>1</td>
-                <td>5,0</td>
-                <td>2</td>
-                <td>7,0</td>
-                <td>100%</td>
-                <td></td>
-                <td></td>
-                <td class="resp-aprovado">Aprovado</td>
-              </tr>
-              <tr>
-                <td>Biologia</td>
-                <td>2,0</td>
-                <td>2</td>
-                <td>9,0</td>
-                <td>1</td>
-                <td>9,0</td>
-                <td>1</td>
-                <td>2,0</td>
-                <td>2</td>
-                <td>5,5</td>
-                <td>80%</td>
-                <td></td>
-                <td></td>
-                <td class="resp-aprovado">Aprovado</td>
-              </tr>
-              <tr>
-                <td>Educação Física</td>
-                <td>5,0</td>
-                <td>2</td>
-                <td>9,0</td>
-                <td>1</td>
-                <td>9,0</td>
-                <td>1</td>
-                <td>5,0</td>
-                <td>2</td>
-                <td>7,0</td>
-                <td>90%</td>
-                <td></td>
-                <td></td>
-                <td class="resp-aprovado">Aprovado</td>
-              </tr>
-              <tr>
-                <td>Espanhol</td>
-                <td>5,0</td>
-                <td>1</td>
-                <td>9,0</td>
-                <td>2</td>
-                <td>9,0</td>
-                <td>2</td>
-                <td>5,0</td>
-                <td>2</td>
-                <td>7,0</td>
-                <td>80%</td>
-                <td></td>
-                <td></td>
-                <td class="resp-reprovado">Reprovado</td>
-              </tr>
-              <tr>
-                <td>História</td>
-                <td>5,0</td>
-                <td>1</td>
-                <td>5,0</td>
-                <td>2</td>
-                <td>6,0</td>
-                <td>2</td>
-                <td>5,0</td>
-                <td>2</td>
-                <td>6,0</td>
-                <td>90%</td>
-                <td></td>
-                <td></td>
-                <td class="resp-recuperacao">Recuperação</td>
-              </tr>
-              <tr>
-                <td>Matemática</td>
-                <td>9,0</td>
-                <td>1</td>
-                <td>9,0</td>
-                <td>2</td>
-                <td>9,0</td>
-                <td>2</td>
-                <td>5,0</td>
-                <td>2</td>
-                <td>7,0</td>
-                <td>70%</td>
-                <td></td>
-                <td></td>
-                <td class="resp-reprovado">Reprovado</td>
-              </tr>
-              <tr>
-                <td>Português</td>
-                <td>6,0</td>
-                <td>1</td>
-                <td>5,0</td>
-                <td>2</td>
-                <td>6,0</td>
-                <td>2</td>
-                <td>5,0</td>
-                <td>2</td>
-                <td>6,0</td>
-                <td>60%</td>
-                <td></td>
-                <td></td>
-                <td class="resp-recuperacao">Recuperação</td>
-              </tr>
-            </tbody>
-          </table>
+              if ($result->num_rows === 0) {
+                echo "<p>Nenhuma nota registrada para este aluno.</p>";
+              } else {
+                $notas = [];
 
-          <div class="resp-legenda">
-            <p>
-              <strong>N:</strong> Nota &nbsp; <strong>F:</strong> Frequência
-            </p>
-          </div>
+                while ($row = $result->fetch_assoc()) {
+                  $disciplina = $row['disciplina'];
+                  $unidade = $row['unidade'];
+                  $notas[$disciplina][$unidade] = [
+                    'n1' => $row['n1'],
+                    'n2' => $row['n2'],
+                    'media' => $row['media']
+                  ];
+                }
+
+                echo "<table class='tabela-boletim'>";
+                echo "<tr><th rowspan='2'>Disciplina</th>";
+
+                for ($u = 1; $u <= 4; $u++) {
+                  echo "<th colspan='3'>{$u}º Bimestre</th>";
+                }
+
+                echo "<th rowspan='2'>Média Final</th></tr><tr>";
+
+                for ($u = 1; $u <= 4; $u++) {
+                  echo "<th>N1</th><th>N2</th><th>Média</th>";
+                }
+
+                echo "</tr>";
+
+                foreach ($notas as $disciplina => $unidades) {
+                  echo "<tr>";
+                  echo "<td>" . htmlspecialchars($disciplina) . "</td>";
+
+                  $somaMedias = 0;
+                  $totalUnidades = 0;
+
+                  for ($u = 1; $u <= 4; $u++) {
+                    if (isset($unidades[$u])) {
+                      $n1 = number_format($unidades[$u]['n1'], 1, ',', '.');
+                      $n2 = number_format($unidades[$u]['n2'], 1, ',', '.');
+                      $media = number_format($unidades[$u]['media'], 1, ',', '.');
+                      $somaMedias += $unidades[$u]['media'];
+                      $totalUnidades++;
+                    } else {
+                      $n1 = $n2 = $media = "-";
+                    }
+                    echo "<td>$n1</td><td>$n2</td><td>$media</td>";
+                  }
+
+                  $mediaFinal = $totalUnidades > 0 ? $somaMedias / $totalUnidades : 0;
+                  $classeMedia = $mediaFinal >= 7 ? 'media-verde' : 'media-vermelha';
+                  echo "<td class='{$classeMedia}'>" . number_format($mediaFinal, 1, ',', '.') . "</td>";
+
+                  echo "</tr>";
+                }
+
+                echo "</table>";
+              }
+            }
+          }
+          ?>
         </div>
       </div>
+
     </main>
   </div>
 </body>
