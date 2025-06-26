@@ -2,7 +2,8 @@
 session_start();
 include_once("../config/connection.php");
 
-function redirecionar($mensagem, $sucesso = true) {
+function redirecionar($mensagem, $sucesso = true)
+{
     $_SESSION["mensagem"] = $mensagem;
     $_SESSION["tipoMensagem"] = $sucesso ? "sucesso" : "erro";
 
@@ -27,6 +28,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $naturalidade = $_POST['naturalidade'];
     $turma        = $_POST['turma'];
     $deficiencia  = !empty($_POST['deficiencia']) ? $_POST['deficiencia'] : NULL;
+
+    $foto = NULL;
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] !== UPLOAD_ERR_NO_FILE) {
+        $permitidos = ['image/jpeg', 'image/png', 'image/webp'];
+        $arquivo = $_FILES['foto'];
+
+        if ($arquivo['error'] !== UPLOAD_ERR_OK) {
+            redirecionar("Erro ao enviar a imagem: código " . $arquivo['error'], false);
+        }
+
+        if (!in_array($arquivo['type'], $permitidos)) {
+            redirecionar("Formato de imagem não permitido. Use JPEG, PNG ou WEBP.", false);
+        }
+
+        $nomeOriginal = pathinfo($arquivo['name'], PATHINFO_FILENAME);
+        $extensao = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
+        $nomeSanitizado = preg_replace('/[^\w\-]/', '_', $nomeOriginal);
+        $nomeFinal = $nomeSanitizado . "_" . uniqid() . "." . $extensao;
+
+        $caminhoDestino = "../uploads/alunos/" . $nomeFinal;
+        if (!move_uploaded_file($arquivo['tmp_name'], $caminhoDestino)) {
+            redirecionar("Falha ao salvar a imagem no servidor.", false);
+        }
+
+        $foto = $nomeFinal;
+    }
 
     $emailResponsavelExistente = $_POST['responsavel'];
 
@@ -87,11 +114,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->close();
     }
 
-    $stmt = $conexao->prepare("INSERT INTO alunos 
-        (nome, nascimento, rg, cpf, sexo, raca, tipo_sanguineo, nacionalidade, naturalidade, turma, deficiencia, responsavel_id) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("sssssssssssi", $nome, $nascimento, $rg, $cpf, $sexo, $raca, $sangue, $nacionalidade, $naturalidade, $turma, $deficiencia, $responsavel_id);
+    $stmt = $conexao->prepare("INSERT INTO alunos 
+        (nome, nascimento, rg, cpf, sexo, raca, tipo_sanguineo, nacionalidade, naturalidade, turma, deficiencia, responsavel_id, foto) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+    $stmt->bind_param("sssssssssssi", $nome, $nascimento, $rg, $cpf, $sexo, $raca, $sangue, $nacionalidade, $naturalidade, $turma, $deficiencia, $responsavel_id, $foto);
 
     if ($stmt->execute()) {
         redirecionar("Cadastro do aluno realizado com sucesso!", true);
@@ -99,4 +127,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         redirecionar("Erro ao cadastrar aluno: " . $stmt->error, false);
     }
 }
-?>

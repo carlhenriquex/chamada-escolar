@@ -80,7 +80,7 @@ include("subs/verificaPermissao.php");
       <!-- TELA DO CADASTRO ALUNO/RESPONSAVEL -->
       <div class="box-main" id="tela-01">
         <div class="main-header">
-          <form class="container-direito" method="post" action="subs/cadastro-aluno.php">
+          <form class="container-direito" method="post" action="subs/cadastro-aluno.php" enctype="multipart/form-data">
             <div class="row form-icon">
               <img class="icon-estudante" src="img/icon_estudante.png" class="logo-img" alt="ícone estudante" />
             </div>
@@ -93,6 +93,9 @@ include("subs/verificaPermissao.php");
               <div class="input-group">
                 <img src="img/usuario.png" alt="Ícone Usuário" />
                 <input type="text" name="nome" placeholder="Nome Completo" required />
+              </div>
+              <div class="input-group">
+                <input type="file" name="foto" accept="image/*">
               </div>
             </div>
 
@@ -291,7 +294,7 @@ include("subs/verificaPermissao.php");
 
         <div class="main-header">
 
-          <form method="post" action="subs/cadastro-professor.php" class="container-direito">
+          <form method="post" action="subs/cadastro-professor.php" enctype="multipart/form-data" class="container-direito">
             <div class="row form-icon">
               <img class="icon-prof" src="img/icon_professor.png" class="logo-img" alt="ícone professor" />
             </div>
@@ -304,6 +307,9 @@ include("subs/verificaPermissao.php");
               <div class="input-group">
                 <img src="img/usuario.png" alt="Ícone Usuário" />
                 <input type="text" name="nome" placeholder="Nome Completo" required />
+              </div>
+              <div class="input-group">
+                <input type="file" name="foto" accept="image/*" >
               </div>
             </div>
 

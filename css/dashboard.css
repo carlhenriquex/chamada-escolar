@@ -3,10 +3,6 @@
 
 /*ESTILOS GLOBAIS DOS DASHBOARDS GESTOR, PROFESSORES E RESPONSÁVEIS*/
 
-body {
-  position: relative;
-}
-
 header {
   width: 100%;
   min-height: 3.5rem;

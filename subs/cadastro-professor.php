@@ -2,7 +2,8 @@
 session_start();
 include("../config/connection.php");
 
-function redirecionar($mensagem, $sucesso = true) {
+function redirecionar($mensagem, $sucesso = true)
+{
     $_SESSION["mensagem"] = $mensagem;
     $_SESSION["tipoMensagem"] = $sucesso ? "sucesso" : "erro";
 
@@ -41,6 +42,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         redirecionar("Erro: As senhas não coincidem.", false);
     }
 
+    $foto = NULL;
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] !== UPLOAD_ERR_NO_FILE) {
+        $permitidos = ['image/jpeg', 'image/png', 'image/webp'];
+        $arquivo = $_FILES['foto'];
+
+        if ($arquivo['error'] !== UPLOAD_ERR_OK) {
+            redirecionar("Erro ao enviar a imagem: código " . $arquivo['error'], false);
+        }
+
+        if (!in_array($arquivo['type'], $permitidos)) {
+            redirecionar("Formato de imagem não permitido. Use JPEG, PNG ou WEBP.", false);
+        }
+
+        $nomeOriginal = pathinfo($arquivo['name'], PATHINFO_FILENAME);
+        $extensao = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
+        $nomeSanitizado = preg_replace('/[^\w\-]/', '_', $nomeOriginal);
+        $nomeFinal = $nomeSanitizado . "_" . uniqid() . "." . $extensao;
+
+        $caminhoDestino = "../uploads/professores/" . $nomeFinal;
+        if (!move_uploaded_file($arquivo['tmp_name'], $caminhoDestino)) {
+            redirecionar("Falha ao salvar a imagem no servidor.", false);
+        }
+
+        $foto = $nomeFinal;
+    }
+
+
     $verifica = $conexao->prepare("SELECT id FROM professores WHERE email = ?");
     $verifica->bind_param("s", $email);
     $verifica->execute();
@@ -53,8 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
     $stmt = $conexao->prepare("INSERT INTO professores 
-        (nome, nascimento, rg, cpf, sexo, raca, tipo_sanguineo, formacao, disciplina, turma, rua, numero, bairro, cidade, complemento, cep, telefone, email, senha)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        (nome, nascimento, rg, cpf, sexo, raca, tipo_sanguineo, formacao, disciplina, turma, rua, numero, bairro, cidade, complemento, cep, telefone, email, senha, foto)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     $stmt->bind_param(
         "sssssssssssssssssss",
@@ -76,7 +104,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $cep,
         $telefone,
         $email,
-        $senha_hash
+        $senha_hash,
+        $foto
     );
 
     if ($stmt->execute()) {

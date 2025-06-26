@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tabela_encontrada = null;
 
     foreach ($tabelas as $tabela) {
-        $query = mysqli_query($conexao, "SELECT * FROM $tabela WHERE email = '$email'");
+        $query = mysqli_query($conexao, "SELECT * FROM $tabela WHERE email = '$email' AND removido_em IS NULL");
         if (mysqli_num_rows($query) > 0) {
             $tabela_encontrada = $tabela;
             break;
