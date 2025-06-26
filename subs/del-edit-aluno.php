@@ -47,7 +47,7 @@ if (isset($_POST["id"]) && isset($_POST["nome"])) {
 
     $foto = null;
     if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] !== UPLOAD_ERR_NO_FILE) {
-        $foto = processarUploadImagem($_FILES["foto"], "../uploads/professores/");
+        $foto = processarUploadImagem("foto", "../uploads/alunos/");
         if (!$foto) {
             redirecionar("Erro ao processar a imagem do professor.", false);
         }

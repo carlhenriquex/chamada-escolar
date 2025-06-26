@@ -45,7 +45,7 @@ if ($senha1 !== $senha2) {
 
 $foto = null;
 if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] !== UPLOAD_ERR_NO_FILE) {
-    $foto = processarUploadImagem($_FILES["foto"], "../uploads/professores/");
+    $foto = processarUploadImagem("foto", "../uploads/professores/");
     if (!$foto) {
         redirecionar("Erro ao processar a imagem do professor.", false);
     }
