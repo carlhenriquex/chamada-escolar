@@ -309,7 +309,7 @@ include("subs/verificaPermissao.php");
                 <input type="text" name="nome" placeholder="Nome Completo" required />
               </div>
               <div class="input-group">
-                <input type="file" name="foto" accept="image/*" >
+                <input type="file" name="foto" accept="image/*">
               </div>
             </div>
 
@@ -530,27 +530,29 @@ include("subs/verificaPermissao.php");
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('professor-$id')\">Editar</button>";
 
-                echo "<form method='post' action='subs/del-edit-professor.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este professor?');\">";
+                echo "<form method='post' action='subs/del-edit-professor.php' enctype='multipart/form-data' style='display:inline;' onsubmit=\"return confirm('Deseja remover este professor?');\">";
                 echo "<input type='hidden' name='delete_id' value='{$id}'>";
                 echo "<button type='submit'>Remover</button>";
                 echo "</form>";
                 echo "</div>";
                 echo "</div>";
 
-                // Formulário de edição embutido
+               
                 echo "<form method='post' action='subs/del-edit-professor.php' id='form-editar-professor-{$id}' style='display:none; margin-top:10px;'>";
 
                 echo "<input type='hidden' name='id' value='{$id}'>";
 
-                // Linha 1 - nome
+              
                 echo "<input type='text' name='nome' value='" . htmlspecialchars($p['nome']) . "' placeholder='Nome completo' required>";
 
-                // Linha 2 - nascimento, RG, CPF
+                echo "<label for='foto-{$id}'>Foto (opcional):</label>";
+                echo "<input type='file' name='foto' id='foto-{$id}' accept='image/*'>";
+             
                 echo "<input type='date' name='nascimento' value='{$p['nascimento']}' required>";
                 echo "<input type='text' name='rg' value='{$p['rg']}' placeholder='RG' required>";
                 echo "<input type='text' name='cpf' value='{$p['cpf']}' placeholder='CPF' required>";
 
-                // Linha 3 - sexo, raça, tipo sanguíneo
+                
                 echo "<select name='sexo' required>";
                 foreach (['Masculino', 'Feminino', 'Prefiro não informar'] as $opcao) {
                   $selected = ($p['sexo'] == $opcao) ? 'selected' : '';
@@ -640,8 +642,11 @@ include("subs/verificaPermissao.php");
 
                 // Formulário de edição embutido
 
-                echo "<form method='post' action='subs/del-edit-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
+                echo "<form method='post' action='subs/del-edit-aluno.php' enctype='multipart/form-data' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
                 echo "<input type='hidden' name='id' value='{$id}'>";
+
+                echo "<label for='foto-{$id}'>Foto (opcional):</label>";
+                echo "<input type='file' name='foto' id='foto-{$id}' accept='image/*'>";
 
                 echo "<input type='text' name='nome' value='{$a['nome']}' placeholder='Nome completo' required>";
                 echo "<input type='date' name='nascimento' value='{$a['nascimento']}' required>";
@@ -716,7 +721,7 @@ include("subs/verificaPermissao.php");
 
                 echo "<li class='list-group-item' id='aluno-{$id}'>";
 
-                
+
                 echo "<div class='dados-visiveis'>";
                 echo "<strong>{$a['nome']}</strong>";
                 echo "<div style='margin-top: 5px;'>";
@@ -730,10 +735,14 @@ include("subs/verificaPermissao.php");
                 echo "</div>";
 
 
-                echo "<form method='post' action='subs/del-edit-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
+                echo "<form method='post' action='subs/del-edit-aluno.php' enctype='multipart/form-data' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
                 echo "<input type='hidden' name='id' value='{$id}'>";
 
                 echo "<input type='text' name='nome' value='{$a['nome']}' placeholder='Nome completo' required>";
+
+                echo "<label for='foto-{$id}'>Foto (opcional):</label>";
+                echo "<input type='file' name='foto' id='foto-{$id}' accept='image/*'>";
+
                 echo "<input type='date' name='nascimento' value='{$a['nascimento']}' required>";
                 echo "<input type='text' name='rg' value='{$a['rg']}' placeholder='RG' required>";
                 echo "<input type='text' name='cpf' value='{$a['cpf']}' placeholder='CPF' required>";
@@ -806,25 +815,27 @@ include("subs/verificaPermissao.php");
 
                 echo "<li class='list-group-item' id='aluno-{$id}'>";
 
-               
                 echo "<div class='dados-visiveis'>";
                 echo "<strong>{$a['nome']}</strong>";
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
 
-                echo "<form method='post' action='subs/del-edit-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
+                echo "<form method='post' action='subs/del-edit-aluno.php' enctype='multipart/form-data' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
                 echo "<input type='hidden' name='delete_id' value='{$id}'>";
                 echo "<button type='submit'>Remover</button>";
                 echo "</form>";
                 echo "</div>";
                 echo "</div>";
 
-                // Formulário de edição embutido
-
                 echo "<form method='post' action='subs/del-edit-aluno.php' id='form-editar-aluno-{$id}' style='display:none; margin-top:10px;'>";
                 echo "<input type='hidden' name='id' value='{$id}'>";
 
                 echo "<input type='text' name='nome' value='{$a['nome']}' placeholder='Nome completo' required>";
+
+                echo "<label for='foto-{$id}'>Foto (opcional):</label>";
+                echo "<input type='file' name='foto' id='foto-{$id}' accept='image/*'>";
+
+
                 echo "<input type='date' name='nascimento' value='{$a['nascimento']}' required>";
                 echo "<input type='text' name='rg' value='{$a['rg']}' placeholder='RG' required>";
                 echo "<input type='text' name='cpf' value='{$a['cpf']}' placeholder='CPF' required>";
@@ -903,7 +914,7 @@ include("subs/verificaPermissao.php");
                 echo "<div style='margin-top: 5px;'>";
                 echo "<button type='button' onclick=\"toggleEditar('aluno-$id')\">Editar</button>";
 
-                echo "<form method='post' action='subs/del-edit-aluno.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
+                echo "<form method='post' action='subs/del-edit-aluno.php' enctype='multipart/form-data' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aluno?');\">";
                 echo "<input type='hidden' name='delete_id' value='{$id}'>";
                 echo "<button type='submit'>Remover</button>";
                 echo "</form>";
@@ -916,6 +927,10 @@ include("subs/verificaPermissao.php");
                 echo "<input type='hidden' name='id' value='{$id}'>";
 
                 echo "<input type='text' name='nome' value='{$a['nome']}' placeholder='Nome completo' required>";
+
+                echo "<label for='foto-{$id}'>Foto (opcional):</label>";
+                echo "<input type='file' name='foto' id='foto-{$id}' accept='image/*'>";
+
                 echo "<input type='date' name='nascimento' value='{$a['nascimento']}' required>";
                 echo "<input type='text' name='rg' value='{$a['rg']}' placeholder='RG' required>";
                 echo "<input type='text' name='cpf' value='{$a['cpf']}' placeholder='CPF' required>";
