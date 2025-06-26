@@ -87,8 +87,6 @@ function gerirSeletorDoResponsavel(statusCheckbox) {
     }
 }
 
-
-
 // Troca visual da unidade
 const botoes = document.querySelectorAll('.botao-unidade');
 const tabelas = document.querySelectorAll('.tabela-unidade');
@@ -116,4 +114,32 @@ function calcularMedia(input) {
     const n2 = parseFloat(row.querySelector('input[name$="[n2]"]').value) || 0;
     const media = ((n1 + n2) / 2).toFixed(1);
     row.querySelector('.media-input').value = media;
+}
+
+
+/* TROCAR MES DO DASHBOARD RESPONSAVEIS */
+
+
+function trocarMes(mes, ano) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("mes", mes);
+    url.searchParams.set("ano", ano);
+    url.hash = "tela-02";
+    window.location.href = url.toString();
+}
+
+window.addEventListener("load", () => {
+    if (window.location.hash === "#tela-02") {
+        // Rola ao topo suavemente ao carregar
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }, 100);
+    }
+});
+
+function mostrarUnidade(unidade) {
+    document.querySelectorAll('.bloco-unidade').forEach(div => div.style.display = 'none');
+    const bloco = document.getElementById("unidade-" + unidade);
+    if (bloco) bloco.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }

@@ -34,8 +34,11 @@ if ($result->num_rows === 0) {
 
 $aviso = $result->fetch_assoc();
 
-// Verifica permissão para excluir
-$autorizado = ($tipo_usuario === 'gestor') || ($id_usuario == $aviso['autor_id']);
+// Verifica permissão para excluir (deve bater tipo e id)
+$autorizado = (
+    $tipo_usuario === 'gestor' || 
+    ($aviso['autor_tipo'] === $tipo_usuario && $aviso['autor_id'] == $id_usuario)
+);
 
 if (!$autorizado) {
     redirecionar("Você não tem permissão para remover este aviso.", $tipo_usuario, false);

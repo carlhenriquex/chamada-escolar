@@ -33,7 +33,7 @@ include("subs/verificaPermissao.php");
   <header>
     <img src="img/logotexto.png" alt="" />
     <h3>Dashboard Gestor</h3>
-    <a href="#" class="perfil-desktop">Gestor</a>
+    <a href="" class="perfil-desktop">Gestor</a>
 
     <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu">
       <!-- SVG do menu sanduíche aqui -->
@@ -56,14 +56,8 @@ include("subs/verificaPermissao.php");
         <a class="button-enviar" data-target="tela-04">Gestão de usuários</a>
         <a class="button-enviar" style="background-color: red;" href="subs/sair.php">Sair</a>
 
-        <a href="perfil.html" class="button-enviar perfil-mobile">
+        <a href="" class="button-enviar perfil-mobile">
           Perfil
-          <span class="perfil-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="6.5" r="4" fill="#fff" />
-              <path d="M3 17c0-2.7614 3.134-5 7-5s7 2.2386 7 5" stroke-linecap="round" fill="#fff" />
-            </svg>
-          </span>
         </a>
       </div>
     </aside>

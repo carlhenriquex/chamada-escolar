@@ -51,21 +51,10 @@ if (!isset($_GET["aluno"]) && count($alunos) > 0) {
   <header>
     <img src="img/logotexto.png" alt="" />
     <h3>Dashboard Responsável</h3>
-    <a
-      href="perfil-responsavel.php"
-      class="perfil-desktop"
-      data-target="tela-04">
+    <a href="perfil-responsavel.php" class="perfil-desktop">
       Perfil
-      <span class="perfil-icon" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <circle cx="10" cy="6.5" r="4" fill="#fff" />
-          <path
-            d="M3 17c0-2.7614 3.134-5 7-5s7 2.2386 7 5"
-            stroke-linecap="round"
-            fill="#fff" />
-        </svg>
-      </span>
     </a>
+
     <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu">
       <!-- SVG do menu sanduíche aqui -->
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -89,24 +78,12 @@ if (!isset($_GET["aluno"]) && count($alunos) > 0) {
         </select>
       </form>
 
-
-
-
       <div class="sidebar-buttons">
         <a class="button-enviar" data-target="tela-01">Avisos</a>
         <a class="button-enviar" data-target="tela-02">Frequência</a>
         <a class="button-enviar" data-target="tela-03">Boletim</a>
-        <a href="perfil-responsavel.html" class="button-enviar perfil-mobile">
+        <a href="perfil-responsavel.php" class="button-enviar perfil-mobile">
           Perfil
-          <span class="perfil-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="6.5" r="4" fill="#fff" />
-              <path
-                d="M3 17c0-2.7614 3.134-5 7-5s7 2.2386 7 5"
-                stroke-linecap="round"
-                fill="#fff" />
-            </svg>
-          </span>
         </a>
         <a class="button-enviar" style="background-color: red;" href="subs/sair.php">Sair</a>
       </div>
@@ -165,34 +142,95 @@ if (!isset($_GET["aluno"]) && count($alunos) > 0) {
             echo "<p>Aluno não selecionado.</p>";
           } else {
             $aluno_id = intval($_GET["aluno"]);
-            $sql = "SELECT data_presenca, presente FROM presencas WHERE aluno_id = ? ORDER BY data_presenca DESC";
-            $stmt = $conexao->prepare($sql);
 
-            if (!$stmt) {
-              echo "<p>Erro ao preparar a consulta: " . $conexao->error . "</p>";
-            } else {
-              $stmt->bind_param("i", $aluno_id);
-              $stmt->execute();
-              $result = $stmt->get_result();
+            // Mês e ano atuais ou fornecidos via GET
+            $mesAtual = isset($_GET["mes"]) ? intval($_GET["mes"]) : date("n"); // 1 a 12
+            $anoAtual = isset($_GET["ano"]) ? intval($_GET["ano"]) : date("Y");
 
-              if ($result->num_rows === 0) {
-                echo "<p>Nenhuma frequência registrada para este aluno.</p>";
-              } else {
-                echo "<table class='tabela-frequencia'>";
-                echo "<tr><th>Data</th><th>Status</th></tr>";
-                while ($linha = $result->fetch_assoc()) {
-                  echo "<tr>";
-                  echo "<td>" . date("d/m/Y", strtotime($linha["data_presenca"])) . "</td>";
-                  echo "<td>" . ($linha["presente"] ? "Presente" : "Faltou") . "</td>";
-                  echo "</tr>";
-                }
-                echo "</table>";
-              }
+            // Normalizar mês/ano para evitar bugs ao voltar de janeiro ou avançar de dezembro
+            if ($mesAtual < 1) {
+              $mesAtual = 12;
+              $anoAtual--;
+            } elseif ($mesAtual > 12) {
+              $mesAtual = 1;
+              $anoAtual++;
             }
+
+            // Cálculo dos limites do mês
+            $diasNoMes = cal_days_in_month(CAL_GREGORIAN, $mesAtual, $anoAtual);
+
+            // Buscar presenças
+            $sql = "SELECT data_presenca, presente FROM presencas 
+          WHERE aluno_id = ? AND MONTH(data_presenca) = ? AND YEAR(data_presenca) = ?
+          ORDER BY data_presenca ASC";
+
+            $stmt = $conexao->prepare($sql);
+            $stmt->bind_param("iii", $aluno_id, $mesAtual, $anoAtual);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $presencasPorDia = [];
+            while ($linha = $result->fetch_assoc()) {
+              $dia = date("j", strtotime($linha["data_presenca"]));
+              $presencasPorDia[intval($dia)] = $linha["presente"];
+            }
+
+            // Título
+            setlocale(LC_TIME, 'pt_BR.utf8');
+            $nomeMes = strftime('%B', mktime(0, 0, 0, $mesAtual, 1, $anoAtual));
+            echo "<h2>Frequência - " . ucfirst($nomeMes) . " de $anoAtual</h2>";
+
+            // Navegação entre meses
+            $mesAnterior = $mesAtual - 1;
+            $anoAnterior = $anoAtual;
+            if ($mesAnterior < 1) {
+              $mesAnterior = 12;
+              $anoAnterior--;
+            }
+
+            $mesProximo = $mesAtual + 1;
+            $anoProximo = $anoAtual;
+            if ($mesProximo > 12) {
+              $mesProximo = 1;
+              $anoProximo++;
+            }
+
+            $linkAnterior = "?aluno=$aluno_id&mes=$mesAnterior&ano=$anoAnterior#tela-02";
+            $linkProximo = "?aluno=$aluno_id&mes=$mesProximo&ano=$anoProximo#tela-02";
+
+
+            echo "<div class='navegacao-mes'>";
+            echo "<button onclick=\"trocarMes($mesAnterior, $anoAnterior)\" class='botao-mes'>&larr; Mês Anterior</button>";
+            echo "<button onclick=\"trocarMes($mesProximo, $anoProximo)\" class='botao-mes'>Próximo Mês &rarr;</button>";
+            echo "</div>";
+
+            // Tabela
+            echo "<table class='tabela-frequencia-mensal'>";
+            echo "<tr><th>Dia</th><th>Status</th></tr>";
+
+            for ($dia = 1; $dia <= $diasNoMes; $dia++) {
+              $dataFormatada = str_pad($dia, 2, "0", STR_PAD_LEFT) . "/" . str_pad($mesAtual, 2, "0", STR_PAD_LEFT);
+              echo "<tr><td>$dataFormatada</td>";
+
+              if (isset($presencasPorDia[$dia])) {
+                $presente = $presencasPorDia[$dia];
+                $status = $presente ? "Presente" : "Faltou";
+                $classe = $presente ? "status-presente" : "status-faltou";
+              } else {
+                $status = "–";
+                $classe = "status-nao-marcardo";
+              }
+
+              echo "<td class='$classe'>$status</td></tr>";
+            }
+
+            echo "</table>";
           }
           ?>
+
         </div>
       </div>
+
 
       <!-- BOLETIM -->
       <div class="box-main" id="tela-03">
@@ -274,6 +312,75 @@ if (!isset($_GET["aluno"]) && count($alunos) > 0) {
             }
           }
           ?>
+
+          <?php
+          if (!isset($_GET["aluno"])) {
+            echo "<p>Aluno não selecionado.</p>";
+            return;
+          }
+
+          $aluno_id = intval($_GET["aluno"]);
+          $sql = "SELECT disciplina, unidade, n1, n2, media FROM notas WHERE aluno_id = ? ORDER BY disciplina, unidade";
+          $stmt = $conexao->prepare($sql);
+          $stmt->bind_param("i", $aluno_id);
+          $stmt->execute();
+          $result = $stmt->get_result();
+
+          if ($result->num_rows === 0) {
+            echo "<p>Nenhuma nota registrada para este aluno.</p>";
+            return;
+          }
+
+          $notas = [];
+          foreach ($result as $row) {
+            $notas[$row['unidade']][] = $row;
+            $notas['media_final'][$row['disciplina']][] = $row['media'];
+          }
+
+          ?>
+
+          <div class="boletim-mobile">
+            <div class="botoes-unidades">
+              <button onclick="mostrarUnidade(1)">1º Bimestre</button>
+              <button onclick="mostrarUnidade(2)">2º Bimestre</button>
+              <button onclick="mostrarUnidade(3)">3º Bimestre</button>
+              <button onclick="mostrarUnidade(4)">4º Bimestre</button>
+              <button onclick="mostrarUnidade('final')">Média Final</button>
+            </div>
+
+            <?php for ($u = 1; $u <= 4; $u++): ?>
+              <div class="bloco-unidade" id="unidade-<?= $u ?>">
+                <h2><?= $u ?>º Bimestre</h2>
+                <?php if (!empty($notas[$u])): ?>
+                  <?php foreach ($notas[$u] as $nota): ?>
+                    <div class="nota-disciplina">
+                      <p><strong><?= htmlspecialchars($nota['disciplina']) ?></strong></p>
+                      <p><strong>N1:</strong> <?= number_format($nota['n1'], 1, ',', '.') ?></p>
+                      <p><strong>N2:</strong> <?= number_format($nota['n2'], 1, ',', '.') ?></p>
+                      <p><strong>Média:</strong> <span class="<?= $nota['media'] >= 7 ? 'media-verde' : 'media-vermelha' ?>"><?= number_format($nota['media'], 1, ',', '.') ?></span></p>
+                    </div>
+                  <?php endforeach; ?>
+                <?php else: ?>
+                  <p>Sem notas cadastradas neste bimestre.</p>
+                <?php endif; ?>
+              </div>
+            <?php endfor; ?>
+
+            <div class="bloco-unidade" id="unidade-final">
+              <h2>Média Final</h2>
+              <?php foreach ($notas['media_final'] as $disciplina => $medias):
+                $soma = array_sum($medias);
+                $mediaFinal = $soma / count($medias);
+              ?>
+                <div class="nota-disciplina">
+                  <p><strong><?= htmlspecialchars($disciplina) ?></strong></p>
+                  <p><strong>Média Final:</strong> <span class="<?= $mediaFinal >= 7 ? 'media-verde' : 'media-vermelha' ?>"><?= number_format($mediaFinal, 1, ',', '.') ?></span></p>
+                </div>
+              <?php endforeach; ?>
+            </div>
+          </div>
+
+
         </div>
       </div>
 

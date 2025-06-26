@@ -9,7 +9,13 @@ if (!isset($_SESSION["id"]) || $_SESSION["tipo"] !== "responsavel") {
 
 $responsavel_id = $_SESSION["id"];
 
+// Função fallback
+function safe($valor)
+{
+  return !empty($valor) ? htmlspecialchars($valor) : "N/A";
+}
 
+// Dados do responsável
 $sql = "SELECT nome, foto, telefone, email, rua, bairro, cidade, numero, parentesco FROM responsaveis WHERE id = ?";
 $stmt = $conexao->prepare($sql);
 $stmt->bind_param("i", $responsavel_id);
@@ -30,7 +36,9 @@ while ($row = $resultFilhos->fetch_assoc()) {
 }
 $stmt->close();
 
-$fotoPerfil = (!empty($foto) && file_exists("uploads/responsaveis/" . $foto)) ? "uploads/responsaveis/$foto" : "img/user-default.png";
+$fotoPerfil = (!empty($foto) && file_exists("uploads/responsaveis/" . $foto))
+  ? "uploads/responsaveis/$foto"
+  : "img/user-default.png";
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +53,15 @@ $fotoPerfil = (!empty($foto) && file_exists("uploads/responsaveis/" . $foto)) ? 
 
 <body>
 
+  <?php
+  if (isset($_SESSION["mensagem"])) {
+    $tipo = $_SESSION["tipoMensagem"] ?? "sucesso";
+    echo "<div class='mensagem {$tipo}'>";
+    echo "<p class='mensagemText'>" . $_SESSION["mensagem"] . "</p>";
+    unset($_SESSION["mensagem"]);
+    echo "</div>";
+  }
+  ?>
   <div class="container">
     <h1>Perfil do Responsável</h1>
 
@@ -52,8 +69,8 @@ $fotoPerfil = (!empty($foto) && file_exists("uploads/responsaveis/" . $foto)) ? 
 
       <!-- FOTO DE PERFIL -->
       <div class="perfil-foto">
-        <img src="<?= htmlspecialchars($fotoPerfil) ?>" alt="Foto de Perfil" class="foto-perfil" />
-        <form action="subs/atualizar-foto-responsavel.php" method="post" enctype="multipart/form-data">
+        <img src="<?= safe($fotoPerfil) ?>" alt="Foto de Perfil" class="foto-perfil" />
+        <form action="subs/atualizarFotoResponsavel.php" method="post" enctype="multipart/form-data">
           <label for="nova-foto">Alterar foto:</label>
           <input type="file" name="nova_foto" id="nova-foto" accept="image/*" required />
           <button type="submit">Salvar nova foto</button>
@@ -62,10 +79,10 @@ $fotoPerfil = (!empty($foto) && file_exists("uploads/responsaveis/" . $foto)) ? 
 
       <!-- DADOS -->
       <div class="perfil-dados">
-        <p><strong>Nome:</strong> <?= htmlspecialchars($nome) ?></p>
-        <p><strong>Telefone:</strong> <?= htmlspecialchars($telefone) ?></p>
-        <p><strong>Email:</strong> <?= htmlspecialchars($email) ?></p>
-        <p><strong>Endereço:</strong> <?= htmlspecialchars("$rua, Nº $numero - $bairro, $cidade") ?></p>
+        <p><strong>Nome:</strong> <?= safe($nome) ?></p>
+        <p><strong>Telefone:</strong> <?= safe($telefone) ?></p>
+        <p><strong>Email:</strong> <?= safe($email) ?></p>
+        <p><strong>Endereço:</strong> <?= safe("$rua, Nº $numero - $bairro, $cidade") ?></p>
       </div>
 
       <!-- FILHOS -->
@@ -75,12 +92,12 @@ $fotoPerfil = (!empty($foto) && file_exists("uploads/responsaveis/" . $foto)) ? 
           <ul>
             <?php foreach ($filhos as $filho): ?>
               <li>
-                <?= htmlspecialchars($filho["nome"]) ?> -
-                Turma: <?= htmlspecialchars($filho["turma"]) ?> -
-                Parentesco: <?= htmlspecialchars($parentesco) ?> -
-                Turma: <?= htmlspecialchars($filho["nascimento"]) ?> -
-                Tipo sanguíneo: <?= htmlspecialchars($filho["tipo_sanguineo"]) ?> -
-                Deficiencia: <?= htmlspecialchars($filho["deficiencia"]) ?>
+                <?= safe($filho["nome"]) ?> —
+                Turma: <?= safe($filho["turma"]) ?> —
+                Parentesco: <?= safe($parentesco) ?> —
+                Nascimento: <?= safe(date("d/m/Y", strtotime($filho["nascimento"]))) ?> —
+                Tipo sanguíneo: <?= safe($filho["tipo_sanguineo"]) ?> —
+                Deficiência: <?= safe($filho["deficiencia"]) ?>
               </li>
             <?php endforeach; ?>
           </ul>
@@ -91,7 +108,6 @@ $fotoPerfil = (!empty($foto) && file_exists("uploads/responsaveis/" . $foto)) ? 
 
     </div>
   </div>
-
 </body>
 
 </html>

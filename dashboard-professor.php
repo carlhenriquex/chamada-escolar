@@ -54,21 +54,10 @@ while ($row = $resultado->fetch_assoc()) {
   <header>
     <img src="img/logotexto.png" alt="" />
     <h3>Dashboard Professor</h3>
-    <a
-      href="perfil-professor.php"
-      class="perfil-desktop"
-      data-target="tela-04">
+    <a href="perfil-professor.php" class="perfil-desktop">
       Perfil
-      <span class="perfil-icon" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <circle cx="10" cy="6.5" r="4" fill="#fff" />
-          <path
-            d="M3 17c0-2.7614 3.134-5 7-5s7 2.2386 7 5"
-            stroke-linecap="round"
-            fill="#fff" />
-        </svg>
-      </span>
     </a>
+
     <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu">
       <!-- SVG do menu sanduíche aqui -->
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -95,17 +84,8 @@ while ($row = $resultado->fetch_assoc()) {
         <a class="button-enviar" data-target="tela-01">Avisos</a>
         <a class="button-enviar" data-target="tela-02">Frequência</a>
         <a class="button-enviar" data-target="tela-03">Boletim</a>
-        <a href="perfil-professor.html" class="button-enviar perfil-mobile">
+        <a href="perfil-professor.php" class="button-enviar perfil-mobile">
           Perfil
-          <span class="perfil-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="6.5" r="4" fill="#fff" />
-              <path
-                d="M3 17c0-2.7614 3.134-5 7-5s7 2.2386 7 5"
-                stroke-linecap="round"
-                fill="#fff" />
-            </svg>
-          </span>
         </a>
         <a class="button-enviar" style="background-color: red;" href="subs/sair.php">Sair</a>
       </div>

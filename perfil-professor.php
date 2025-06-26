@@ -4,7 +4,7 @@ include_once("config/connection.php");
 
 $professor_id = $_SESSION["id"] ?? null;
 
-if (!$professor_id) {
+if (!$professor_id || $_SESSION["tipo"] !== "professor") {
   echo "Professor não autenticado.";
   exit;
 }
@@ -22,42 +22,54 @@ if ($result->num_rows === 0) {
 
 $prof = $result->fetch_assoc();
 
-// Dados tratados com fallback para "N/A"
-function safe($value) {
+// Função para exibir valor ou "N/A"
+function safe($value)
+{
   return !empty($value) ? htmlspecialchars($value) : "N/A";
 }
 
-$fotoPath = file_exists("uploads/professores/{$prof['id']}.jpg")
-  ? "uploads/professores/{$prof['id']}.jpg"
-  : "img/perfil-generico.png";
+// Caminho da foto de perfil
+$fotoNome = $prof['foto'] ?? '';
+$fotoPath = file_exists("uploads/professores/{$fotoNome}") && !empty($fotoNome)
+  ? "uploads/professores/{$fotoNome}"
+  : "img/perfilGenerico.png";
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <title>Perfil do Professor</title>
   <link rel="stylesheet" href="css/perfil.css" />
 </head>
+
 <body>
+
+  <?php
+  if (isset($_SESSION["mensagem"])) {
+    $tipo = $_SESSION["tipoMensagem"] ?? "sucesso";
+    echo "<div class='mensagem {$tipo}'>";
+    echo "<p class='mensagemText'>" . $_SESSION["mensagem"] . "</p>";
+    unset($_SESSION["mensagem"]);
+    echo "</div>";
+  }
+  ?>
   <div class="container">
     <h1>Perfil do Professor</h1>
 
     <div class="perfil-foto">
-      <img src="<?= $fotoPath ?>" alt="Foto de perfil do professor">
-      <form action="subs/atualizar-foto-professor.php" method="post" enctype="multipart/form-data">
-        <input type="file" name="nova_foto" accept="image/*">
-        <button type="submit">Atualizar Foto</button>
+      <img src="<?= $fotoPath ?>" alt="Foto de perfil do professor" class="foto-perfil">
+      <form action="subs/atualizarFotoProfessor.php" method="post" enctype="multipart/form-data">
+        <label for="nova-foto">Alterar foto:</label>
+        <input type="file" name="nova_foto" id="nova-foto" accept="image/*" required>
+        <button type="submit">Salvar nova foto</button>
       </form>
     </div>
 
     <div class="perfil-info">
       <p><strong>Nome:</strong> <?= safe($prof["nome"]) ?></p>
       <p><strong>Nascimento:</strong> <?= safe(date("d/m/Y", strtotime($prof["nascimento"]))) ?></p>
-      <p><strong>RG:</strong> <?= safe($prof["rg"]) ?></p>
-      <p><strong>CPF:</strong> <?= safe($prof["cpf"]) ?></p>
-      <p><strong>Sexo:</strong> <?= safe($prof["sexo"]) ?></p>
-      <p><strong>Cor/Raça:</strong> <?= safe($prof["raca"]) ?></p>
       <p><strong>Tipo Sanguíneo:</strong> <?= safe($prof["tipo_sanguineo"]) ?></p>
       <p><strong>Formação:</strong> <?= safe($prof["formacao"]) ?></p>
       <p><strong>Disciplina:</strong> <?= safe($prof["disciplina"]) ?></p>
@@ -76,4 +88,5 @@ $fotoPath = file_exists("uploads/professores/{$prof['id']}.jpg")
     </div>
   </div>
 </body>
+
 </html>

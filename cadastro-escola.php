@@ -14,6 +14,16 @@
 </head>
 
 <body>
+
+    <?php
+    if (isset($_SESSION["mensagem"])) {
+        $tipo = $_SESSION["tipoMensagem"] ?? "sucesso";
+        echo "<div class='mensagem {$tipo}'>";
+        echo "<p class='mensagemText'>" . $_SESSION["mensagem"] . "</p>";
+        unset($_SESSION["mensagem"]);
+        echo "</div>";
+    }
+    ?>
     <!-- Ícone Voltar -->
     <a href="index.html" class="btn-voltar">
         <i class="fas fa-arrow-left"></i>
@@ -110,10 +120,10 @@
     <!-- </main> -->
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const botaoCriarConta = document.querySelector(".button-criar-conta");
 
-            botaoCriarConta.addEventListener("click", function (e) {
+            botaoCriarConta.addEventListener("click", function(e) {
                 e.preventDefault(); // Impede redirecionamento imediato
 
                 const inputs = document.querySelectorAll(".input-group input, .input-group select");
