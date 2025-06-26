@@ -121,7 +121,6 @@ if (!isset($_GET["aluno"]) && count($alunos) > 0) {
 
                 echo "<form method='post' action='subs/del-edit-aviso.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aviso?');\">";
                 echo "<input type='hidden' name='delete_id' value='{$id}'>";
-                echo "<button type='submit'>Remover</button>";
                 echo "</form>";
                 echo "</div>";
               }

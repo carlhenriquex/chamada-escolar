@@ -55,6 +55,11 @@ $fotoPath = file_exists("uploads/professores/{$fotoNome}") && !empty($fotoNome)
     echo "</div>";
   }
   ?>
+
+  <a href="dashboard-professor.php" class="btn-voltar">
+    <i class="bi bi-arrow-left"></i>
+  </a>
+
   <div class="container">
     <h1>Perfil do Professor</h1>
 

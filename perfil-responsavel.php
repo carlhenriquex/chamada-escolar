@@ -62,6 +62,10 @@ $fotoPerfil = (!empty($foto) && file_exists("uploads/responsaveis/" . $foto))
     echo "</div>";
   }
   ?>
+
+  <a href="dashboard-responsavel.php" class="btn-voltar">
+    <i class="bi bi-arrow-left"></i>
+  </a>
   <div class="container">
     <h1>Perfil do Responsável</h1>
 

@@ -130,7 +130,7 @@ while ($row = $resultado->fetch_assoc()) {
 
                 echo "<form method='post' action='subs/del-edit-aviso.php' style='display:inline;' onsubmit=\"return confirm('Deseja remover este aviso?');\">";
                 echo "<input type='hidden' name='delete_id' value='{$id}'>";
-                echo "<button type='submit'>Remover</button>";
+                echo "<button class='btn-remove-aviso' type='submit'>Remover</button>";
                 echo "</form>";
                 echo "</div>";
               }

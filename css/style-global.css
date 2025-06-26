@@ -36,6 +36,28 @@ body {
   /* Escuro para contraste */
 }
 
+.bi {
+  color: #fff;
+}
+
+.btn-voltar {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 9999;
+  font-size: 24px;
+  color: white;
+  background-color: #00000080;
+  padding: 10px 12px;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.btn-voltar:hover {
+  background-color: #000000cc;
+}
+
 .mensagem {
   position: fixed;
   top: -100px;

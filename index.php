@@ -1,3 +1,32 @@
+<?php
+session_start();
+include_once("config/connection.php");
+
+// Verificar se a tabela 'gestores' existe
+$tabelaExiste = $conexao->query("SHOW TABLES LIKE 'gestores'");
+if ($tabelaExiste && $tabelaExiste->num_rows > 0) {
+
+  // Verificar se já existe um gestor com o email especificado
+  $verifica = $conexao->prepare("SELECT id FROM gestores WHERE email = ?");
+  $email = "gestor@gmail.com";
+  $verifica->bind_param("s", $email);
+  $verifica->execute();
+  $verifica->store_result();
+
+  if ($verifica->num_rows === 0) {
+    // Inserir novo gestor padrão
+    $senhaHash = password_hash("123", PASSWORD_DEFAULT);
+    $inserir = $conexao->prepare("INSERT INTO gestores (username, email, senha) VALUES (?, ?, ?)");
+    $username = "gestor";
+    $inserir->bind_param("sss", $username, $email, $senhaHash);
+    $inserir->execute();
+    $inserir->close();
+  }
+
+  $verifica->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -20,7 +49,7 @@
 
             <div class="flex">
 
-                <a href="index.html">
+                <a href="index.php">
                     <img src="img/logotexto.png" alt="Logo">
                 </a>
 
@@ -68,7 +97,7 @@
                         <h2>CHAMADA ESCOLAR</h2>
                         <p>Tecnologia a serviço da segurança: monitoramento inteligente para proteção e controle em tempo real!</p>
                         <div>
-                            <a class="cadastrar" href="cadastro-escola.html">CADASTRAR</a>
+                            <a class="cadastrar" href="cadastro-escola.php">CADASTRAR</a>
                         </div>
                         
                     </div>  
