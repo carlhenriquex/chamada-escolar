@@ -32,7 +32,7 @@ function safe($value)
 $fotoNome = $prof['foto'] ?? '';
 $fotoPath = file_exists("uploads/professores/{$fotoNome}") && !empty($fotoNome)
   ? "uploads/professores/{$fotoNome}"
-  : "img/perfilGenerico.png";
+  : "img/user0.webp";
 ?>
 
 <!DOCTYPE html>

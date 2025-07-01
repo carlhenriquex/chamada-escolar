@@ -38,7 +38,7 @@ $stmt->close();
 
 $fotoPerfil = (!empty($foto) && file_exists("uploads/responsaveis/" . $foto))
   ? "uploads/responsaveis/$foto"
-  : "img/user-default.png";
+  : "img/user0.webp";
 ?>
 
 <!DOCTYPE html>

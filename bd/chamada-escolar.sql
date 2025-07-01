@@ -1,3 +1,32 @@
+CREATE TABLE escolas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome_contato VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  telefone VARCHAR(20),
+  nome_escola VARCHAR(150) NOT NULL,
+  setor_educacional ENUM(
+    'infantil',
+    'fundamental1',
+    'fundamental2',
+    'medio'
+  ) NOT NULL,
+  relacao_escola ENUM(
+    'diretor',
+    'coordenador',
+    'professor',
+    'outro'
+  ) NOT NULL,
+  porte_alunos ENUM(
+    'pequeno',
+    'medio',
+    'grande'
+  ) NOT NULL,
+  senha VARCHAR(255) NOT NULL,
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  removido_em DATETIME DEFAULT NULL
+);
+
+
 CREATE TABLE gestores (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(50) NOT NULL,

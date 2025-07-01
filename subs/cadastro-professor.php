@@ -102,7 +102,7 @@ if ($foto !== null) {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     $stmt->bind_param(
-        "ssssssssssssssssssss",
+        "sssssssssssssssssss",
         $nome,
         $nascimento,
         $rg,

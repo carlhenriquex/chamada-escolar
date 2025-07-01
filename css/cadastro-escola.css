@@ -32,10 +32,10 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
-    /* filter: brightness(50%); */
+    filter: brightness(95%);
 }
 
-.container-direito {
+.form-escola {
     flex: 4;
     background-color: #6591eb;
     padding-inline: 3vw;

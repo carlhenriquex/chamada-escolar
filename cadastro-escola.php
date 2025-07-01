@@ -1,3 +1,67 @@
+<?php
+session_start();
+include_once("config/connection.php");
+
+function redirecionar($mensagem, $sucesso = true) {
+  $_SESSION["mensagem"] = $mensagem;
+  $_SESSION["tipoMensagem"] = $sucesso ? "sucesso" : "erro";
+  header("Location: cadastro-escola.php");
+  exit;
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+  $nome = $_POST["nome_contato"] ?? '';
+  $email = $_POST["email"] ?? '';
+  $telefone = $_POST["telefone"] ?? '';
+  $nome_escola = $_POST["nome_escola"] ?? '';
+  $setor = $_POST["setor_educacional"] ?? '';
+  $relacao = $_POST["relacao_escola"] ?? '';
+  $porte = $_POST["porte_alunos"] ?? '';
+  $senha = $_POST["senha"] ?? '';
+  $confirmar = $_POST["confirmar_senha"] ?? '';
+  $aceitou = isset($_POST["aceitar_termos"]);
+
+  // Validação básica
+  if (!$aceitou) {
+    redirecionar("Você precisa aceitar os termos e a política de privacidade.", false);
+  }
+
+  if ($senha !== $confirmar) {
+    redirecionar("As senhas não coincidem.", false);
+  }
+
+  if (empty($nome) || empty($email) || empty($nome_escola) || empty($setor) || empty($relacao) || empty($porte)) {
+    redirecionar("Preencha todos os campos obrigatórios.", false);
+  }
+
+  $sqlVerifica = "SELECT id FROM escolas WHERE email = ?";
+  $stmtVerifica = $conexao->prepare($sqlVerifica);
+  $stmtVerifica->bind_param("s", $email);
+  $stmtVerifica->execute();
+  $stmtVerifica->store_result();
+
+  if ($stmtVerifica->num_rows > 0) {
+    redirecionar("Este e-mail já está cadastrado.", false);
+  }
+
+  // Hash da senha
+  $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
+  $sql = "INSERT INTO escolas (nome_contato, email, telefone, nome_escola, setor_educacional, relacao_escola, porte_alunos, senha)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+  $stmt = $conexao->prepare($sql);
+  $stmt->bind_param("ssssssss", $nome, $email, $telefone, $nome_escola, $setor, $relacao, $porte, $senhaHash);
+
+  if ($stmt->execute()) {
+    redirecionar("Cadastro realizado com sucesso!");
+  } else {
+    redirecionar("Erro ao cadastrar: " . $stmt->error, false);
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -34,7 +98,7 @@
     </div>
 
     <!-- <main class="main-content"> -->
-    <div class="container-direito">
+    <form class="form-escola" method="POST" action="cadastro-escola.php">
 
         <div class="row">
             <img src="img/rodape_logo.png" class="logo-img" alt="Logo Chamada Escolar">
@@ -43,32 +107,32 @@
         <div class="row">
             <div class="input-group">
                 <img src="img/usuario.png" alt="Ícone Usuário">
-                <input type="text" placeholder="Nome">
+                <input type="text" name="nome_contato" placeholder="Nome" required>
             </div>
         </div>
 
         <div class="row">
             <div class="input-group">
                 <img src="img/e-mail.png" alt="Ícone email">
-                <input type="email" placeholder="E-mail">
+                <input type="email" name="email" placeholder="E-mail" required>
             </div>
 
             <div class="input-group">
                 <img src="img/telefone.png" alt="Ícone Telefone">
-                <input type="tel" placeholder="Telefone">
+                <input type="tel" name="telefone" placeholder="Telefone">
             </div>
         </div>
 
         <div class="row">
             <div class="input-group">
-                <input type="text" placeholder="Nome da Escola">
+                <input type="text" name="nome_escola" placeholder="Nome da Escola" required>
             </div>
             <div class="input-group">
-                <select id="setor" name="setor" required>
+                <select id="setor" name="setor_educacional" required>
                     <option value="" disabled selected>Setor Educacional</option>
                     <option value="infantil">Educação Infantil</option>
-                    <option value="fundamental1">Ensino Fundamental – Anos Iniciais (1º ao 5º ano)</option>
-                    <option value="fundamental2">Ensino Fundamental – Anos Finais (6º ao 9º ano)</option>
+                    <option value="fundamental1">Ensino Fundamental – Iniciais</option>
+                    <option value="fundamental2">Ensino Fundamental – Finais</option>
                     <option value="medio">Ensino Médio</option>
                 </select>
             </div>
@@ -76,7 +140,7 @@
 
         <div class="row">
             <div class="input-group">
-                <select id="relacao" name="relacao" required>
+                <select id="relacao" name="relacao_escola" required>
                     <option value="" disabled selected>Relação com a escola</option>
                     <option value="diretor">Diretor(a)</option>
                     <option value="coordenador">Coordenador(a)</option>
@@ -86,7 +150,7 @@
             </div>
 
             <div class="input-group">
-                <select id="porte" name="porte" required>
+                <select id="porte" name="porte_alunos" required>
                     <option value="" disabled selected>Porte de alunos</option>
                     <option value="pequeno">Até 100 alunos</option>
                     <option value="medio">101 a 500 alunos</option>
@@ -98,63 +162,25 @@
         <div class="row">
             <div class="input-group">
                 <img src="img/senha.png" alt="Ícone Senha">
-                <input type="password" placeholder="Senha">
+                <input type="password" name="senha" placeholder="Senha" required>
             </div>
 
             <div class="input-group">
                 <img src="img/senha.png" alt="Ícone Confirmar Senha">
-                <input type="password" placeholder="Repetir senha">
+                <input type="password" name="confirmar_senha" placeholder="Repetir senha" required>
             </div>
         </div>
 
         <div class="row">
-            <input type="checkbox" id="aceitar_termos">
-            <label for="aceitar_termos">Li e concordo com <a href="#" class="privacidade">Termos e
-                    Privacidade</a></label>
+            <input type="checkbox" id="aceitar_termos" name="aceitar_termos" required>
+            <label for="aceitar_termos">Li e concordo com <a href="#">Termos e Privacidade</a></label>
         </div>
 
         <div class="row">
-            <a class="button-criar-conta" href="dashboard-pais.html">Criar Conta</a>
+            <button class="button-criar-conta" type="submit">Criar Conta</button>
         </div>
-    </div>
-    <!-- </main> -->
+    </form>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const botaoCriarConta = document.querySelector(".button-criar-conta");
-
-            botaoCriarConta.addEventListener("click", function(e) {
-                e.preventDefault(); // Impede redirecionamento imediato
-
-                const inputs = document.querySelectorAll(".input-group input, .input-group select");
-                const checkbox = document.getElementById("aceitar_termos");
-
-                let formValido = true;
-
-                // Verifica se todos os campos estão preenchidos
-                inputs.forEach(input => {
-                    if (!input.value.trim()) {
-                        formValido = false;
-                    }
-                });
-
-                if (!formValido) {
-                    alert("Por favor, preencha todos os campos.");
-                    return;
-                }
-
-                if (!checkbox.checked) {
-                    alert("Você precisa aceitar os Termos e Privacidade.");
-                    return;
-                }
-
-                // Se tudo estiver OK
-                alert("Conta criada com sucesso!");
-                // Aqui você pode redirecionar, por exemplo:
-                // window.location.href = "dashboard-pais.html";
-            });
-        });
-    </script>
 </body>
 
 </html>
