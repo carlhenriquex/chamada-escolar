@@ -73,23 +73,32 @@ $fotoPath = file_exists("uploads/professores/{$fotoNome}") && !empty($fotoNome)
     </div>
 
     <div class="perfil-info">
-      <p><strong>Nome:</strong> <?= safe($prof["nome"]) ?></p>
-      <p><strong>Nascimento:</strong> <?= safe(date("d/m/Y", strtotime($prof["nascimento"]))) ?></p>
-      <p><strong>Tipo Sanguíneo:</strong> <?= safe($prof["tipo_sanguineo"]) ?></p>
-      <p><strong>Formação:</strong> <?= safe($prof["formacao"]) ?></p>
-      <p><strong>Disciplina:</strong> <?= safe($prof["disciplina"]) ?></p>
+      <div class="info">
 
-      <h3>Endereço</h3>
-      <p><strong>Rua:</strong> <?= safe($prof["rua"]) ?></p>
-      <p><strong>Número:</strong> <?= safe($prof["numero"]) ?></p>
-      <p><strong>Bairro:</strong> <?= safe($prof["bairro"]) ?></p>
-      <p><strong>Cidade:</strong> <?= safe($prof["cidade"]) ?></p>
-      <p><strong>Complemento:</strong> <?= safe($prof["complemento"]) ?></p>
-      <p><strong>CEP:</strong> <?= safe($prof["cep"]) ?></p>
+        <p><strong>Nome:</strong> <?= safe($prof["nome"]) ?></p>
+        <p><strong>Nascimento:</strong> <?= safe(date("d/m/Y", strtotime($prof["nascimento"]))) ?></p>
+        <p><strong>Tipo Sanguíneo:</strong> <?= safe($prof["tipo_sanguineo"]) ?></p>
+        <p><strong>Formação:</strong> <?= safe($prof["formacao"]) ?></p>
+        <p><strong>Disciplina:</strong> <?= safe($prof["disciplina"]) ?></p>
+      </div>
+      <div class="info">
 
-      <h3>Contato</h3>
-      <p><strong>Telefone:</strong> <?= safe($prof["telefone"]) ?></p>
-      <p><strong>Email:</strong> <?= safe($prof["email"]) ?></p>
+        <h3>Endereço</h3>
+        <p><strong>Rua:</strong> <?= safe($prof["rua"]) ?></p>
+        <p><strong>Número:</strong> <?= safe($prof["numero"]) ?></p>
+        <p><strong>Bairro:</strong> <?= safe($prof["bairro"]) ?></p>
+        <p><strong>Cidade:</strong> <?= safe($prof["cidade"]) ?></p>
+        <p><strong>Complemento:</strong> <?= safe($prof["complemento"]) ?></p>
+        <p><strong>CEP:</strong> <?= safe($prof["cep"]) ?></p>
+      </div>
+      <div class="info">
+
+        <h3>Contato</h3>
+        <p><strong>Telefone:</strong> <?= safe($prof["telefone"]) ?></p>
+        <p><strong>Email:</strong> <?= safe($prof["email"]) ?></p>
+      </div>
+
+
     </div>
   </div>
 </body>

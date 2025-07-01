@@ -89,27 +89,27 @@ $fotoPerfil = (!empty($foto) && file_exists("uploads/responsaveis/" . $foto))
         <p><strong>Endereço:</strong> <?= safe("$rua, Nº $numero - $bairro, $cidade") ?></p>
       </div>
 
-      <!-- FILHOS -->
-      <div class="perfil-filhos">
-        <h2>Filhos Cadastrados</h2>
-        <?php if (count($filhos) > 0): ?>
-          <ul>
-            <?php foreach ($filhos as $filho): ?>
-              <li>
-                <?= safe($filho["nome"]) ?> —
-                Turma: <?= safe($filho["turma"]) ?> —
-                Parentesco: <?= safe($parentesco) ?> —
-                Nascimento: <?= safe(date("d/m/Y", strtotime($filho["nascimento"]))) ?> —
-                Tipo sanguíneo: <?= safe($filho["tipo_sanguineo"]) ?> —
-                Deficiência: <?= safe($filho["deficiencia"]) ?>
-              </li>
-            <?php endforeach; ?>
-          </ul>
-        <?php else: ?>
-          <p>Nenhum filho(a) cadastrado.</p>
-        <?php endif; ?>
-      </div>
 
+    </div>
+    <!-- FILHOS -->
+    <div class="perfil-filhos">
+      <h2>Filhos Cadastrados</h2>
+      <?php if (count($filhos) > 0): ?>
+        <ul>
+          <?php foreach ($filhos as $filho): ?>
+            <li>
+              <?= safe($filho["nome"]) ?> —
+              Turma: <?= safe($filho["turma"]) ?> —
+              Parentesco: <?= safe($parentesco) ?> —
+              Nascimento: <?= safe(date("d/m/Y", strtotime($filho["nascimento"]))) ?> —
+              Tipo sanguíneo: <?= safe($filho["tipo_sanguineo"]) ?> —
+              Deficiência: <?= safe($filho["deficiencia"]) ?>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+      <?php else: ?>
+        <p>Nenhum filho(a) cadastrado.</p>
+      <?php endif; ?>
     </div>
   </div>
 </body>

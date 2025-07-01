@@ -24,6 +24,7 @@
 
 .row {
   display: flex;
+  flex-wrap: wrap;
   gap: 1vw;
   justify-content: center;
   margin-bottom: 15px;
@@ -44,13 +45,19 @@
   max-width: 100%;
 }
 
+.input-group ::placeholder {
+  font-size: .8rem;
+  font-weight: 600;
+}
+
 .input-group input,
 .input-group select {
   width: 100%;
-  padding: 12px 45px 12px 15px;
+  padding: .9rem 2.5rem .9rem 1rem;
   border: 2px solid #6c8df5;
   border-radius: 50px;
-  font-size: 16px;
+  font-size: .8rem;
+  font-weight: 600;
   outline: none;
   background-color: #fff;
 }
@@ -76,7 +83,6 @@
   width: 24px;
   height: 24px;
   accent-color: var(--laranga-bg);
-  /* cor do tema */
   cursor: pointer;
   margin-top: 8px;
 }
@@ -120,7 +126,7 @@
 
 /* Container principal */
 .box-main {
-  padding: 40px;
+  padding: 5%;
   color: #f0f0f0;
   min-height: 100vh;
 }
@@ -133,7 +139,6 @@
   margin-bottom: 1rem;
 }
 
-/* Título */
 .container-admin h1 {
   text-align: center;
   margin-bottom: 30px;
@@ -146,7 +151,7 @@
 .tab-nav {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: .9rem;
   margin-bottom: 25px;
 }
 
@@ -154,6 +159,7 @@
   background-color: var(--tertiary-color);
   color: #fff;
   border: none;
+  font-size: .9rem;
   padding: 10px 20px;
   border-radius: 10px;
   cursor: pointer;
@@ -166,7 +172,6 @@
   background-color: #3a4f81;
 }
 
-/* Listagem */
 .list-group {
   list-style: none;
   padding: 0;
@@ -181,7 +186,6 @@
   transition: background 0.3s;
 }
 
-/* Dados visíveis */
 .dados-visiveis {
   display: flex;
   justify-content: space-between;
@@ -209,6 +213,15 @@
 }
 
 #tela-04 form input,
+#tela-04 form select,
+#tela-04 form input::placeholder,
+#tela-04 form button,
+.dados-visiveis button {
+  font-size: .92rem;
+}
+
+
+#tela-04 form input,
 #tela-04 form select {
   padding: 8px 10px;
   border-radius: 8px;
@@ -222,7 +235,6 @@
   color: #ccc;
 }
 
-/* Botões */
 #tela-04 form button,
 .dados-visiveis button {
   background-color: #2f80ed;
@@ -251,8 +263,17 @@
 
 /* Responsividade */
 @media (max-width: 768px) {
+  .container-admin h1 {
+    font-size: 1.2rem;
+  }
+
+
   .form-group {
     flex-direction: column;
+  }
+
+  .tab-nav {
+    gap: .5rem;
   }
 
   .dados-visiveis {
@@ -264,6 +285,40 @@
   form select {
     flex: 1 1 100%;
   }
+
+  .dados-visiveis strong {
+    font-size: .8rem;
+  }
+
+  .dados-visiveis p {
+    font-size: .7rem;
+  }
+
+  #tela-04 form input,
+  #tela-04 form select,
+  #tela-04 form input::placeholder,
+  #tela-04 form button,
+  .dados-visiveis button {
+    font-size: .7rem;
+  }
+
+}
+
+@media (max-width: 468px) {
+  .input-group ::placeholder {
+    font-size: .5rem;
+  }
+
+  .input-group input,
+  .input-group select {
+    font-size: .5rem;
+  }
+
+  .tab-link {
+    padding: 7px 9px;
+    font-size: .6rem;
+  }
+
 }
 
 
@@ -378,6 +433,16 @@
     position: absolute;
     right: 1rem;
     top: 1rem;
+  }
+
+  .input-group ::placeholder {
+    font-size: .6rem;
+  }
+
+  .input-group input,
+  .input-group select {
+    font-size: .6rem;
+    padding: .5rem 1.5rem .5rem .55rem;
   }
 }
 

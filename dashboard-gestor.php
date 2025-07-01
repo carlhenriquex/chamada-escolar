@@ -110,7 +110,7 @@ include("subs/verificaPermissao.php");
                     Prefiro não informar
                   </option>
                 </select>
-              </div>
+              </div> 
 
               <div class="input-group">
                 <select name="raca" required>

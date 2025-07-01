@@ -7,12 +7,19 @@
 
 .lf-container {
   font-family: Arial, sans-serif;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: var(--bg-color);
   color: var(--text-color);
+}
+
+.lf-container form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .lf-title {
@@ -32,10 +39,10 @@
   padding: 12px 15px;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: .9rem;
   cursor: pointer;
   text-align: center;
-  width: 23.3%;
+  width: 30%;
   margin-bottom: 15px;
 }
 
@@ -45,7 +52,7 @@
 }
 
 .lf-tabela {
-  width: 70%;
+  width: 90%;
   border: 1px solid var(--primary-color);
   text-align: center;
   table-layout: fixed;
@@ -60,7 +67,7 @@
 .lf-tabela td {
   border: 1px solid #ccc;
   padding: 8px 12px;
-  font-size: 16px;
+  font-size: .9rem;
   color: var(--text-color);
 }
 
@@ -91,7 +98,7 @@
   padding: 16px 0;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: .9rem;
   font-weight: bold;
   transition: background-color 0.3s ease;
   text-align: center;
@@ -114,7 +121,7 @@
 .botoes-unidade {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: .6rem;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
 }
@@ -208,19 +215,36 @@
 }
 
 @media (max-width: 768px) {
+
+  .lf-title,
+  .box-main h1 {
+    font-size: 1.5rem;
+  }
+
+  .lf-input-date {
+    padding: 5px;
+    font-size: .7rem;
+  }
+
   .tabela-notas th,
-  .tabela-notas td {
+  .tabela-notas td,
+  .lf-button {
     padding: 8px;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
   }
 
   .botao-unidade {
-    padding: 8px 12px;
-    font-size: 0.9rem;
+    padding: 7px 10px;
+    font-size: 0.6rem;
   }
 
   .tabela-unidade h2 {
-    font-size: 1.2rem;
+    font-size: 1rem;
+  }
+
+  .tabela-notas td input[type="number"],
+  .botao-enviar button
+  {
+    font-size: .6rem;
   }
 }
-

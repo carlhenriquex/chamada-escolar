@@ -346,6 +346,10 @@ header a {
     flex-direction: column;
   }
 
+  .main-header h4 {
+    font-size: .85rem;
+  }
+
   .main-header-row {
     flex-direction: row;
     align-items: center;
@@ -379,6 +383,21 @@ header a {
     position: absolute;
     right: 1rem;
     top: 1rem;
+  }
+
+  .button-enviar-laranja {
+    padding: .4rem 1.2rem;
+    font-size: .7rem;
+  }
+
+  .feed-item small {
+    font-size: .6rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .main-header h4 {
+    font-size: .6rem;
   }
 }
 
